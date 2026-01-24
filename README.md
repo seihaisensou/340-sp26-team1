@@ -1,2 +1,4 @@
 # sp26-project-template
-# Max Reyes
+=======
+Max Reyes
+Kendall Williford
