@@ -38,24 +38,65 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑CUST‑001 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑CUST‑001 — Register & manage profile**  
+  _Story:_ As a customer, I want to create or update my profile (name, language, location) so that I receive relevant services and communications.  
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Register with valid details
+    Given I am not registered
+    When  I sign up with required fields  
+    Then  My customer profile is created and visible in my account
   ```
 
-- **US‑CUST‑002 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑CUST‑002 — Browse provider profiles**  
+  _Story:_ As a customer, I want to browse provider profiles (local, national, language) so that I can learn more about the services they offer before contacting them.
   _Acceptance:_
   ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
+  Scenario: Sort providers by distance and language
+    Given multiple providers exist within 25 miles
+    When  I sort by distance
+    Then  the nearest providers are ordered first
+  ```
+
+  - **US‑CUST‑003 — Discover services**  
+  _Story:_ As a customer, I want to filter providers by languages supported so that I can find services that suit my needs.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Filter services provided by providers by language
+    Given there are multiple services that support "Chinese" and "Captioning" alongside multiple that do not
+    When  I filter providers by "Chinese" and "Captioning" while sorting by "Rating"
+    Then  I see only providers that support Chinese captioning by the highest rated first.
+  ```
+
+  - **US‑CUST‑004 — Contact the provider**  
+  _Story:_ As a customer, I want to be able the contact the provider so that I may receive the services I require.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Contact the provider
+    Given that the provider has a contact information
+    When  I click contact
+    Then  I will be forwarded to the provider's contact info
+  ```
+
+  - **US‑CUST‑005 — Write Reviews**  
+  _Story:_ As a customer, I want to rate service quality and timeliness so that the community benefits from my feedback.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Eligible Review within policy window
+    Given I booked and received a service within the last 14 days
+    When  I submit a rating and comment
+    Then  the review is recorded and linked to the provider
+      And it is published or queued per moderation policy
+  ```
+
+  - **US‑CUST‑006 — Read Reviews**  
+  _Story:_ As a customer, I want to read reviews for a provider so that I can make an informed decision. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: List recent reviews
+    Given reviews exist for a provider
+    When  I open reviews
+    Then  I see the most revent reviews with rating and comment
   ```
 
 ### 2.2 Provider Stories
