@@ -87,7 +87,7 @@ _Story:_ As a provider, I want to be able to view customers I have for specific 
   ```
 
 - **US‑PROV‑005 — <Read/Reply to Reviews>**  
-_Story:_ As a provider, I want to be able to read and reply to reviews so that when a customer provides feedback I am notified and able to respond to their feedback.
+_Story:_ As a provider, I want to be able to read and reply to reviews so that when a customer provides feedback I am notified and able to respond to their feedback with moderation.
   _Acceptance:_
 
   ```gherkin
