@@ -55,7 +55,7 @@
   ```
 
 - **US‑CUST‑002 — Browse provider profiles**  
-  _Story:_ As a customer, I want to browse provider profiles (local, national, language) so that I can learn more about the services they offer before contacting them.
+   _Story:_ As a customer, I want to browse provider profiles (local, national, language) so that I can learn more about the services they offer before contacting them. \
   _Acceptance:_
   ```gherkin
   Scenario: Sort providers by distance and language
@@ -64,7 +64,7 @@
     Then  the nearest providers are ordered first
   ```
 
-  - **US‑CUST‑003 — Discover services**  
+- **US‑CUST‑003 — Discover services**  
   _Story:_ As a customer, I want to filter providers by languages supported so that I can find services that suit my needs.  
   _Acceptance:_
   ```gherkin
@@ -74,7 +74,7 @@
     Then  I see only providers that support Chinese captioning by the highest rated first.
   ```
 
-  - **US‑CUST‑004 — Contact the provider**  
+- **US‑CUST‑004 — Contact the provider**  
   _Story:_ As a customer, I want to be able the contact the provider so that I may receive the services I require.  
   _Acceptance:_
   ```gherkin
@@ -84,7 +84,7 @@
     Then  I will be forwarded to the provider's contact info
   ```
 
-  - **US‑CUST‑005 — Write Reviews**  
+- **US‑CUST‑005 — Write Reviews**  
   _Story:_ As a customer, I want to rate service quality and timeliness so that the community benefits from my feedback.  
   _Acceptance:_
   ```gherkin
@@ -95,16 +95,14 @@
       And it is published or queued per moderation policy
   ```
 
-  - **US‑CUST‑006 — Read Reviews**  
-  _Story:_ As a customer, I want to read reviews for a provider so that I can make an informed decision. 
+- **US‑CUST‑006 — Read Reviews**  
+  _Story:_ As a customer, I want to read reviews for a provider so that I can make an informed decision. \
   _Acceptance:_
   ```gherkin
   Scenario: List recent reviews
     Given reviews exist for a provider
     When  I open reviews
     Then  I see the most revent reviews with rating and comment
-
-
 
 ### 2.2 Provider Stories
 - **US‑PROV‑001 — Provider Accounts**  
@@ -118,7 +116,7 @@
   ```
 
 - **US‑PROV‑002 — Service Listing**  
-_Story:_ As a provider, I want to publish a detailed service listing so that customers can view and understand the service I offer.
+_Story:_ As a provider, I want to publish a detailed service listing so that customers can view and understand the service I offer. \
   _Acceptance:_
   ```gherkin
   Scenario: Publish service listing
@@ -128,7 +126,7 @@ _Story:_ As a provider, I want to publish a detailed service listing so that cus
   ```
 
 - **US‑PROV‑003 — Modify/Delete Service Listings**  
-_Story:_ As a provider, I want to be able to modify or delete my service listings so that customers have the most up-to-date listing information and they are not able to contact about a service no longer provided.
+_Story:_ As a provider, I want to be able to modify or delete my service listings so that customers have the most up-to-date listing information and they are not able to contact about a service no longer provided. \
   _Acceptance:_
 
   ```gherkin
@@ -138,8 +136,8 @@ _Story:_ As a provider, I want to be able to modify or delete my service listing
     Then  those changes are automatically saved and published to the listing page.
   ```
 
-  - **US‑PROV‑004 — View Current Customers**  
-_Story:_ As a provider, I want to be able to view customers I have for specific listings so that there is organization for multiple service listings that different customers have signed up for.
+- **US‑PROV‑004 — View Current Customers**  
+_Story:_ As a provider, I want to be able to view customers I have for specific listings so that there is organization for multiple service listings that different customers have signed up for. \
   _Acceptance:_
 
   ```gherkin
@@ -150,7 +148,7 @@ _Story:_ As a provider, I want to be able to view customers I have for specific 
   ```
 
 - **US‑PROV‑005 — Read/Reply to Reviews**  
-_Story:_ As a provider, I want to be able to read and reply to reviews so that when a customer provides feedback I am notified and able to respond to their feedback.
+_Story:_ As a provider, I want to be able to read and reply to reviews so that when a customer provides feedback I am notified and able to respond to their feedback. \
   _Acceptance:_
 
   ```gherkin
@@ -160,8 +158,8 @@ _Story:_ As a provider, I want to be able to read and reply to reviews so that w
     Then  I am able to reply directly to that review and it be published.
   ```
 
-  - **US‑PROV‑006 — View Ratings**  
-_Story:_ As a provider, I want to be able to view the ratings I receive so that I can understand how well my service is accepted.
+- **US‑PROV‑006 — View Ratings**  
+_Story:_ As a provider, I want to be able to view the ratings I receive so that I can understand how well my service is accepted. \
   _Acceptance:_
 
   ```gherkin
