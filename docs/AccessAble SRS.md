@@ -1,12 +1,12 @@
 
-# Requirements – Starter Template
+# Requirements – AccessAble
 
-**Project Name:** AccesAble \
-**Team:** Kendall Williford - Provider, Max Reyes - Customer \
+**Project Name:** AccessAble \
+**Team:** Kendall Williford - Provider; Max Reyes - Customer; \
 **Course:** CSC 340\
 **Version:** 1.0\
 **Date:** 2026-02-13
-
+**Purpose:** This SRS consolidates the scope and user‑facing requirements of AccessAble and enumerates all user stories that guide development and testing.
 ---
 
 ## 1. Overview
@@ -14,13 +14,15 @@
 **Vision.** AccessAble is a web based application that aims to provide forms of accessability services to customers who need them. Providers will be able to create an account and post listings, and customers will be able to create an account and view those listings.
 
 **Glossary** Terms used in the project
-- **Term 1:** Accessability services - These services are meant to provide translators and interpretors for customers who need them.
+- **Term 1:** Services - These services are accessibility services meant to provide translators, captioners and interpretors for customers who need them.
 - **Term 2:** Provider - A person who is certified (has formal education or has worked within this field for extended time) in specific translating or interpreting services.
-- **Term 3:**
+- **Term 3:** Local Provider - Providers within a 25 mile radius of the user's location.
+- **Term 4:** National Provider - Providers that offer services nationwide, typically specializing in online services.
 
 **Primary Users / Roles.**
 
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — create and modify account, create and modify listings, view reviews, view current customers.
+- **Provider (e.g., Translater/Captioner/Intepretor, etc.)** — create and modify account, create and modify services provided, view reviews, view current customers.
+- **Customer (Anyone with aa need for language services)** — create and modify account, view services provided, contact providers, view reviews, write reviews.
 
 **Scope (this semester).**
 - Browse providers and services with filtering/sorting.
@@ -39,7 +41,67 @@
 ---
 
 ## 2. Functional Requirements (User Stories)
-Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
+
+### 2.1 Customer Stories
+- **US‑CUST‑001 — Register & manage profile**  
+  _Story:_ As a customer, I want to create or update my profile (name, language, location) so that I receive relevant services and communications.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Register with valid details
+    Given I am not registered
+    When  I sign up with required fields  
+    Then  My customer profile is created and visible in my account
+  ```
+
+- **US‑CUST‑002 — Browse provider profiles**  
+  _Story:_ As a customer, I want to browse provider profiles (local, national, language) so that I can learn more about the services they offer before contacting them.
+  _Acceptance:_
+  ```gherkin
+  Scenario: Sort providers by distance and language
+    Given multiple providers exist within 25 miles
+    When  I sort by distance
+    Then  the nearest providers are ordered first
+  ```
+
+  - **US‑CUST‑003 — Discover services**  
+  _Story:_ As a customer, I want to filter providers by languages supported so that I can find services that suit my needs.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Filter services provided by providers by language
+    Given there are multiple services that support "Chinese" and "Captioning" alongside multiple that do not
+    When  I filter providers by "Chinese" and "Captioning" while sorting by "Rating"
+    Then  I see only providers that support Chinese captioning by the highest rated first.
+  ```
+
+  - **US‑CUST‑004 — Contact the provider**  
+  _Story:_ As a customer, I want to be able the contact the provider so that I may receive the services I require.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Contact the provider
+    Given that the provider has a contact information
+    When  I click contact
+    Then  I will be forwarded to the provider's contact info
+  ```
+
+  - **US‑CUST‑005 — Write Reviews**  
+  _Story:_ As a customer, I want to rate service quality and timeliness so that the community benefits from my feedback.  
+  _Acceptance:_
+  ```gherkin
+  Scenario: Eligible Review within policy window
+    Given I booked and received a service within the last 14 days
+    When  I submit a rating and comment
+    Then  the review is recorded and linked to the provider
+      And it is published or queued per moderation policy
+  ```
+
+  - **US‑CUST‑006 — Read Reviews**  
+  _Story:_ As a customer, I want to read reviews for a provider so that I can make an informed decision. 
+  _Acceptance:_
+  ```gherkin
+  Scenario: List recent reviews
+    Given reviews exist for a provider
+    When  I open reviews
+    Then  I see the most revent reviews with rating and comment
 
 
 
@@ -54,7 +116,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  the account is saved and posted to the web app, or changes made to an existing account are saved.
   ```
 
-- **US‑PROV‑002 — <Service Listing>**  
+- **US‑PROV‑002 — Service Listing**  
 _Story:_ As a provider, I want to publish a detailed service listing so that customers can view and understand the service I offer.
   _Acceptance:_
   ```gherkin
@@ -64,7 +126,7 @@ _Story:_ As a provider, I want to publish a detailed service listing so that cus
     Then  the listing is saved and viewable on the listing page
   ```
 
-- **US‑PROV‑003 — <Modify/Delete Service Listings>**  
+- **US‑PROV‑003 — Modify/Delete Service Listings**  
 _Story:_ As a provider, I want to be able to modify or delete my service listings so that customers have the most up-to-date listing information and they are not able to contact about a service no longer provided.
   _Acceptance:_
 
@@ -75,7 +137,7 @@ _Story:_ As a provider, I want to be able to modify or delete my service listing
     Then  those changes are automatically saved and published to the listing page.
   ```
 
-  - **US‑PROV‑004 — <View Current Customers>**  
+  - **US‑PROV‑004 — View Current Customers**  
 _Story:_ As a provider, I want to be able to view customers I have for specific listings so that there is organization for multiple service listings that different customers have signed up for.
   _Acceptance:_
 
@@ -86,7 +148,7 @@ _Story:_ As a provider, I want to be able to view customers I have for specific 
     Then  that information is provided and sorted for me.
   ```
 
-- **US‑PROV‑005 — <Read/Reply to Reviews>**  
+- **US‑PROV‑005 — Read/Reply to Reviews**  
 _Story:_ As a provider, I want to be able to read and reply to reviews so that when a customer provides feedback I am notified and able to respond to their feedback.
   _Acceptance:_
 
@@ -97,7 +159,7 @@ _Story:_ As a provider, I want to be able to read and reply to reviews so that w
     Then  I am able to reply directly to that review and it be published.
   ```
 
-  - **US‑PROV‑006 — <View Ratings>**  
+  - **US‑PROV‑006 — View Ratings**  
 _Story:_ As a provider, I want to be able to view the ratings I receive so that I can understand how well my service is accepted.
   _Acceptance:_
 
@@ -113,7 +175,7 @@ _Story:_ As a provider, I want to be able to view the ratings I receive so that 
 - **Performance:**  95% of discovery responses ≤ 1.5s; 99% of listing detail pages ≤ 1.0s under typical load.
 - **Availability/Reliability:** 99.5% monthly uptime (maintenance excluded); basic retries for transient failures.
 - **Security/Privacy:** Hashed & salted passwords; role‑based access checks.
-- **Usability:** New providers complete listing in ≤ 3 minutes in hallway tests.
+- **Usability:** New users find services applicable to them in  ≤ 3 minutes in hallway tests.
 
 ---
 
