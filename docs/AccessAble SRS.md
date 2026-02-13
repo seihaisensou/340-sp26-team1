@@ -1,12 +1,13 @@
-
-# Requirements – AccessAble
+# Requirements – Starter Template
 
 **Project Name:** AccessAble \
 **Team:** Kendall Williford - Provider; Max Reyes - Customer; \
 **Course:** CSC 340\
 **Version:** 1.0\
-**Date:** 2026-02-13
+**Date:** 2026-02-13\
 **Purpose:** This SRS consolidates the scope and user‑facing requirements of AccessAble and enumerates all user stories that guide development and testing.
+
+
 ---
 
 ## 1. Overview
