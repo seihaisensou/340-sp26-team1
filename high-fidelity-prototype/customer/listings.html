@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <title>Service Listings</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
@@ -35,85 +37,74 @@
 
       <h2 class="fw-bold mb-4 text-center">Listings</h2>
 
-      <div class="row g-4">
+      <input class="form-control" id="myInput" type="text" placeholder="Search..">
 
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100 position-relative listing-card">
-
+      <ul class="list-unstyled row g-4" id="myList">
+        <div class="row g-4">
+        <li class="col-md-4"><div class="card shadow-sm h-100 position-relative listing-card">
             <div class="card-body">
               <h5 class="card-title">
                 In-Person Professional Spanish Translator
               </h5>
-
               <p class="card-text">
                 Spanish translating services provided for in-person events like meetings,
                 conventions, personal events, etc.
+                <br>
+                4.5 <span class="text-warning">★</strong></span>
               </p>
-
               <p class="fw-bold text-primary">$20 hourly</p>
-
-
               <a href="../provider/listing-1.html" class="stretched-link"></a>
-
             </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100 position-relative listing-card">
-
+          </div></li>
+        <li class="col-md-4"><div class="card shadow-sm h-100 position-relative listing-card">
             <div class="card-body">
               <h5 class="card-title">
                 Online Professional Spanish Translator
               </h5>
-
               <p class="card-text">
                 Spanish translating services provided for online events like web meetings
-                or personal translating needs over call.
+                or personal translating needs over call. <br>
+                4.5<span class="text-warning">★</strong></span>
               </p>
-
               <p class="fw-bold text-primary">$20 hourly</p>
-
               <a href="../provider/listing-2.html" class="stretched-link"></a>
-
             </div>
-
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card shadow-sm h-100 position-relative listing-card">
-
+          </div></li>
+        <li class="col-md-4"><div class="card shadow-sm h-100 position-relative listing-card">
             <div class="card-body">
               <h5 class="card-title">
                 In-Person Professional German Translator
               </h5>
-
               <p class="card-text">
                 German translating services provided for in-person events like meetings,
-                conventions, personal events, etc.
+                conventions, personal events, etc. <br>
+                5.0 <span class="text-warning">★</strong></span>
               </p>
-
               <p class="fw-bold text-primary">$20 hourly</p>
-
-
               <a href="../provider/listing-3.html" class="stretched-link"></a>
-
             </div>
-
-          </div>
-        </div>
-
-
+          </div></li></div>
+      </ul>
+      
+        
       </div>
-
     </div>
   </div>
   <footer class="bg-dark text-white text-center py-4">
     <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
   </footer>
 
+
+  <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </body>
 
 </html>
