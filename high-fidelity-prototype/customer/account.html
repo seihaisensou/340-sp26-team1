@@ -16,7 +16,7 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
+            <a class="navbar-brand fw-bold" href="../provider/index.html">
                 AccessAble
             </a>
 
@@ -39,34 +39,30 @@
                 <div class="container py-5">
 
                     <div class="text-center mb-5">
-                        <h2 class="fw-bold">Welcome Back, Provider!</h2>
+                        <h2 class="fw-bold">Welcome Back, Customer!</h2>
                         <p class="text-muted">
-                            Manage your listings, customers, and account settings below.
+                            Manage your favorite services, location, and account settings below.
                         </p>
                     </div>
-                    <div class="row g-4 mb-4">
+                    <div class="row justify-content-center mb-4">
                         <div class="col-md-4">
-                            <a href="p-create-list.html" class="btn btn-primary w-100 py-3 shadow-sm">
-                                + Create Listing
-                            </a>
-                        </div>
-
-                        <div class="col-md-4">
-                            <a href="mylistings.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
-                                View My Listings
-                            </a>
-                        </div>
-
-                        <div class="col-md-4">
-                            <a href="current-cust.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
-                                View Customers
+                            <a href="listings.html" class="btn btn-primary w-100 py-3 shadow-sm">
+                                View Listings
                             </a>
                         </div>
                     </div>
 
-                    <div class="row justify-content-center mb-5">
+                    <div class="row justify-content-center mb-4">
                         <div class="col-md-4">
-                            <a href="p-reviews.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                            <a href="favoritelistings.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                                View Favorite Listings
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-md-4">
+                            <a href="userreviews.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
                                 View Reviews
                             </a>
                         </div>
@@ -91,30 +87,24 @@
                             <div class="card shadow-sm p-4 text-center">
 
 
-                                <center><img src="images/profile-pic.jpeg" class="rounded-circle mb-3" width="120" height="120"
+                                <center><img src="images/egg-whole.webp" class="rounded-circle mb-3" width="120" height="120"
                                     alt="Profile Image"></center>
-
-                                <h5 class="fw-bold">Maria Gomez</h5>
-
-                                <div class="mb-2">
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                    <i class="bi bi-star-half text-warning"></i>
-                                </div>
-
-                                <p class="text-muted mb-3">4.5 out of 5 (2 reviews)</p>
+                                <h5 class="fw-bold">Emil Sinclair</h5>
 
                                 <hr>
 
                                 <div class="text-start">
-                                    <p><strong>Email:</strong> mgomez@email.com</p>
+                                    <p><strong>Email:</strong> esinclair@email.com</p>
+                                    </p>
+                                </div>
 
-                                    <p><strong>Credentials:</strong></p>
-                                    <p class="text-muted">
-                                        Master's Degree in Spanish<br>
-                                        5+ Years Experience
+                                <div class="text-start">
+                                    <p><strong>Location:</strong> Greensboro, NC</p>
+                                    </p>
+                                </div>
+
+                                <div class="text-start">
+                                    <p><strong>Languages:</strong> English, German</p>
                                     </p>
                                 </div>
 
@@ -131,7 +121,7 @@
 
                                     <div class="mb-3">
                                         <label class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" value="mgomez@email.com">
+                                        <input type="email" class="form-control" value="esinclair@email.com">
                                     </div>
 
                                     <div class="mb-3">
@@ -145,9 +135,13 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Credentials</label>
-                                        <textarea class="form-control" rows="4">Professional Spanish Translator
-5+ Years Experience</textarea>
+                                        <label class="form-label">Location</label>
+                                        <input type="password" class="form-control" placeholder="Greensboro, NC">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Languages</label>
+                                        <textarea class="form-control" rows="1">English, German</textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100">
