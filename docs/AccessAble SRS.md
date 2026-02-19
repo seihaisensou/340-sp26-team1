@@ -54,14 +54,14 @@
     Then  My customer profile is created and visible in my account
   ```
 
-- **US‑CUST‑002 — Browse provider profiles**  
-   _Story:_ As a customer, I want to browse provider profiles (local, national, language) so that I can learn more about the services they offer before contacting them. \
+- **US‑CUST‑002 — Favorite listings**  
+   _Story:_ As a customer, I want to favorite provider listings so that I can keep track of and return to my favorite services. \
   _Acceptance:_
   ```gherkin
-  Scenario: Sort providers by distance and language
-    Given multiple providers exist within 25 miles
-    When  I sort by distance
-    Then  the nearest providers are ordered first
+  Scenario: Favoriting a provider's listing
+    Given provider's listings exist
+    When  I click favorite
+    Then  the favorited provider should be added to a favorites list
   ```
 
 - **US‑CUST‑003 — Discover services**  
