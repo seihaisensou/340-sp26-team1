@@ -20,12 +20,17 @@ public class Review {
     private Long reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "subscription_id", nullable = false)
+    @JoinColumn(name = "listing_id", nullable = false)
      @JsonIgnoreProperties("reviews")
     private Listing listing;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+     @JsonIgnoreProperties("reviews")
+    private Customer customer;
+
     @Column(nullable = false)
-    private Integer rating;
+    private Integer customerRating;
 
     @Column(columnDefinition = "TEXT")
     private String comment;
