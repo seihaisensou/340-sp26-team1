@@ -15,6 +15,7 @@ public class BookingService {
     private BookingRepository bookingRepository;
     
     public Booking createBooking(Booking booking) {
+        
         return bookingRepository.save(booking);
     }
     

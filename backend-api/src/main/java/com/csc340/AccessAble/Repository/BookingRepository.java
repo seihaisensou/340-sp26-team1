@@ -8,7 +8,7 @@ import com.csc340.AccessAble.Entities.Booking;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-  @Query(value = "SELECT b.* FROM booking b WHERE b.customer_id = :customerId", nativeQuery = true)
+  @Query(value = "SELECT b.* FROM bookings b WHERE b.customer_id = :customerId", nativeQuery = true)
   List<Booking> findByCustomerId(Long customerId);
 
 }

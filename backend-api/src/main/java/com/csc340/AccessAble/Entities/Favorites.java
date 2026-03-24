@@ -21,8 +21,13 @@ public class Favorites {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-     @JsonIgnoreProperties("favorites")
+    @JsonIgnoreProperties("favorites")
     private Customer customer;
+
+    /* @ManyToOne
+    @JoinColumn(name = "listing_id", nullable = false)
+    @JsonIgnoreProperties({ "bookings" })
+    private Listing listing; */ // sealed away until kendall merges
 
     @Column(nullable = false)
     private Integer listingId;

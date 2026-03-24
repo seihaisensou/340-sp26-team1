@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "booking")
+@Table(name = "bookings")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,14 +21,20 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-     @JsonIgnoreProperties("booking")
+    @JsonIgnoreProperties({ "bookings" })
     private Customer customer;
+
+    /* @ManyToOne
+    @JoinColumn(name = "listing_id", nullable = false)
+    @JsonIgnoreProperties({ "bookings" })
+    private Listing listing; */ // sealed away until kendall merges
 
     @Column(nullable = false)
     private Integer listingId;
 
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -45,5 +51,12 @@ public class Booking {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+     public enum BookingStatus {
+        ACTIVE,
+        PAUSED,
+        CANCELLED,
+        COMPLETED
     }
 }
