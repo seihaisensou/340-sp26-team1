@@ -33,7 +33,7 @@ public class CustomerService {
             }
             if (customerDetails.getFirstname() != null && customerDetails.getLastname() != null) {
                 customer.setFirstname(customerDetails.getFirstname());
-                customer.setFirstname(customerDetails.getLastname());
+                customer.setLastname(customerDetails.getLastname());
             }
             if (customerDetails.getLocation() != null) {
                 customer.setLocation(customerDetails.getLocation());

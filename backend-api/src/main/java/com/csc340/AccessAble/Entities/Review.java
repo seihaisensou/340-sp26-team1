@@ -21,7 +21,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-     @JsonIgnoreProperties("reviews")
+    @JsonIgnoreProperties("reviews")
     private Customer customer;
 
     /* @ManyToOne
