@@ -26,7 +26,7 @@ public class Favorites {
 
     /* @ManyToOne
     @JoinColumn(name = "listing_id", nullable = false)
-    @JsonIgnoreProperties({ "bookings" })
+    @JsonIgnoreProperties({ "favorites" })
     private Listing listing; */ // sealed away until kendall merges
 
     @Column(nullable = false)
