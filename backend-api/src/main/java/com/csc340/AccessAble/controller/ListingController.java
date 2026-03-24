@@ -17,7 +17,7 @@ public class ListingController {
     @Autowired
     private ListingService listingService;
 
-    @PostMapping("/provider/{providerId}")
+    @PostMapping("/provider/{providerId}")                                      //post
     public ResponseEntity<Listing> createListing(@PathVariable Long providerId,
             @RequestBody Listing listing) {
         try {
@@ -28,7 +28,7 @@ public class ListingController {
         }
     }
 
-    @GetMapping("/provider/{providerId}")
+    @GetMapping("/provider/{providerId}")                                       //get
     public ResponseEntity<List<Listing>> getListingsByProvider(@PathVariable Long providerId) {
         return new ResponseEntity<>(listingService.getListingsByProvider(providerId), HttpStatus.OK);
     }
@@ -41,7 +41,7 @@ public class ListingController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")                                                        //put
     public ResponseEntity<Listing> updateListing(@PathVariable Long id,
             @RequestBody Listing listingDetails) {
         try {
@@ -52,7 +52,7 @@ public class ListingController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")                                                     //delete
     public ResponseEntity<Void> deleteListing(@PathVariable Long id) {
         listingService.deleteListing(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -17,13 +17,13 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @PostMapping
-    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
+    @PostMapping                                                                 //post
+    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) { 
         Provider created = providerService.createProvider(provider);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping                                                                 //get
     public ResponseEntity<List<Provider>> getAllProviders() {
         return new ResponseEntity<>(providerService.getAllProviders(), HttpStatus.OK);
     }
@@ -36,7 +36,13 @@ public class ProviderController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{id}")
+    @GetMapping("/{providerId}/customers")
+    public ResponseEntity<List<String>> getCustomers(@PathVariable Long providerId) {
+        return ResponseEntity.ok(
+                providerService.getCustomersByProvider(providerId));
+    }
+
+    @PutMapping("/{id}")                                                //put
     public ResponseEntity<Provider> updateProvider(@PathVariable Long id,
             @RequestBody Provider providerDetails) {
         try {
@@ -46,7 +52,7 @@ public class ProviderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+                                                                            //delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
 

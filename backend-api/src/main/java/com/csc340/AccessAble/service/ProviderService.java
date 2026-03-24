@@ -52,4 +52,9 @@ public class ProviderService {
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
     }
+
+    public List<String> getCustomersByProvider(Long providerId) {
+    //placehold
+    return List.of("customer1@example.com", "customer2@example.com");
+}
 }

@@ -19,6 +19,17 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    @PostMapping("/provider/{providerId}")
+    public ResponseEntity<Review> createReview(@PathVariable Long providerId,
+            @RequestBody Review review) {
+        try {
+            return ResponseEntity.ok(
+                    reviewService.createReview(providerId, review));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
         Optional<Review> review = reviewService.getReviewById(id);
@@ -33,17 +44,26 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @PutMapping("/{reviewId}/reply")
-    public ResponseEntity<Review> replyToReview(
-            @PathVariable Long reviewId,
-            @RequestParam Long providerId,
-            @RequestBody String reply) {
+   @GetMapping("/provider/{providerId}/rating")
+    public ResponseEntity<Map<String, Double>> getAverageRating(@PathVariable Long providerId) {
+        double avg = reviewService.getAverageRating(providerId);
 
-        try {
-            Review updated = reviewService.replyToReview(providerId, reviewId, reply);
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Map<String, Double> response = new HashMap<>();
+        response.put("averageRating", avg);
+
+        return ResponseEntity.ok(response);
     }
+
+
+@PutMapping("/provider/{providerId}/review/{reviewId}/reply")
+public ResponseEntity<Review> replyToReview(
+        @PathVariable Long providerId,
+        @PathVariable Long reviewId,
+        @RequestBody Map<String, String> body) {
+
+    String reply = body.get("reply");
+
+    Review updated = reviewService.replyToReview(providerId, reviewId, reply);
+    return new ResponseEntity<>(updated, HttpStatus.OK);
+}
 }
