@@ -27,6 +27,10 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
+
     public Optional<Review> getReviewById(Long id) {
         return reviewRepository.findById(id);
     }
@@ -62,6 +66,13 @@ public class ReviewService {
         review.setProvider(provider);
 
         return reviewRepository.save(review);
+    }
+
+    public void deleteReview(Long id) {
+        Review review = reviewRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+
+        reviewRepository.delete(review);
     }
 
 }

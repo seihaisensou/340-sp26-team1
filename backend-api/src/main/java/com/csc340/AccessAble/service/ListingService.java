@@ -27,6 +27,10 @@ public class ListingService {
         return listingRepository.save(listing);
     }
 
+    public List<Listing> getAllListings() {
+        return listingRepository.findAll();
+    }
+
     public List<Listing> getListingsByProvider(Long providerId) {
         return listingRepository.findByProviderId(providerId);
     }

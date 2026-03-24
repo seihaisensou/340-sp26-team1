@@ -30,6 +30,11 @@ public class ReviewController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<Review>> getAllReviews() {
+        return new ResponseEntity<>(reviewService.getAllReviews(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
         Optional<Review> review = reviewService.getReviewById(id);
@@ -44,7 +49,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-   @GetMapping("/provider/{providerId}/rating")
+    @GetMapping("/provider/{providerId}/rating")
     public ResponseEntity<Map<String, Double>> getAverageRating(@PathVariable Long providerId) {
         double avg = reviewService.getAverageRating(providerId);
 
@@ -54,16 +59,25 @@ public class ReviewController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/provider/{providerId}/review/{reviewId}/reply")
+    public ResponseEntity<Review> replyToReview(
+            @PathVariable Long providerId,
+            @PathVariable Long reviewId,
+            @RequestBody Map<String, String> body) {
 
-@PutMapping("/provider/{providerId}/review/{reviewId}/reply")
-public ResponseEntity<Review> replyToReview(
-        @PathVariable Long providerId,
-        @PathVariable Long reviewId,
-        @RequestBody Map<String, String> body) {
+        String reply = body.get("reply");
 
-    String reply = body.get("reply");
+        Review updated = reviewService.replyToReview(providerId, reviewId, reply);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
 
-    Review updated = reviewService.replyToReview(providerId, reviewId, reply);
-    return new ResponseEntity<>(updated, HttpStatus.OK);
-}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+        try {
+            reviewService.deleteReview(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
