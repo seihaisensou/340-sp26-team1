@@ -44,7 +44,7 @@ public class FavoritesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFavorites(@PathVariable Long id) {
-        favoritesService.deleteReview(id);
+        favoritesService.deleteFavorites(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

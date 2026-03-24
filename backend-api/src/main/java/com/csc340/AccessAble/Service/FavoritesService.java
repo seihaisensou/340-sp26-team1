@@ -30,7 +30,7 @@ public class FavoritesService {
         return favoritesRepository.findByCustomerId(customerId);
     }
     
-    public void deleteReview(Long id) {
+    public void deleteFavorites(Long id) {
         favoritesRepository.deleteById(id);
     }
 }
