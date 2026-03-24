@@ -36,16 +36,36 @@ public class ReviewController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/listing/{listingID}")
+    /*@GetMapping("/listing/{listingID}")
     public ResponseEntity<List<Review>> getReviewsByListingId(@PathVariable Long listingId) {
         List<Review> reviews = reviewService.getReviewsByListingId(listingId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
-    }
+    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review reviewDetails) {
         try {
             Review updatedReview = reviewService.updateReview(id, reviewDetails);
+            return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}/comment")
+    public ResponseEntity<Review> updateComment(@PathVariable Long id, @RequestBody Review reviewDetails) {
+        try {
+            Review updatedReview = reviewService.updateComment(id, reviewDetails);
+            return new ResponseEntity<>(updatedReview, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+     @PutMapping("/{id}/reply")
+    public ResponseEntity<Review> replyToReview(@PathVariable Long id, @RequestBody Review reviewDetails) {
+        try {
+            Review updatedReview = reviewService.replyToReview(id, reviewDetails);
             return new ResponseEntity<>(updatedReview, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

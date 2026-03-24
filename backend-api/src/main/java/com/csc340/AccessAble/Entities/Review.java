@@ -20,11 +20,6 @@ public class Review {
     private Long reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "listing_id", nullable = false)
-     @JsonIgnoreProperties("reviews")
-    private Listing listing;
-
-    @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
      @JsonIgnoreProperties("reviews")
     private Customer customer;
@@ -33,6 +28,9 @@ public class Review {
     @JoinColumn(name = "listing_id", nullable = false)
     @JsonIgnoreProperties({ "bookings" })
     private Listing listing; */ // sealed away until kendall merges
+
+    @Column(nullable = false)
+    private Integer listingId;
 
     @Column(nullable = false)
     private Integer customerRating;

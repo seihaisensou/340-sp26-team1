@@ -26,15 +26,29 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
     
-    public List<Review> getReviewsByListingId(Long listingId) {
+    /*public List<Review> getReviewsByListingId(Long listingId) {
         return reviewRepository.findByListingId(listingId);
-    }
+    }*/
     
     public Review updateReview(Long id, Review reviewDetails) {
         return reviewRepository.findById(id).map(review -> {
             review.setCustomerRating(reviewDetails.getCustomerRating());
             review.setComment(reviewDetails.getComment());
             review.setReplyText(reviewDetails.getReplyText());
+            return reviewRepository.save(review);
+        }).orElseThrow(() -> new RuntimeException("Review not found"));
+    }
+
+    public Review updateComment(Long id, Review reviewComment) {
+        return reviewRepository.findById(id).map(review -> {
+            review.setComment(reviewComment.getComment());
+            return reviewRepository.save(review);
+        }).orElseThrow(() -> new RuntimeException("Review not found"));
+    }
+
+    public Review replyToReview(Long id, Review reviewReply) {
+        return reviewRepository.findById(id).map(review -> {
+            review.setReplyText(reviewReply.getReplyText());
             return reviewRepository.save(review);
         }).orElseThrow(() -> new RuntimeException("Review not found"));
     }
