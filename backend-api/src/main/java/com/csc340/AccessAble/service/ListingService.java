@@ -20,7 +20,9 @@ public class ListingService {
     }
 
     public Listing createListing(Long providerId, Listing listing) {
-        Provider provider = providerRepository.findById(providerId).get();
+        Provider provider = providerRepository.findById(providerId)
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
+
         listing.setProvider(provider);
         return listingRepository.save(listing);
     }
@@ -34,8 +36,13 @@ public class ListingService {
     }
 
     public Listing updateListing(Long id, Listing updated) {
-        Listing listing = listingRepository.findById(id).get();
-        listing.setListingName(updated.getListingName());
+        Listing listing = listingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
+
+        if (updated.getListingName() != null) {
+            listing.setListingName(updated.getListingName());
+        }
+
         return listingRepository.save(listing);
     }
 

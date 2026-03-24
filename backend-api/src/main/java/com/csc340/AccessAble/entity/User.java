@@ -3,17 +3,21 @@ package com.csc340.AccessAble.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long userId;
+  private Long id;
 
+  @Column(nullable = false, unique = true)
   private String email;
+
+  @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
   private String role;
 
   public User() {
@@ -25,8 +29,12 @@ public class User {
     this.role = role;
   }
 
-  public Long getUserId() {
-    return userId;
+  public Long getId() {
+    return id;
+  }
+
+  public String getRole() {
+    return role;
   }
 
   public String getEmail() {
@@ -37,19 +45,16 @@ public class User {
     return password;
   }
 
-  public String getRole() {
-    return role;
-  }
-
   public void setEmail(String email) {
     this.email = email;
   }
 
-  public void setPassword(String password){
+  public void setPassword(String password) {
     this.password = password;
   }
 
-  public void setRole(String role){
+  public void setRole(String role) {
     this.role = role;
   }
+
 }
