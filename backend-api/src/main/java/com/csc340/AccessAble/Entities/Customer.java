@@ -26,7 +26,7 @@ public class Customer extends User {
     @Column(nullable = false)
     private String location;
     @Column(nullable = false)
-    private String languages;
+    private String services;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("customer")
