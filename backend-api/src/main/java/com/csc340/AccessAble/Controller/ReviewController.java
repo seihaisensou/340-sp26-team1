@@ -19,12 +19,11 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @PostMapping("/provider/{providerId}")
-    public ResponseEntity<Review> createReview(@PathVariable Long providerId,
-            @RequestBody Review review) {
+    @PostMapping("/customer/{customerId}/listing/{listingId}")
+    public ResponseEntity<Review> createReview(@RequestBody Review review, @PathVariable long customerId, @PathVariable long listingId) {
         try {
             return ResponseEntity.ok(
-                    reviewService.createReview(providerId, review));
+                    reviewService.createReview (review, customerId, listingId));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -59,15 +58,12 @@ public class ReviewController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/provider/{providerId}/review/{reviewId}/reply")
-    public ResponseEntity<Review> replyToReview(
-            @PathVariable Long providerId,
-            @PathVariable Long reviewId,
-            @RequestBody Map<String, String> body) {
+    @PutMapping("/review/{reviewId}/reply")
+    public ResponseEntity<Review> replyToReview(@PathVariable Long reviewId, @RequestBody Map<String, String> body) {
 
         String reply = body.get("reply");
 
-        Review updated = reviewService.replyToReview(providerId, reviewId, reply);
+        Review updated = reviewService.replyToReview(reviewId, reply);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 

@@ -21,7 +21,7 @@ public class Review {
     private Customer customer;
     @ManyToOne
     @JoinColumn(name = "listing_id")
-    private Customer listing;
+    private Listing listing;
 
     public Review(){
 
@@ -61,5 +61,13 @@ public class Review {
 
     public void setProvider(Provider provider){
         this.provider = provider;
+    }
+
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+    }
+
+    public void setListing(Listing listing){
+        this.listing = listing;
     }
 }

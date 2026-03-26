@@ -2,8 +2,7 @@ package com.csc340.AccessAble.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.csc340.AccessAble.Entities.Provider;
-import com.csc340.AccessAble.Entities.Review;
+import com.csc340.AccessAble.Entities.*;
 import com.csc340.AccessAble.Repository.*;
 
 import java.util.*;
@@ -12,19 +11,29 @@ import java.util.*;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ProviderRepository providerRepository;
+    private final ListingRepository listingRepository;
+    private final CustomerRepository customerRepository;
 
-    public ReviewService(ReviewRepository reviewRepository,
-            ProviderRepository providerRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ListingRepository listingRepository, CustomerRepository customerRepository) {
         this.reviewRepository = reviewRepository;
-        this.providerRepository = providerRepository;
+        this.listingRepository = listingRepository;
+        this.customerRepository = customerRepository;
     }
 
-    public Review createReview(Long providerId, Review review) {
-        Provider provider = providerRepository.findById(providerId)
-                .orElseThrow(() -> new RuntimeException("Provider not found"));
+    public Review createReview(Review review, long customerId,  long listingId) {
 
+        Listing listing = listingRepository.findById(listingId)
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Provider not found"));        
+
+        Provider provider = listing.getProvider();
+
+
+        review.setCustomer(customer);
         review.setProvider(provider);
+        review.setListing(listing);
         return reviewRepository.save(review);
     }
 
@@ -55,16 +64,11 @@ public class ReviewService {
         return (double) sum / reviews.size();
     }
 
-    public Review replyToReview(Long providerId, Long reviewId, String reply) {
-
-        Provider provider = providerRepository.findById(providerId)
-                .orElseThrow(() -> new RuntimeException("Provider not found"));
+    public Review replyToReview(Long reviewId, String reply) {
 
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
-
         review.setReply(reply);
-        review.setProvider(provider);
 
         return reviewRepository.save(review);
     }
