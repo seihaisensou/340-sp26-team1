@@ -40,6 +40,10 @@ public class ListingService {
         return listingRepository.findById(id);
     }
 
+    public List<Listing> getListingByDescription(String description) {
+    return listingRepository.findbyDescription(description);    
+    }
+
     public Listing updateListing(Long id, Listing updated) {
         Listing listing = listingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Listing not found"));

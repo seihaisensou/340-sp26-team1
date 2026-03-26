@@ -49,6 +49,8 @@ public class ReviewService {
         return reviewRepository.findByProviderId(providerId);
     }
 
+    
+
     public double getAverageRating(Long providerId) {
         List<Review> reviews = reviewRepository.findByProviderId(providerId);
 

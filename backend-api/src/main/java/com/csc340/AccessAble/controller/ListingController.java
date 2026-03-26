@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Service.ListingService;
-import com.csc340.AccessAble.Entities.Listing;
+import com.csc340.AccessAble.Service.*;
+import com.csc340.AccessAble.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ public class ListingController {
 
     @Autowired
     private ListingService listingService;
+    private ReviewService reviewService;
 
     @PostMapping("/provider/{providerId}") // post
     public ResponseEntity<Listing> createListing(@PathVariable Long providerId,
@@ -43,6 +44,18 @@ public class ListingController {
 
         return listing.map(l -> new ResponseEntity<>(l, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{description}")
+    public ResponseEntity<List<Listing>> getListingByDescriptionAndRating(@PathVariable String description) {
+        List<Listing> listing = listingService.getListingByDescription(description);
+        listing.sort((l1, l2) -> {
+        double first = reviewService.getAverageRating(l1.getProvider().getId());
+        double second = reviewService.getAverageRating(l2.getProvider().getId());
+        return Double.compare(second, first); 
+            });
+        
+        return new ResponseEntity<>(listing, HttpStatus.OK);
     }
 
     @PutMapping("/{id}") // put
