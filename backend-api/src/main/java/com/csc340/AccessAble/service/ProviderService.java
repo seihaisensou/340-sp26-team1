@@ -20,6 +20,7 @@ public class ProviderService {
     }
 
     public Provider createProvider(Provider provider) {
+        provider.setRole("PROVIDER");
         return providerRepository.save(provider);
     }
 

@@ -62,7 +62,7 @@ public class BookingService {
         return bookingRepository.findByCustomerId(customerId);
     }
 
-    public Booking startBooking(Long id, Booking bookingDetails) {
+    public Booking updateBooking(Long id, Booking bookingDetails) {
         return bookingRepository.findById(id).map(booking -> {
             booking.setStatus(bookingDetails.getStatus());
             return bookingRepository.save(booking);

@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Entities.Booking;
-import com.csc340.AccessAble.Service.BookingService;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +40,22 @@ public class BookingController {
     public ResponseEntity<List<Booking>> getBookingByCustomerId(@PathVariable Long customerId) {
         List<Booking> bookings = bookingService.getBookingByCustomerId(customerId);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Booking> updateBooking(@RequestBody Booking bookingDetails, @PathVariable Long id) {
+        Optional<Booking> existing = bookingService.getBookingById(id);
+        if (existing.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            Booking updatedBooking = bookingService.updateBooking(id, bookingDetails);
+            return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            System.out.println("Error updating booking: " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+        }
     }
 
     @DeleteMapping("/{id}")
