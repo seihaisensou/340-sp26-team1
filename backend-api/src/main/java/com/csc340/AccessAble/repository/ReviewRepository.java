@@ -1,7 +1,9 @@
-package com.csc340.AccessAble.repository;
+package com.csc340.AccessAble.Repository;
 
-import com.csc340.AccessAble.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.csc340.AccessAble.Entities.Review;
+
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
