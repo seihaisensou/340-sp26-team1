@@ -1,12 +1,7 @@
 package com.csc340.AccessAble.Service;
 
-import com.csc340.AccessAble.Entities.Customer;
-import com.csc340.AccessAble.Entities.Favorites;
-import com.csc340.AccessAble.Entities.Listing;
-import com.csc340.AccessAble.Repository.BookingRepository;
-import com.csc340.AccessAble.Repository.CustomerRepository;
-import com.csc340.AccessAble.Repository.FavoritesRepository;
-import com.csc340.AccessAble.Repository.ListingRepository;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
