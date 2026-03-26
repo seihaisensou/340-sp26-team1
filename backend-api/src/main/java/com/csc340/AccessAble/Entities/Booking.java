@@ -24,13 +24,10 @@ public class Booking {
     @JsonIgnoreProperties({ "bookings" })
     private Customer customer;
 
-    /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "listing_id", nullable = false)
     @JsonIgnoreProperties({ "bookings" })
-    private Listing listing; */ // sealed away until kendall merges
-
-    @Column(nullable = false)
-    private Integer listingId;
+    private Listing listing;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

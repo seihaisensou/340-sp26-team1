@@ -24,13 +24,10 @@ public class Favorites {
     @JsonIgnoreProperties("favorites")
     private Customer customer;
 
-    /* @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "listing_id", nullable = false)
     @JsonIgnoreProperties({ "favorites" })
-    private Listing listing; */ // sealed away until kendall merges
-
-    @Column(nullable = false)
-    private Integer listingId;
+    private Listing listing;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

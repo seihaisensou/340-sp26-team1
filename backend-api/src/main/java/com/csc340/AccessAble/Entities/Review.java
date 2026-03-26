@@ -16,6 +16,12 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Customer listing;
 
     public Review(){
 
