@@ -1,8 +1,9 @@
-package com.csc340.AccessAble.service;
+package com.csc340.AccessAble.Service;
 
 import org.springframework.stereotype.Service;
-import com.csc340.AccessAble.entity.Provider;
-import com.csc340.AccessAble.repository.ProviderRepository;
+
+import com.csc340.AccessAble.Entities.Provider;
+import com.csc340.AccessAble.Repository.ProviderRepository;
 import java.util.List;
 import java.util.Optional;
 

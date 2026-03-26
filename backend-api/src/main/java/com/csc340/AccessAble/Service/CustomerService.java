@@ -41,9 +41,6 @@ public class CustomerService {
             if (customerDetails.getServices() != null) {
                 customer.setServices(customerDetails.getServices());
             }
-            if (customerDetails.getStatus() != null) {
-                customer.setStatus(customerDetails.getStatus());
-            }
             return customerRepository.save(customer);
         }).orElseThrow(() -> new RuntimeException("Customer not found"));
     }
