@@ -46,7 +46,7 @@ public class Customer extends User {
     @ManyToMany
     @JsonIgnore
     @JoinTable(
-        name = "customer_provider",
+        name = "provider's_customers",
         joinColumns = @JoinColumn(name = "customer_id"),
         inverseJoinColumns = @JoinColumn(name = "provider_id")
     )

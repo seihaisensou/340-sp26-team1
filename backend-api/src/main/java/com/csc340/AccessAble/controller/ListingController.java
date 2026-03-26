@@ -15,6 +15,7 @@ public class ListingController {
 
     @Autowired
     private ListingService listingService;
+    @Autowired
     private ReviewService reviewService;
 
     @PostMapping("/provider/{providerId}") // post
@@ -46,7 +47,7 @@ public class ListingController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/{description}")
+    @GetMapping("filter/{description}")
     public ResponseEntity<List<Listing>> getListingByDescriptionAndRating(@PathVariable String description) {
         List<Listing> listing = listingService.getListingByDescription(description);
         listing.sort((l1, l2) -> {

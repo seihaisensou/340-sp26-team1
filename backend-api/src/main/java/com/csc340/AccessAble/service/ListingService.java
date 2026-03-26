@@ -41,7 +41,7 @@ public class ListingService {
     }
 
     public List<Listing> getListingByDescription(String description) {
-    return listingRepository.findbyDescription(description);    
+    return listingRepository.findByListingNameContainingIgnoreCase(description);    
     }
 
     public Listing updateListing(Long id, Listing updated) {
