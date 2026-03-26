@@ -15,6 +15,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     public Customer createCustomer(Customer customer) {
+        customer.setRole("CUSTOMER");
         return customerRepository.save(customer);
     }
 

@@ -18,7 +18,7 @@ public class FavoritesController {
     private FavoritesService favoritesService;
 
     @PostMapping("/customer/{customerId}/listing/{listingId}")
-    public ResponseEntity<Favorites> createFavorites(@RequestBody Favorites favorites, long customerId,  long listingId) {
+    public ResponseEntity<Favorites> createFavorites(@RequestBody Favorites favorites, @PathVariable long customerId, @PathVariable long listingId) {
         Favorites createdFavorites = favoritesService.createFavorites(favorites, customerId, listingId);
         return new ResponseEntity<>(createdFavorites, HttpStatus.CREATED);
     }
