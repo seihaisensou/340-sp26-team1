@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.csc340</groupId>
-	<artifactId>local-harvest-hub</artifactId>
+	<artifactId>AccessAble</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>local-harvest-hub</name>
+	<name>AccessAble</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
