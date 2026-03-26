@@ -1,7 +1,7 @@
-package com.csc340.AccessAble.controller;
+package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.entity.Review;
-import com.csc340.AccessAble.service.ReviewService;
+import com.csc340.AccessAble.Entities.Review;
+import com.csc340.AccessAble.Service.ReviewService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,7 @@
-package com.csc340.AccessAble.controller;
+package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.service.ListingService;
-import com.csc340.AccessAble.entity.*;
-
+import com.csc340.AccessAble.Service.ListingService;
+import com.csc340.AccessAble.Entities.Listing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
