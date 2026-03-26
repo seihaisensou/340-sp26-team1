@@ -1,38 +1,45 @@
 package com.csc340.AccessAble.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "listings")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Listing {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long listingId;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private String listingName;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+    public Listing(){
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    public Listing(String listingName, Provider provider){
+        this.listingName = listingName;
+        this.provider = provider;
     }
+
+    public Long getListingId(){
+        return listingId;
+    }
+
+    public String getListingName(){
+        return listingName;
+    }
+
+    public Provider getProvider(){
+        return provider;
+    }
+
+    public void setListingName(String listingName){
+        this.listingName = listingName;
+    }
+
+    public void setProvider(Provider provider){
+        this.provider = provider;
+    }
+    
 }
