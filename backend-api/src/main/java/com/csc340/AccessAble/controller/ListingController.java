@@ -28,12 +28,12 @@ public class ListingController {
         }
     }
 
-    @GetMapping                                                 //get
+    @GetMapping // get
     public ResponseEntity<List<Listing>> getAllListings() {
         return new ResponseEntity<>(listingService.getAllListings(), HttpStatus.OK);
     }
 
-    @GetMapping("/provider/{providerId}") 
+    @GetMapping("/provider/{providerId}")
     public ResponseEntity<List<Listing>> getListingsByProvider(@PathVariable Long providerId) {
         return new ResponseEntity<>(listingService.getListingsByProvider(providerId), HttpStatus.OK);
     }

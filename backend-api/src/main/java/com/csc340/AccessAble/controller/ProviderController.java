@@ -1,3 +1,4 @@
+
 package com.csc340.AccessAble.controller;
 
 import com.csc340.AccessAble.service.ProviderService;
@@ -17,13 +18,13 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @PostMapping                                                                 //post
-    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) { 
+    @PostMapping // post
+    public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) {
         Provider created = providerService.createProvider(provider);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping                                                                 //get
+    @GetMapping // get
     public ResponseEntity<List<Provider>> getAllProviders() {
         return new ResponseEntity<>(providerService.getAllProviders(), HttpStatus.OK);
     }
@@ -42,7 +43,7 @@ public class ProviderController {
                 providerService.getCustomersByProvider(providerId));
     }
 
-    @PutMapping("/{id}")                                                //put
+    @PutMapping("/{id}") // put
     public ResponseEntity<Provider> updateProvider(@PathVariable Long id,
             @RequestBody Provider providerDetails) {
         try {
@@ -52,7 +53,8 @@ public class ProviderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-                                                                            //delete
+
+    // delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
 
