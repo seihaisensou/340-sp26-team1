@@ -55,7 +55,7 @@ public class CustomerController {
             return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
         } catch (RuntimeException e) {
             System.out.println("Error updating customer: " + e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // For validation errors
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
         }
     }
 

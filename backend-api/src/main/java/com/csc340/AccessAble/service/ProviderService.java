@@ -2,8 +2,8 @@ package com.csc340.AccessAble.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.csc340.AccessAble.Entities.Provider;
-import com.csc340.AccessAble.Repository.ProviderRepository;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +11,12 @@ import java.util.Optional;
 public class ProviderService {
 
     private final ProviderRepository providerRepository;
+    private final CustomerRepository customerRepository;
 
-    public ProviderService(ProviderRepository providerRepository) {
+
+    public ProviderService(ProviderRepository providerRepository, CustomerRepository customerRepository) {
         this.providerRepository = providerRepository;
+        this.customerRepository = customerRepository;
     }
 
     public Provider createProvider(Provider provider) {
@@ -54,8 +57,7 @@ public class ProviderService {
         providerRepository.deleteById(id);
     }
 
-    public List<String> getCustomersByProvider(Long providerId) {
-    //placehold
-    return List.of("customer1@example.com", "customer2@example.com");
+    public List<Customer> getCustomersByProvider(Long providerId) {
+    return customerRepository.findByProviderId(providerId);
 }
 }

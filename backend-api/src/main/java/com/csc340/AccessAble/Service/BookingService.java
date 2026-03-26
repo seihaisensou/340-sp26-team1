@@ -15,11 +15,13 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final ListingRepository listingRepository;
     private final CustomerRepository customerRepository;
+    private final ProviderRepository providerRepository;
 
-    public BookingService(ListingRepository listingRepository, BookingRepository providerRepository, CustomerRepository customerRepository) {
+    public BookingService(ListingRepository listingRepository, BookingRepository bookingRepository, CustomerRepository customerRepository, ProviderRepository providerRepository) {
         this.listingRepository = listingRepository;
-        this.bookingRepository = providerRepository;
+        this.bookingRepository = bookingRepository;
         this.customerRepository = customerRepository;
+        this.providerRepository = providerRepository;
     }
     
     public Booking createBooking(Booking booking, long customerId, long listingId) {
@@ -30,6 +32,21 @@ public class BookingService {
 
         booking.setListing(listing);
         booking.setCustomer(customer);
+
+        Provider provider = listing.getProvider();
+
+        if (!customer.getProviders().contains(provider)) {
+            customer.getProviders().add(provider);
+        }
+
+        if (!provider.getCustomers().contains(customer)) {
+            provider.getCustomers().add(customer);
+        }
+
+        customerRepository.save(customer);
+        providerRepository.save(provider);
+
+
         return bookingRepository.save(booking);
     }
     

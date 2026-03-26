@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Service.ProviderService;
-import com.csc340.AccessAble.Entities.Provider;
+import com.csc340.AccessAble.Service.*;
+import com.csc340.AccessAble.Entities.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class ProviderController {
     }
 
     @GetMapping("/{providerId}/customers")
-    public ResponseEntity<List<String>> getCustomers(@PathVariable Long providerId) {
+    public ResponseEntity<List<Customer>> getCustomers(@PathVariable Long providerId) {
         return ResponseEntity.ok(
                 providerService.getCustomersByProvider(providerId));
     }
@@ -52,8 +52,8 @@ public class ProviderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-                                                                            //delete
-    @DeleteMapping("/{id}")
+    
+    @DeleteMapping("/{id}")                                              //delete
     public ResponseEntity<Void> deleteProvider(@PathVariable Long id) {
 
         Optional<Provider> provider = providerService.getProviderById(id);

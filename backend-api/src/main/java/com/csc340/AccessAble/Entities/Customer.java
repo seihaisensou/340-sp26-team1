@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,4 +42,14 @@ public class Customer extends User {
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties("customer")
   private List<Review> reviews;
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+        name = "customer_provider",
+        joinColumns = @JoinColumn(name = "customer_id"),
+        inverseJoinColumns = @JoinColumn(name = "provider_id")
+    )
+    
+    private List<Provider> providers = new ArrayList<>();
 }

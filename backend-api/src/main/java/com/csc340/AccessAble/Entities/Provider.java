@@ -3,12 +3,18 @@ package com.csc340.AccessAble.Entities;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "providers")
 @PrimaryKeyJoinColumn(name = "id")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+
 public class Provider extends User {
 
     private String firstName;
@@ -18,6 +24,10 @@ public class Provider extends User {
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Listing> listings = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "providers")
+    @JsonIgnore
+    private List<Customer> customers = new ArrayList<>();
 
     public Provider() {
         super();
