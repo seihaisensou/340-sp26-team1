@@ -17,10 +17,10 @@ public class Review {
     @JoinColumn(name = "provider_id")
     private Provider provider;
     @ManyToOne
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = "listing_id")
     private Customer listing;
 
     public Review(){
