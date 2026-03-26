@@ -1,5 +1,7 @@
 package com.csc340.AccessAble.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Listing {
     private String listingName;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "provider_id")
     private Provider provider;
 

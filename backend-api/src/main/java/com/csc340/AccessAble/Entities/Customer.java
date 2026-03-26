@@ -32,14 +32,17 @@ public class Customer extends User {
     private String services;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   @JsonIgnoreProperties("customer")
   private List<Booking> bookings;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   @JsonIgnoreProperties("customer")
   private List<Favorites> favorites;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   @JsonIgnoreProperties("customer")
   private List<Review> reviews;
 

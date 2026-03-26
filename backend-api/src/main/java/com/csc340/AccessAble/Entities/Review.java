@@ -1,5 +1,7 @@
 package com.csc340.AccessAble.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,12 +16,15 @@ public class Review {
     private String comment;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "provider_id")
     private Provider provider;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "customer_id")
     private Customer customer;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "listing_id")
     private Listing listing;
 

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
@@ -20,11 +22,13 @@ public class Favorites {
     private Long favoritesId;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonIgnoreProperties("favorites")
     private Customer customer;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "listing_id", nullable = false)
     @JsonIgnoreProperties({ "favorites" })
     private Listing listing;
