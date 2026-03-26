@@ -20,9 +20,9 @@ import java.util.List;
 public class Customer extends User {
   
     @Column(nullable = false)
-    private String firstname;
+    private String firstName;
     @Column(nullable = false)
-    private String lastname;
+    private String lastName;
     @Column(nullable = false)
     private String location;
     @Column(nullable = false)

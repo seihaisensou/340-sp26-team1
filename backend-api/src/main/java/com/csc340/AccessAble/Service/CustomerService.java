@@ -31,9 +31,9 @@ public class CustomerService {
             if (customerDetails.getEmail() != null) {
                 customer.setEmail(customerDetails.getEmail());
             }
-            if (customerDetails.getFirstname() != null && customerDetails.getLastname() != null) {
-                customer.setFirstname(customerDetails.getFirstname());
-                customer.setLastname(customerDetails.getLastname());
+            if (customerDetails.getFirstName() != null && customerDetails.getLastName() != null) {
+                customer.setFirstName(customerDetails.getFirstName());
+                customer.setLastName(customerDetails.getLastName());
             }
             if (customerDetails.getLocation() != null) {
                 customer.setLocation(customerDetails.getLocation());
