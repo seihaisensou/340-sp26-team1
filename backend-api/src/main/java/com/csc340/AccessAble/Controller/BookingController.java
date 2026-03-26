@@ -17,9 +17,9 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
-        Booking createdBooking = bookingService.createBooking(booking);
+    @PostMapping("/customer/{customerId}/listing/{listingId}")
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking, long customerId,  long listingId) {
+        Booking createdBooking = bookingService.createBooking(booking, customerId, listingId);
         return new ResponseEntity<>(createdBooking, HttpStatus.CREATED);
     }
 

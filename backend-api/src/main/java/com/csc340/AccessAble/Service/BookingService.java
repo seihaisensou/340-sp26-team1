@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Service;
 
-import com.csc340.AccessAble.Entities.Booking;
-import com.csc340.AccessAble.Repository.BookingRepository;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,24 @@ import java.util.Optional;
 public class BookingService {
     
     @Autowired
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
+    private final ListingRepository listingRepository;
+    private final CustomerRepository customerRepository;
+
+    public BookingService(ListingRepository listingRepository, BookingRepository providerRepository, CustomerRepository customerRepository) {
+        this.listingRepository = listingRepository;
+        this.bookingRepository = providerRepository;
+        this.customerRepository = customerRepository;
+    }
     
-    public Booking createBooking(Booking booking) {
-        
+    public Booking createBooking(Booking booking, long customerId, long listingId) {
+        Listing listing = listingRepository.findById(listingId)
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        booking.setListing(listing);
+        booking.setCustomer(customer);
         return bookingRepository.save(booking);
     }
     

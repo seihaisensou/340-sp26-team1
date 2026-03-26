@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Entities.Favorites;
-import com.csc340.AccessAble.Service.FavoritesService;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ public class FavoritesController {
     @Autowired
     private FavoritesService favoritesService;
 
-    @PostMapping
-    public ResponseEntity<Favorites> createFavorites(@RequestBody Favorites favorites) {
-        Favorites createdFavorites = favoritesService.createFavorites(favorites);
+    @PostMapping("/customer/{customerId}/listing/{listingId}")
+    public ResponseEntity<Favorites> createFavorites(@RequestBody Favorites favorites, long customerId,  long listingId) {
+        Favorites createdFavorites = favoritesService.createFavorites(favorites, customerId, listingId);
         return new ResponseEntity<>(createdFavorites, HttpStatus.CREATED);
     }
 

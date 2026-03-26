@@ -1,7 +1,13 @@
 package com.csc340.AccessAble.Service;
 
+import com.csc340.AccessAble.Entities.Customer;
 import com.csc340.AccessAble.Entities.Favorites;
+import com.csc340.AccessAble.Entities.Listing;
+import com.csc340.AccessAble.Repository.BookingRepository;
+import com.csc340.AccessAble.Repository.CustomerRepository;
 import com.csc340.AccessAble.Repository.FavoritesRepository;
+import com.csc340.AccessAble.Repository.ListingRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +18,23 @@ import java.util.Optional;
 public class FavoritesService {
     
     @Autowired
-    private FavoritesRepository favoritesRepository;
+    private final FavoritesRepository favoritesRepository;
+    private final ListingRepository listingRepository;
+    private final CustomerRepository customerRepository;
+
+    public FavoritesService(ListingRepository listingRepository, CustomerRepository customerRepository, FavoritesRepository favoritesRepository) {
+        this.listingRepository = listingRepository;
+        this.favoritesRepository = favoritesRepository;
+        this.customerRepository = customerRepository;
+    }
     
-    public Favorites createFavorites(Favorites favorite) {
+    public Favorites createFavorites(Favorites favorite, long customerId,  long listingId) {
+        Listing listing = listingRepository.findById(listingId)
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        favorite.setCustomer(customer);
+        favorite.setListing(listing);
         return favoritesRepository.save(favorite);
     }
     
