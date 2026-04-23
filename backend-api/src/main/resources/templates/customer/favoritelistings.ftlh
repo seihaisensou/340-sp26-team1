@@ -35,33 +35,43 @@
       <h2 class="fw-bold mb-4 text-center">Favorite Listings</h2>
 
       <div class="row g-4">
+        <#if favorites?? && (favorites?size> 0)>
+         <#list favorites as favorite>
         <div class="col-md-4">
+
+
+          
           <div class="card shadow-sm h-100 position-relative listing-card">
 
             <div class="card-body">
               <h5 class="card-title">
-                 <a href="../provider/listing-3.html">In-Person Professional German Translator</a>
+                 <a href="/customer/listing/${favorite.listing.listingId}">${favorite.listing.listingName}</a>
               </h5>
 
               <p class="card-text">
-                 German translating services provided for in-person events like meetings,
-                conventions, personal events, etc. <br>
+                 ${favorite.listing.shortDescription} <br>
                 Local
                 <br>
                 5.0 <span class="text-warning">★</strong></span>
               </p>
 
-              <p class="fw-bold text-primary">$20 hourly</p>
+              <p class="fw-bold text-primary">${favorite.listing.price!""} ${favorite.listing.pricingType!""}</p>
 
 
              
 
             </div>
-
           </div>
+          
+
         </div>
+        </#list>
 
-
+          <#else>
+            <div class="col-12 text-center">
+              <p>No listings found.</p>
+           </div>
+          </#if>   
       </div>
 
     </div>
@@ -69,7 +79,5 @@
   <footer class="bg-dark text-white text-center py-4">
     <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
   </footer>
-
 </body>
-
 </html>

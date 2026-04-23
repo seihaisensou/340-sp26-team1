@@ -42,21 +42,22 @@
                     <p class="text-muted">Hosted by: ${listing.provider.firstName} ${listing.provider.lastName}</p>
                    
 
-                    <p><strong>Service Type:</strong> ${listing.category}</p>
+                    <p><strong>Service Type:</strong> ${listing.category!""}</p>
 
-                    <p><strong>Availability:</strong> ${listing.availability}</p>
+                    <p><strong>Availability:</strong> ${listing.availability!""}</p>
 
-                    <p><strong>Price:</strong> ${listing.price} ${listing.pricingType}</p>
+                    <p><strong>Price:</strong> ${listing.price!""} ${listing.pricingType!""}</p>
 
                     <hr>
 
                     <h5>Description</h5>
                     <p>
-                        ${listing.detailedDescription}
+                        ${listing.detailedDescription!""}
                     </p>
 
                     <a class="btn btn-primary mt-3">Book Service</button></a>
-                    <a class="btn btn-success mt-3">Favorite Service</button></a>
+                    <form action="/customer/listing/${listing.listingId}/favorite" method="post">
+                    <button class="btn btn-success mt-3">Favorite Service</button></form>
 
                     <hr>
 
