@@ -26,7 +26,7 @@ public class ReviewService {
                 .orElseThrow(() -> new RuntimeException("Listing not found"));
 
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new RuntimeException("Provider not found"));        
+                .orElseThrow(() -> new RuntimeException("Customer not found"));        
 
         Provider provider = listing.getProvider();
 
@@ -47,6 +47,14 @@ public class ReviewService {
 
     public List<Review> getReviewsByProvider(Long providerId) {
         return reviewRepository.findByProviderId(providerId);
+    }
+
+    public List<Review> getReviewsByCustomer(Long customerId) {
+        return reviewRepository.findByCustomerId(customerId);
+    }
+
+    public List<Review> getReviewsByListingId(Long listingId) {
+        return reviewRepository.findByListing_ListingId(listingId);
     }
 
     
@@ -80,6 +88,14 @@ public class ReviewService {
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 
         reviewRepository.delete(review);
+    }
+
+    public Review editReview(Long reviewId, String edit) {
+
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+        review.setComment(edit);
+        return reviewRepository.save(review);
     }
 
 }

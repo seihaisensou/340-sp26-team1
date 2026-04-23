@@ -19,7 +19,7 @@ public class Review {
     @JsonIgnore
     @JoinColumn(name = "provider_id")
     private Provider provider;
-    @ManyToOne
+    @ManyToOne()
     @JsonIgnore
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -50,6 +50,14 @@ public class Review {
 
     public Provider getProvider(){
         return provider;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public Listing getListing(){
+        return listing;
     }
 
     public void setRating(int rating){
