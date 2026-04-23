@@ -28,6 +28,23 @@
             </div>
 
         </div>
+    </nav><nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+
+
+            <a class="navbar-brand fw-bold" href="/">
+                AccessAble
+            </a>
+
+
+            <div class="d-flex align-items-center gap-3 nav-buttons">
+                <a class="nav-link text-white" href="/provider/account">Account</a>
+                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+                <a class="btn btn-outline-light" href="/login">Login</a>
+        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
+            </div>
+
+        </div>
     </nav>
 
     <div class="flex-grow-1">

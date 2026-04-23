@@ -15,16 +15,16 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
+            <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="login.html">Account</a>
-                <a class="nav-link text-white" href="../customer/listings.html">Listings</a>
-                <a class="btn btn-outline-light" href="../customer/login.html">Login</a>
-                <a class="btn btn-primary" href="../customer/sign-up.html">Sign Up</a>
+                <a class="nav-link text-white" href="/provider/account">Account</a>
+                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+                <a class="btn btn-outline-light" href="/login">Login</a>
+        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
             </div>
 
         </div>
