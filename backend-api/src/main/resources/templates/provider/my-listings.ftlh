@@ -54,11 +54,11 @@
                 </p>
 
                 <div>
-                  <a href="/provider/edit/${listing.listingId}" class="btn btn-outline-secondary btn-sm">
+                  <a href="/provider/edit/${listingId}" class="btn btn-outline-secondary btn-sm">
                     Edit
                   </a>
 
-                  <a href="/provider/delete/${listing.listingId}" class="btn btn-outline-danger btn-sm">
+                  <a href="/provider/delete/${listingId}" class="btn btn-outline-danger btn-sm">
                     Delete
                   </a>
                 </div>
