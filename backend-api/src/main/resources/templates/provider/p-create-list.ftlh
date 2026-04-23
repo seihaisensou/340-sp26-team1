@@ -14,16 +14,16 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
+            <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="login.html">Account</a>
-                <a class="nav-link text-white" href="../customer/listings.html">Listings</a>
-                <a class="btn btn-outline-light" href="../customer/login.html">Login</a>
-        <a class="btn btn-primary" href="../customer/sign-up.html">Sign Up</a>
+                <a class="nav-link text-white" href="/provider/account">Account</a>
+                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+                <a class="btn btn-outline-light" href="/login">Login</a>
+                <a class="btn btn-primary" href="/sign-up">Sign Up</a>
             </div>
 
         </div>
@@ -36,72 +36,75 @@
 
                 <h3 class="fw-bold mb-4 text-center">Create New Service Listing</h3>
 
-                <form>
+                <form action="/provider/create" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3">
-                        <label class="form-label">Service Title</label>
-                        <input type="text" class="form-control" placeholder="e.g. Professional Spanish Translator">
+                        <label class="form-label">Listing Name</label>
+                        <input type="text" name="listingName" class="form-control"
+                            placeholder="e.g. Professional Spanish Translator" required>
                     </div>
 
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Category</label>
-                            <select class="form-select">
-                                <option>Translator</option>
-                                <option>Interpretor</option>
+                            <select name="category" class="form-select" required>
+                                <option value="Translator">Translator</option>
+                                <option value="Interpretor">Interpretor</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Pricing Type</label>
-                            <select class="form-select">
-                                <option>Flat Rate</option>
-                                <option>Hourly</option>
+                            <select name="pricingType" class="form-select" required>
+                                <option value="Flat Rate">Flat Rate</option>
+                                <option value="Hourly">Hourly</option>
                             </select>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Pricing($)</label>
-                            <input type="number" class="form-control" placeholder="Enter price">
+                            <input type="number" name="price" class="form-control" placeholder="Enter price" required>
                         </div>
                     </div>
 
 
                     <div class="mb-3">
                         <label class="form-label">Short Description</label>
-                        <input type="text" class="form-control" placeholder="Brief summary for listing card">
+                        <input type="text" name="shortDescription" class="form-control"
+                            placeholder="Brief summary for listing card" required>
                     </div>
 
 
                     <div class="mb-3">
                         <label class="form-label">Detailed Description</label>
-                        <textarea class="form-control" rows="4"
-                            placeholder="Describe your service in detail..."></textarea>
+                        <textarea name="detailedDescription" class="form-control" rows="4"
+                            placeholder="Describe your service in detail..." required></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Upload Service Image</label>
-                        <input type="file" class="form-control">
+                        <input type="file" name="image" class="form-control">
                     </div>
 
 
                     <div class="mb-3">
                         <label class="form-label">Location</label>
-                        <input type="text" class="form-control" placeholder="City, State">
+                        <input type="text" name="location" class="form-control" placeholder="City, State">
                     </div>
 
 
                     <div class="mb-4">
                         <label class="form-label">Availability</label>
-                        <input type="text" class="form-control" placeholder="Weekdays, Weekends, etc.">
+                        <input type="text" name="availability" class="form-control"
+                            placeholder="Weekdays, Weekends, etc." required>
                     </div>
 
 
                     <div class="text-center">
-                        <a href="../customer/listings.html" class="btn btn-primary btn-lg px-5">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
                             Publish Listing
-                        </a>
+                        </button>
                     </div>
 
                 </form>
