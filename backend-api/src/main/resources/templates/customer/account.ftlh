@@ -34,7 +34,6 @@
         <div class="container-fluid">
             <div class="row">
 
-
                 <div class="container py-5">
 
                     <div class="text-center mb-5">
@@ -43,31 +42,37 @@
                             Manage your favorite services, location, and account settings below.
                         </p>
                     </div>
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-md-4">
-                            <a href="listings.html" class="btn btn-primary w-100 py-3 shadow-sm">
-                                View Listings
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-md-4">
-                            <a href="favoritelistings.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
-                                View Favorite Listings
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-md-4">
-                            <a href="userreviews.html" class="btn btn-outline-primary w-100 py-3 shadow-sm">
-                                View Reviews
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
+
+            <div class="row g-4 mb-5">
+
+                <div class="col-md-4">
+                    <a href="/customer/favoritelistings" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                        View Favorite Listings
+                    </a>    
+                </div>
+
+                <div class="col-md-4">
+                    <a href="/customer/listings" class="btn btn-primary w-100 py-3 shadow-sm">
+                        View Listings
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a href="/customer/bookings" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                        View Bookings
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-4">
+                     <a href="/customer/userreviews" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                        View Reviews
+                    </a>
+                </div>
+            </div>
 
 
 
@@ -86,24 +91,24 @@
                             <div class="card shadow-sm p-4 text-center">
 
 
-                                <center><img src="images/egg-whole.webp" class="rounded-circle mb-3" width="120" height="120"
+                                <center><img src="/customer/images/egg-whole.webp" class="rounded-circle mb-3" width="120" height="120"
                                     alt="Profile Image"></center>
-                                <h5 class="fw-bold">Emil Sinclair</h5>
+                                <h5 class="fw-bold"> ${customer.firstName} ${customer.lastName}</h5>
 
                                 <hr>
 
                                 <div class="text-start">
-                                    <p><strong>Email:</strong> esinclair@email.com</p>
+                                    <p><strong>Email:</strong> ${customer.email}</p>
                                     </p>
                                 </div>
 
                                 <div class="text-start">
-                                    <p><strong>Location:</strong> Greensboro, NC</p>
+                                    <p><strong>Location:</strong> ${customer.location!""}</p>
                                     </p>
                                 </div>
 
                                 <div class="text-start">
-                                    <p><strong>Languages:</strong> English, German</p>
+                                    <p><strong>Services:</strong> ${customer.services!""}</p>
                                     </p>
                                 </div>
 
@@ -116,31 +121,26 @@
 
                                 <h5 class="fw-bold mb-3">Update Information</h5>
 
-                                <form>
+                                <form action="/customer/account/" method="post" enctype="multipart/form-data" >
 
                                     <div class="mb-3">
                                         <label class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" value="esinclair@email.com">
+                                        <input type="email" name="email" class="form-control" value="${customer.email}">
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">New Password</label>
-                                        <input type="password" class="form-control" placeholder="Enter new password">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" placeholder="Confirm password">
-                                    </div>
+                                        <input type="password" name="password" class="form-control" placeholder="Enter new password">
+                                    </div>                                    
 
                                     <div class="mb-3">
                                         <label class="form-label">Location</label>
-                                        <input type="password" class="form-control" placeholder="Greensboro, NC">
+                                        <input type="location" name="location" class="form-control" value="${customer.location!""}">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label">Languages</label>
-                                        <textarea class="form-control" rows="1">English, German</textarea>
+                                        <label class="form-label">Services</label>
+                                        <input type="languages" name="services" class="form-control" value="${customer.services!""}">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100">

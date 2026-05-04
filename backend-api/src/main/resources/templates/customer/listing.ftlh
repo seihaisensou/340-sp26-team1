@@ -60,8 +60,8 @@
                     <p>
                         ${listing.detailedDescription!""}
                     </p>
-
-                    <a class="btn btn-primary mt-3">Book Service</button></a>
+                    <form action="/customer/listing/${listing.listingId}/book" method="post">
+                    <button class="btn btn-primary mt-3">Book Service</button></form>
                     <form action="/customer/listing/${listing.listingId}/favorite" method="post">
                     <button class="btn btn-success mt-3">Favorite Service</button></form>
 

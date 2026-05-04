@@ -1,9 +1,11 @@
 package com.csc340.AccessAble.Controller;
 
 import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.CustomerRepository;
 import com.csc340.AccessAble.Service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,27 +26,48 @@ public class CustomerUIController {
     private FavoritesService favoritesService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private BookingService bookingService;
 
     @GetMapping("/sign-up")
-    public String signUp() { // NTD
+    public String signUp() { 
         return "customer/sign-up";
     }
 
-    @PostMapping("/sign-up/success") // NTD
+    @PostMapping("/sign-up/success") 
     public String newSignup(Customer customer) {
         Customer newCustomer = customerService.createCustomer(customer);
         return "redirect:/customer/login";
     }
 
-    @GetMapping("/login") // NTD
+    @GetMapping("/login") 
     public String showLogin() {
         return "customer/login";
     }
 
     @GetMapping("/account") // NTD
-    public String showAccount(Model model) {
+    public String showAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("customer", customer);
         return "customer/account";
     }
+
+    @PostMapping("/account/") // NTD
+    public String updateAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Customer updatedCustomer) {
+        Customer customer = customerService.updateCustomer(customerRepository.findByEmail(userDetails.getUsername()).getId(), updatedCustomer);
+        
+        if (customer != null) {
+      //   customerService.saveProfilePicture(customer, picture);
+           return "redirect:/customer/account";
+        } 
+        else {
+            return "redirect:/customer/account";
+        }
+    }
+            
+    
 
     @GetMapping("/listings")
     public String showListings(Model model) {
@@ -52,9 +75,10 @@ public class CustomerUIController {
         return "customer/listings";
     }
 
-    @GetMapping("/favorites") // NTD
-    public String showFavorites(Model model) {
-        model.addAttribute("favorites", favoritesService.getFavoritesByCustomerId((long)4));
+    @GetMapping("/favoritelistings") // NTD
+    public String showFavorites(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("favorites", favoritesService.getFavoritesByCustomerId(customer.getId()));
         return "customer/favoritelistings";
     }
 
@@ -87,9 +111,9 @@ public class CustomerUIController {
     
     @PostMapping("listing/writereview/{id}")
     
-    public String writeReview(Review review, @PathVariable Long id) {
-    
-    Review newReview = reviewService.createReview(review, 6, id);
+    public String writeReview(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Review review, @PathVariable Long id) {
+    Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+    Review newReview = reviewService.createReview(review, customer.getId(), id);
     if (review != null) {     
       return "redirect:/customer/listing/" + newReview.getListing().getListingId();
     } 
@@ -98,25 +122,51 @@ public class CustomerUIController {
         }
     }
 
-    @GetMapping("/my-reviews") // NTD
-    public String showMyReviews(Model model) {
-        model.addAttribute("reviews", reviewService.getReviewsByCustomer((long)5));
+    @GetMapping("/userreviews") // NTD
+    public String showMyReviews(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("reviews", reviewService.getReviewsByCustomer(customer.getId()));
         return "customer/userreviews";
     }
 
     @PostMapping("listing/{id}/favorite") // NTD
     
-    public String favoriteListing(@PathVariable Long id, Favorites favorite) {
-    
+    public String favoriteListing(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @PathVariable Long id, Favorites favorite) {
+    Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+
     Listing listing = listingService.getListingById(id)
             .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
-    Favorites newFavorite = favoritesService.createFavorites(favorite,4,id);
+    Favorites newFavorite = favoritesService.createFavorites(favorite,customer.getId(),id);
             
     if (listing != null) {     
-      return "redirect:/customer/favorites";
+      return "redirect:/customer/favoritelistings";
     } 
     else {
       return "redirect:/customers/favorites/add?error=true";
+        }
+    }
+
+    @GetMapping("/bookings")
+    public String showBookings (@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model){
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("bookings", bookingService.getBookingByCustomerId(customer.getId()));
+        return "customer/bookings";
+    }
+
+    @PostMapping("listing/{id}/book") // NTD
+    
+    public String bookListing(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @PathVariable Long id, Booking booking) {
+    Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+
+    Listing listing = listingService.getListingById(id)
+            .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+    Booking newBooking = bookingService.createBooking(booking,customer.getId(),id);
+            
+    if (listing != null) {     
+      return "redirect:/customer/bookings";
+    } 
+    else {
+      return "redirect:/customers/bookings/add?error=true";
         }
     }
    
