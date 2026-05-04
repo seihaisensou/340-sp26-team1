@@ -46,13 +46,13 @@ public class ReviewService {
     }
 
     public List<Review> getReviewsByProvider(Long providerId) {
-        return reviewRepository.findByProviderId(providerId);
+        return reviewRepository.findByProvider_Id(providerId);
     }
 
     
 
     public double getAverageRating(Long providerId) {
-        List<Review> reviews = reviewRepository.findByProviderId(providerId);
+        List<Review> reviews = reviewRepository.findByProvider_Id(providerId);
 
         if (reviews.isEmpty())
             return 0;

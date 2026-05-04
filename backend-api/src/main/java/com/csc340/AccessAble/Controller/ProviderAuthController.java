@@ -1,28 +1,22 @@
 package com.csc340.AccessAble.Controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.csc340.AccessAble.Entities.Provider;
-
 import com.csc340.AccessAble.Service.ProviderService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/provider")
 public class ProviderAuthController {
 
     private final ProviderService providerService;
-
     private final PasswordEncoder passwordEncoder;
 
-public ProviderAuthController(ProviderService providerService, PasswordEncoder passwordEncoder) {
-    this.providerService = providerService;
-    this.passwordEncoder = passwordEncoder;
-}
+    public ProviderAuthController(ProviderService providerService, PasswordEncoder passwordEncoder) {
+        this.providerService = providerService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/sign-up")
     public String showSignup() {
@@ -51,5 +45,4 @@ public ProviderAuthController(ProviderService providerService, PasswordEncoder p
 
         return "redirect:/provider/login";
     }
-
 }

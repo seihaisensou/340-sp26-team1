@@ -10,40 +10,42 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/",
-                                "/index",
-                                "/home",
-                                "/provider/sign-up",
-                                "/provider/signup",
-                                "/provider/login",
-                                "/css/**",
-                                "/images/**").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(form -> form
-                        .loginPage("/provider/login")
-                        .loginProcessingUrl("/provider/login")
-                        .usernameParameter("email")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/provider/account", true)
-                        .failureUrl("/provider/login?error=true")
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/provider/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"));
-        return http.build();
-    }
+                http
+                                .csrf(csrf -> csrf.disable())
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/",
+                                                                "/home",
+                                                                "/index",
+                                                                "/provider/login",
+                                                                "/provider/sign-up",
+                                                                "/provider/signup",
+                                                                "/css/**",
+                                                                "/images/**")
+                                                .permitAll()
+                                                .anyRequest().authenticated())
+                                .formLogin(form -> form
+                                                .loginPage("/provider/login")
+                                                .loginProcessingUrl("/perform_login")
+                                                .usernameParameter("email")
+                                                .passwordParameter("password")
+                                                .defaultSuccessUrl("/provider/account", true)
+                                                .failureUrl("/provider/login?error=true")
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessUrl("/provider/login")
+                                                .invalidateHttpSession(true)
+                                                .deleteCookies("JSESSIONID"));
+
+                return http.build();
+        }
 }

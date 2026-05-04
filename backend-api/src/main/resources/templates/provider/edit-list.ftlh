@@ -12,28 +12,44 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
-            <div class="d-flex align-items-center gap-3 nav-buttons">
+            <a class="navbar-brand fw-bold" href="/">
+                AccessAble
+            </a>
+
+            <div class="d-flex align-items-center gap-3">
 
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
 
-                <#if provider??>
+                <#if isLoggedIn?? && isLoggedIn>
+
+                    <a class="nav-link text-white" href="/provider/current-cust">
+                        View Customers
+                    </a>
+
                     <form action="/logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">
                             Logout
                         </button>
                     </form>
+
                     <#else>
-                        <a class="btn btn-outline-light" href="/provider/login">Login</a>
-                        <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
+
+                        <a class="btn btn-outline-light" href="/provider/login">
+                            Login
+                        </a>
+
+                        <a class="btn btn-primary" href="/provider/sign-up">
+                            Sign Up
+                        </a>
+
                 </#if>
 
             </div>
+
         </div>
     </nav>
-
     <div class="container py-5">
         <h2 class="text-center mb-4">Edit Listing</h2>
 

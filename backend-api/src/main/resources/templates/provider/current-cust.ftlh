@@ -18,20 +18,29 @@
                 AccessAble
             </a>
 
-            <div class="d-flex align-items-center gap-3 nav-buttons">
+            <div class="d-flex align-items-center gap-3">
 
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
 
-                <#if provider??>
+                <#if isLoggedIn?? && isLoggedIn>
+
                     <form action="/logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">
                             Logout
                         </button>
                     </form>
+
                     <#else>
-                        <a class="btn btn-outline-light" href="/provider/login">Login</a>
-                        <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
+
+                        <a class="btn btn-outline-light" href="/provider/login">
+                            Login
+                        </a>
+
+                        <a class="btn btn-primary" href="/provider/sign-up">
+                            Sign Up
+                        </a>
+
                 </#if>
 
             </div>
@@ -60,30 +69,51 @@
 
                         <tbody>
 
-                            <#if customers?? && (customers?size> 0)>
-                                <#list customers as customer>
+                            <#if bookings?? && (bookings?size> 0)>
+
+                                <#list bookings as booking>
+
                                     <tr>
-                                        <td>${customer.firstName} ${customer.lastName}</td>
-                                        <td>${customer.email}</td>
+
+                                        <td>${booking.customer.firstName!''} ${booking.customer.lastName!''}</td>
+
+                                        <td>${booking.customer.email!''}</td>
+
+                                        <td>${booking.listing.listingName!"No Service"}</td>
+
                                         <td>
-                                            <#if customer.listings?? && (customer.listings?size> 0)>
-                                                ${customer.listings[0].title!"No Service"}
-                                                <#else>
-                                                    No Service
-                                            </#if>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success">Active</span>
-                                        </td>
-                                    </tr>
-                                </#list>
-                                <#else>
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted">
-                                            No customers found.
-                                        </td>
-                                    </tr>
-                            </#if>
+
+                                            <form action="/provider/booking/update/${booking.bookingId}" method="post">
+                                                <select name="status" class="form-select form-select-sm"
+                                                    onchange="this.form.submit()">
+
+                                                    <option value="ACTIVE" <#if booking.status=="ACTIVE">selected
+                            </#if>>Active</option>
+
+                            <option value="PAUSED" <#if booking.status=="PAUSED">selected</#if>>Paused</option>
+
+                            <option value="COMPLETED" <#if booking.status=="COMPLETED">selected</#if>>Completed</option>
+
+                            <option value="CANCELLED" <#if booking.status=="CANCELLED">selected</#if>>Cancelled</option>
+
+                            </select>
+                            </form>
+
+                            </td>
+
+                            </tr>
+
+                            </#list>
+
+                            <#else>
+
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">
+                                        No bookings found.
+                                    </td>
+                                </tr>
+
+                                </#if>
 
                         </tbody>
 
