@@ -13,68 +13,55 @@
 
 
   <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
+    <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="/">
-                AccessAble
-            </a>
+      <a class="navbar-brand fw-bold" href="/">
+        AccessAble
+      </a>
 
 
-            <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="/provider/account">Account</a>
-                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
+      <div class="d-flex align-items-center gap-3 nav-buttons">
+        <a class="nav-link text-white" href="/provider/account">Account</a>
+        <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+        <a class="btn btn-outline-light" href="/login">Login</a>
         <a class="btn btn-primary" href="/sign-up">Sign Up</a>
-            </div>
+      </div>
 
-        </div>
-    </nav>
+    </div>
+  </nav>
 
   <div class="flex-grow-1">
     <div class="container d-flex justify-content-center align-items-center py-5">
       <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
         <h3 class="text-center mb-4">Create Provider Account</h3>
 
-        <form>
+        <form action="/provider/signup" method="post">
+
           <div class="mb-3">
             <label class="form-label">First Name</label>
-            <input type="text" class="form-control" placeholder="Enter first name">
+            <input type="text" name="firstName" class="form-control">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Last Name</label>
-            <input type="text" class="form-control" placeholder="Enter last name">
+            <input type="text" name="lastName" class="form-control">
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" placeholder="Enter email">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="Create password">
+            <input type="password" name="password" class="form-control">
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" placeholder="Confirm password">
-          </div>
-
-          <a href="login.html" class="btn btn-primary w-100 mb-3">
+          <button type="submit" class="btn btn-primary w-100 mb-3">
             Sign Up
-          </a>
-          <div class="text-center">
-            <small>Are you a customer? Sign up
-              <a href="../customer/sign-up.html">here.</a>
-            </small>
-          </div>
-          <div class="text-center">
-            <small>Already have an account?
-              <a href="login.html">Login</a>
-            </small>
-          </div>
+          </button>
+
         </form>
       </div>
     </div>

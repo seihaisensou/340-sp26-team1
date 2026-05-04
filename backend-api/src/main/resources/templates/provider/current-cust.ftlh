@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <title>Current Customers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,21 +11,18 @@
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
-
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
-
 
             <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
-
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
-        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
+                <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
 
         </div>
@@ -41,6 +37,7 @@
 
                 <div class="table-responsive">
                     <table class="table align-middle">
+
                         <thead class="table-light">
                             <tr>
                                 <th>Name</th>
@@ -51,27 +48,34 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>John Smith</td>
-                                <td>jsmith@email.com</td>
-                                <td>Online Professional Spanish Translator</td>
-                                <td><span class="badge bg-success">Active</span></td>
-                            </tr>
 
-                            <tr>
-                                <td>Jane Doe</td>
-                                <td>jdoe@email.com</td>
-                                <td>In-Person Professional Spanish Translator</td>
-                                <td><span class="badge bg-warning text-dark">Pending</span></td>
-                            </tr>
+                            <#if customers?? && (customers?size> 0)>
+                                <#list customers as customer>
+                                    <tr>
+                                        <td>${customer.firstName} ${customer.lastName}</td>
+                                        <td>${customer.email}</td>
+                                        <td>
+                                            <#if customer.listings?? && (customer.listings?size> 0)>
+                                                ${customer.listings[0].title!"No Service"}
+                                                <#else>
+                                                    No Service
+                                            </#if>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success">Active</span>
+                                        </td>
+                                    </tr>
+                                </#list>
+                                <#else>
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">
+                                            No customers found.
+                                        </td>
+                                    </tr>
+                            </#if>
 
-                            <tr>
-                                <td>Company Name</td>
-                                <td>company@email.com</td>
-                                <td>Online Professional Spanish Translator</td>
-                                <td><span class="badge bg-danger">Completed</span></td>
-                            </tr>
                         </tbody>
+
                     </table>
                 </div>
 
@@ -79,9 +83,11 @@
 
         </div>
     </div>
+
     <footer class="bg-dark text-white text-center py-4">
         <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
     </footer>
+
 </body>
 
 </html>

@@ -6,4 +6,5 @@ import com.csc340.AccessAble.Entities.Provider;
 
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
 
+    Provider findByEmail(String email);
 }

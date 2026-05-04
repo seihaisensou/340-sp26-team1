@@ -35,6 +35,11 @@ public class ProviderUIController {
         return "provider/my-listings";
     }
 
+    @GetMapping("/account")
+    public String accountPage() {
+        return "provider/account";
+    }
+
     @GetMapping("/edit/{id}")
     public String showEditPage(@PathVariable Long id, Model model) {
 
@@ -57,8 +62,5 @@ public class ProviderUIController {
         return "redirect:/provider/my-listings";
     }
 
-    @GetMapping("/test")
-public String test() {
-    return "test";
-}
+
 }
