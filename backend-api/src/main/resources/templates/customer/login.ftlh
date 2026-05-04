@@ -21,10 +21,10 @@
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="../provider/index.html">Home</a>
-                <a class="nav-link text-white" href="../customer/listings.html">Listings</a>
-                <a class="btn btn-outline-light" href="login.html">Login</a>
-                <a class="btn btn-primary" href="sign-up.html">Sign Up</a>
+                <a class="nav-link text-white" href="/provider/index.html">Home</a>
+                <a class="nav-link text-white" href="/customer/listings">Listings</a>
+                <a class="btn btn-outline-light" href="/customer/login">Login</a>
+                <a class="btn btn-primary" href="/customer/sign-up">Sign Up</a>
             </div>
 
         </div>
@@ -36,25 +36,25 @@
             <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
                 <h3 class="text-center mb-4">Customer Login</h3>
 
-                <p class="text-center mb-4">If you are a service provider, login <a class href="../provider/login.html">here.</a></p>
+                <p class="text-center mb-4">If you are a service provider, login <a href="../provider/login.html">here.</a></p>
 
-                <form>
+                <form action="/login" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
-                        <input type="email" class="form-control" placeholder="Enter email">
+                        <input type="email" name="username" class="form-control" placeholder="Enter email">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="Enter password">
+                        <input type="password" name="password" class="form-control" placeholder="Enter password">
                     </div>
-                    <a href="account.html" class="btn btn-primary w-100 mb-3">
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
                         Login
-                    </a>
+                    </button>
 
                     <div class="text-center">
                         <small>Don't have an account?
-                            <a href="sign-up.html">Sign Up</a>
+                            <a href="/customer/sign-up">Sign Up</a>
                         </small>
                     </div>
                 </form>

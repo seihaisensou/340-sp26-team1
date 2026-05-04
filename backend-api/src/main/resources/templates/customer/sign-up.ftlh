@@ -23,8 +23,8 @@
 
       <div class="d-flex align-items-center gap-3 nav-buttons">
         <a class="nav-link text-white" href="../provider/index.html">Home</a>
-        <a class="nav-link text-white" href="../customer/listings.html">Listings</a>
-        <a class="btn btn-outline-light" href="login.html">Login</a>
+        <a class="nav-link text-white" href="/customer/listings">Listings</a>
+        <a class="btn btn-outline-light" href="/customer/login">Login</a>
         <a class="btn btn-primary" href="sign-up.html">Sign Up</a>
       </div>
 
@@ -36,35 +36,30 @@
       <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
         <h3 class="text-center mb-4">Create Customer Account</h3>
 
-        <form>
+        <form action="/customer/sign-up/success" method="post">
           <div class="mb-3">
             <label class="form-label">First Name</label>
-            <input type="text" class="form-control" placeholder="Enter first name">
+            <input type="text" name="firstName" class="form-control" placeholder="Enter first name">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Last Name</label>
-            <input type="text" class="form-control" placeholder="Enter last name">
+            <input type="text" name="lastName" class="form-control" placeholder="Enter last name">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Email address</label>
-            <input type="email" class="form-control" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" placeholder="Enter email">
           </div>
 
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="Create password">
-          </div>
+            <input type="password" name="password" class="form-control" placeholder="Create password">
+          </div>          
 
-          <div class="mb-3">
-            <label class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" placeholder="Confirm password">
-          </div>
-
-          <a href="login.html" class="btn btn-primary w-100 mb-3">
+          <button type="submit" class="btn btn-primary w-100 mb-3">
             Sign Up
-          </a>
+          </button>
           <div class="text-center">
             <small>Are you a provider? Sign up
               <a href="../provider/sign-up.html">here.</a>
@@ -72,7 +67,7 @@
           </div>
           <div class="text-center">
             <small>Already have an account?
-              <a href="login.html">Login</a>
+              <a href="/customer/login">Login</a>
             </small>
           </div>
         </form>

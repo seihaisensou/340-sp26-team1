@@ -22,16 +22,28 @@ public class CustomerUIController {
     private ReviewService reviewService;
     @Autowired
     private FavoritesService favoritesService;
+    @Autowired
+    private CustomerService customerService;
 
-    @GetMapping("/signup")
-    public String signUp() {
+    @GetMapping("/sign-up")
+    public String signUp() { // NTD
         return "customer/sign-up";
     }
 
-    @PostMapping("/signup/success")
-    public String newSignup(Listing listing) {
-        listingService.saveListing(listing);
-        return "redirect:/customer/account";
+    @PostMapping("/sign-up/success") // NTD
+    public String newSignup(Customer customer) {
+        Customer newCustomer = customerService.createCustomer(customer);
+        return "redirect:/customer/login";
+    }
+
+    @GetMapping("/login") // NTD
+    public String showLogin() {
+        return "customer/login";
+    }
+
+    @GetMapping("/account") // NTD
+    public String showAccount(Model model) {
+        return "customer/account";
     }
 
     @GetMapping("/listings")
@@ -40,13 +52,13 @@ public class CustomerUIController {
         return "customer/listings";
     }
 
-    @GetMapping("/favorites")
+    @GetMapping("/favorites") // NTD
     public String showFavorites(Model model) {
         model.addAttribute("favorites", favoritesService.getFavoritesByCustomerId((long)4));
         return "customer/favoritelistings";
     }
 
-    @GetMapping("/listing/{id}")
+    @GetMapping("/listing/{id}") 
     public String showListing(@PathVariable Long id, Model model) {
 
         Listing listing = listingService.getListingById(id)
@@ -77,7 +89,7 @@ public class CustomerUIController {
     
     public String writeReview(Review review, @PathVariable Long id) {
     
-    Review newReview = reviewService.createReview(review, 5, id);
+    Review newReview = reviewService.createReview(review, 6, id);
     if (review != null) {     
       return "redirect:/customer/listing/" + newReview.getListing().getListingId();
     } 
@@ -86,7 +98,13 @@ public class CustomerUIController {
         }
     }
 
-    @PostMapping("listing/{id}/favorite")
+    @GetMapping("/my-reviews") // NTD
+    public String showMyReviews(Model model) {
+        model.addAttribute("reviews", reviewService.getReviewsByCustomer((long)5));
+        return "customer/userreviews";
+    }
+
+    @PostMapping("listing/{id}/favorite") // NTD
     
     public String favoriteListing(@PathVariable Long id, Favorites favorite) {
     

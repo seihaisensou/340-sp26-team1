@@ -23,7 +23,7 @@
             <div class="d-flex align-items-center gap-3 nav-buttons">
                <a class="nav-link text-white" href="/customer/account">Account</a>
                 <a class="nav-link text-white" href="/customer/listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Logout</a>
+                <a class="btn btn-outline-light" href="/customer/login">Logout</a>
             </div>
 
         </div>
@@ -43,12 +43,12 @@
                     <form id="new-review" action="${listing.listingId}" method="post" enctype="multipart/form-data">
                     <textarea id= "comment" name="comment" class="form-control mb-2" rows="1" placeholder="Write your review..."></textarea>
                     <select name="rating" id="rating">
-                        <option value="5">5 stars</option>
-                        <option value="4">4 stars</option>
-                        <option value="3">3 stars</option>
-                        <option value="2">2 stars</option>
-                        <option value="1">1 stars</option>
-                    </select>
+                        <option value="5">★★★★★</option>
+                        <option value="4">★★★★</option>
+                        <option value="3">★★★</option>
+                        <option value="2">★★</option>
+                        <option value="1">★</option>
+                    </select></right>
 
                     <br><br> 
                     <button type="submit" class="btn btn-primary">Post Review</button></form>

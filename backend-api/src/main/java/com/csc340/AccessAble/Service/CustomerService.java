@@ -3,6 +3,7 @@ package com.csc340.AccessAble.Service;
 import com.csc340.AccessAble.Entities.Customer;
 import com.csc340.AccessAble.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,12 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Customer createCustomer(Customer customer) {
         customer.setRole("CUSTOMER");
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customerRepository.save(customer);
     }
 
