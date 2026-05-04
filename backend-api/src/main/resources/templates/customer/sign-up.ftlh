@@ -25,7 +25,6 @@
         <a class="nav-link text-white" href="../provider/index.html">Home</a>
         <a class="nav-link text-white" href="/customer/listings">Listings</a>
         <a class="btn btn-outline-light" href="/customer/login">Login</a>
-        <a class="btn btn-primary" href="sign-up.html">Sign Up</a>
       </div>
 
     </div>

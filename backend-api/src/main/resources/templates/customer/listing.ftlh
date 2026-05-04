@@ -20,7 +20,13 @@
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <a class="nav-link text-white" href="/customer/account">Account</a>
                 <a class="nav-link text-white" href="/customer/listings">Listings</a>
-                <a class="btn btn-outline-light" href="/customer/login">Logout</a>
+                <#if Session.SPRING_SECURITY_CONTEXT??>
+                <a class="btn btn-outline-light" href="/logout">Logout</a>
+                </#if>
+                <#if !Session.SPRING_SECURITY_CONTEXT??>
+                <a class="btn btn-outline-light" href="/customer/login">Login</a>
+                <a class="btn btn-primary" href="/customer/sign-up">Sign Up</a>
+                </#if>
             </div>
 
         </div>
