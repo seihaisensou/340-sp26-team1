@@ -2,7 +2,6 @@ package com.csc340.AccessAble.Service;
 
 import com.csc340.AccessAble.Entities.*;
 import com.csc340.AccessAble.Repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,23 +9,29 @@ import java.util.Optional;
 
 @Service
 public class BookingService {
-    
-    @Autowired
+
     private final BookingRepository bookingRepository;
     private final ListingRepository listingRepository;
     private final CustomerRepository customerRepository;
     private final ProviderRepository providerRepository;
 
-    public BookingService(ListingRepository listingRepository, BookingRepository bookingRepository, CustomerRepository customerRepository, ProviderRepository providerRepository) {
-        this.listingRepository = listingRepository;
+    public BookingService(
+            BookingRepository bookingRepository,
+            ListingRepository listingRepository,
+            CustomerRepository customerRepository,
+            ProviderRepository providerRepository) {
+
         this.bookingRepository = bookingRepository;
+        this.listingRepository = listingRepository;
         this.customerRepository = customerRepository;
         this.providerRepository = providerRepository;
     }
-    
+
     public Booking createBooking(Booking booking, long customerId, long listingId) {
+
         Listing listing = listingRepository.findById(listingId)
                 .orElseThrow(() -> new RuntimeException("Listing not found"));
+
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
@@ -46,18 +51,17 @@ public class BookingService {
         customerRepository.save(customer);
         providerRepository.save(provider);
 
-
         return bookingRepository.save(booking);
     }
-    
+
     public Optional<Booking> getBookingById(Long id) {
         return bookingRepository.findById(id);
     }
-    
+
     public List<Booking> getAllBooking() {
         return bookingRepository.findAll();
     }
-    
+
     public List<Booking> getBookingByCustomerId(Long customerId) {
         return bookingRepository.findByCustomerId(customerId);
     }
@@ -68,7 +72,7 @@ public class BookingService {
             return bookingRepository.save(booking);
         }).orElseThrow(() -> new RuntimeException("Booking not found"));
     }
-    
+
     public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
     }

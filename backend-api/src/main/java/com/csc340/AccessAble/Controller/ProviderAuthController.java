@@ -1,11 +1,11 @@
 package com.csc340.AccessAble.Controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.csc340.AccessAble.Entities.Provider;
 
@@ -17,9 +17,12 @@ public class ProviderAuthController {
 
     private final ProviderService providerService;
 
-    public ProviderAuthController(ProviderService providerService) {
-        this.providerService = providerService;
-    }
+    private final PasswordEncoder passwordEncoder;
+
+public ProviderAuthController(ProviderService providerService, PasswordEncoder passwordEncoder) {
+    this.providerService = providerService;
+    this.passwordEncoder = passwordEncoder;
+}
 
     @GetMapping("/sign-up")
     public String showSignup() {
@@ -31,7 +34,7 @@ public class ProviderAuthController {
         return "provider/login";
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public String signup(@RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam String email,
@@ -41,7 +44,7 @@ public class ProviderAuthController {
         provider.setFirstName(firstName);
         provider.setLastName(lastName);
         provider.setEmail(email);
-        provider.setPassword(password);
+        provider.setPassword(passwordEncoder.encode(password));
         provider.setRole("PROVIDER");
 
         providerService.createProvider(provider);
@@ -49,18 +52,4 @@ public class ProviderAuthController {
         return "redirect:/provider/login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String email,
-            @RequestParam String password,
-            Model model) {
-
-        Provider provider = providerService.login(email, password);
-
-        if (provider == null) {
-            model.addAttribute("error", "Invalid Login");
-            return "provider/login";
-        }
-
-        return "redirect:/provider/account";
-    }
 }

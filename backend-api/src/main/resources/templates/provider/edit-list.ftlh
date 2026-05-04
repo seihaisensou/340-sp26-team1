@@ -14,9 +14,22 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
-            <div class="d-flex gap-3">
+            <div class="d-flex align-items-center gap-3 nav-buttons">
+
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+
+                <#if provider??>
+                    <form action="/logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">
+                            Logout
+                        </button>
+                    </form>
+                    <#else>
+                        <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                        <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
+                </#if>
+
             </div>
         </div>
     </nav>

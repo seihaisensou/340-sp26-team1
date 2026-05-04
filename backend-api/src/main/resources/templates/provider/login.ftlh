@@ -21,12 +21,22 @@
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
+
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/provider/login">Login</a>
-                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
-            </div>
 
+                <#if provider??>
+                    <form action="/logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">
+                            Logout
+                        </button>
+                    </form>
+                    <#else>
+                        <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                        <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
+                </#if>
+
+            </div>
         </div>
     </nav>
 
@@ -62,8 +72,8 @@
 
                     <div class="text-center">
                         <p class="text-center mb-4">Don't have an account?
-                    <a class href="/provider/sign-up">Sign up!</a>
-                </p>
+                            <a class href="/provider/sign-up">Sign up!</a>
+                        </p>
                     </div>
                 </form>
             </div>

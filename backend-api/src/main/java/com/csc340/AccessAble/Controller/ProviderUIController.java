@@ -1,22 +1,27 @@
 package com.csc340.AccessAble.Controller;
 
 import com.csc340.AccessAble.Entities.Listing;
+import com.csc340.AccessAble.Entities.Provider;
+import com.csc340.AccessAble.Repository.ProviderRepository;
 import com.csc340.AccessAble.Service.ListingService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/provider")
 public class ProviderUIController {
 
-    @Autowired
-    private ListingService listingService;
+    private final ListingService listingService;
+    private final ProviderRepository providerRepository;
+
+    public ProviderUIController(ListingService listingService, ProviderRepository providerRepository) {
+        this.listingService = listingService;
+        this.providerRepository = providerRepository;
+    }
 
     @GetMapping("/create")
     public String showCreatePage() {
@@ -36,7 +41,14 @@ public class ProviderUIController {
     }
 
     @GetMapping("/account")
-    public String accountPage() {
+    public String accountPage(Model model, Principal principal) {
+
+        String email = principal.getName();
+
+        Provider provider = providerRepository.findByEmail(email);
+
+        model.addAttribute("provider", provider);
+
         return "provider/account";
     }
 
@@ -61,6 +73,4 @@ public class ProviderUIController {
         listingService.deleteListing(id);
         return "redirect:/provider/my-listings";
     }
-
-
 }

@@ -2,43 +2,48 @@ package com.csc340.AccessAble.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-
-import jakarta.servlet.DispatcherType;
 
 @Configuration
 public class SecurityConfig {
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/provider/login", "/provider/sign-up", "/css/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/index",
+                                "/home",
+                                "/provider/sign-up",
+                                "/provider/signup",
+                                "/provider/login",
+                                "/css/**",
+                                "/images/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/provider/login")
+                        .loginProcessingUrl("/provider/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/provider/account", true)
+                        .failureUrl("/provider/login?error=true")
                         .permitAll())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/")
-                        .permitAll());
-
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/provider/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
         return http.build();
     }
 }
