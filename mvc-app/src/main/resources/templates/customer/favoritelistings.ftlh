@@ -16,7 +16,7 @@
     <div class="container">
 
 
-      <a class="navbar-brand fw-bold" href="../provider/index.html">
+      <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
@@ -24,7 +24,7 @@
       <div class="d-flex align-items-center gap-3 nav-buttons">
         <a class="nav-link text-white" href="/customer/account">Account</a>
         <a class="nav-link text-white" href="/customer/listings">Listings</a>
-        <a class="btn btn-outline-light" href="/logout">Logout</a>
+        <a class="btn btn-outline-light" href="/customer/logout">Logout</a>
       </div>
 
     </div>

@@ -12,18 +12,22 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
+            <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <#if Session.SPRING_SECURITY_CONTEXT??>
+                <#if isCustomer>
                 <a class="nav-link text-white" href="/customer/account">Account</a>
+                <#elseif isProvider>
+                <a class="nav-link text-white" href="/provider/account">Account</a>
+                </#if>
                 </#if>
                 <a class="nav-link text-white" href="/customer/listings">Listings</a>
                 <#if Session.SPRING_SECURITY_CONTEXT??>
-                <a class="btn btn-outline-light" href="/logout">Logout</a>
+                <a class="btn btn-outline-light" href="/customer/logout">Logout</a>
                 </#if>
                 <#if !Session.SPRING_SECURITY_CONTEXT??>
                 <a class="btn btn-outline-light" href="/customer/login">Login</a>
@@ -62,16 +66,18 @@
                     <p>
                         ${listing.detailedDescription!""}
                     </p>
+                    <#if isCustomer>
                     <form action="/customer/listing/${listing.listingId}/book" method="post">
                     <button class="btn btn-primary mt-3">Book Service</button></form>
                     <form action="/customer/listing/${listing.listingId}/favorite" method="post">
                     <button class="btn btn-success mt-3">Favorite Service</button></form>
+                    </#if>
 
                     <hr>
 
                     <h5>Reviews</h5>
 
-                    <a href="/customer/listing/writereview/${listing.listingId}"><button class="btn btn-primary mt-3">Write review</button></a>
+                    <#if isCustomer><a href="/customer/listing/writereview/${listing.listingId}"><button class="btn btn-primary mt-3">Write review</button></a></#if>
 
                     <p></p>
 

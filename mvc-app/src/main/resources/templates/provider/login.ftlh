@@ -14,9 +14,10 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
-            <div class="d-flex gap-3">
-                <a class="nav-link text-white" href="/provider/login">Login</a>
-                <a class="nav-link text-white" href="/provider/sign-up">Sign Up</a>
+            <div class="d-flex align-items-center gap-3 nav-buttons">
+                <a class="nav-link text-white" href="/provider/home">Home</a>
+                <a class="nav-link text-white" href="/customer/listings">Listings</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
         </div>
     </nav>
@@ -57,6 +58,7 @@
 
         </div>
     </div>
+</div>
 
 </body>
 

@@ -14,6 +14,7 @@ public class providerChain {
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
                 http
+                                .securityMatcher("/provider/**")
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers(
@@ -29,14 +30,14 @@ public class providerChain {
                                                 .anyRequest().authenticated())
                                 .formLogin(form -> form
                                                 .loginPage("/provider/login")
-                                                .loginProcessingUrl("/perform_login")
+                                                .loginProcessingUrl("/provider/login/perform_login")
                                                 .usernameParameter("email")
                                                 .passwordParameter("password")
                                                 .defaultSuccessUrl("/provider/account", true)
                                                 .failureUrl("/provider/login?error=true")
                                                 .permitAll())
                                 .logout(logout -> logout
-                                                .logoutUrl("/logout")
+                                                .logoutUrl("/provider/logout")
                                                 .logoutSuccessUrl("/provider/login")
                                                 .invalidateHttpSession(true)
                                                 .deleteCookies("JSESSIONID"));

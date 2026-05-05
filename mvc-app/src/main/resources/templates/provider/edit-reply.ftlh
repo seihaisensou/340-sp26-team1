@@ -21,9 +21,9 @@
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
-               <a class="nav-link text-white" href="/customer/account">Account</a>
-                <a class="nav-link text-white" href="/customer/listings">Listings</a>
-                <a class="btn btn-outline-light" href="/customer/logout">Logout</a>
+               <a class="nav-link text-white" href="/provider/account">Account</a>
+                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+                <a class="btn btn-outline-light" href="/provider/logout">Logout</a>
             </div>
 
         </div>
@@ -33,8 +33,8 @@
         <div class="container py-5">
 
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Edit your review</h2>
-                <p class="text-muted">Revise your review of the listing.</p>                
+                <h2 class="fw-bold">Edit your reply</h2>
+                <p class="text-muted">Revise your reply to the review.</p>                
             </div>
 
             <div class="card shadow-sm h-100 position-relative listing-card">
@@ -75,21 +75,17 @@
                     <p class="mt-2">
                     ${review.comment}
                 </p>
+
+                <div class="alert alert-secondary mt-3">
+                    <strong>Your reply:</strong> ${review.reply}
+                </div>
             </div>
 
             <div class="card shadow-sm p-4 mb-4">
 
                 <div class="mt-3">
-                    <form id="edit-review" action="/customer/userreviews/editreview/${review.reviewId}/" method="post">
-                    <textarea id= "comment" name="comment" class="form-control mb-2" rows="1" placeholder="Edit your review..."></textarea>
-                    <select name="rating" id="rating">
-                        <option value="5">★★★★★</option>
-                        <option value="4">★★★★</option>
-                        <option value="3">★★★</option>
-                        <option value="2">★★</option>
-                        <option value="1">★</option>
-                    </select></right>
-
+                    <form id="edit-review" action="/provider/reviews/editreply/${review.reviewId}/" method="post">
+                    <textarea id= "reply" name="reply" class="form-control mb-2" rows="1" placeholder="Edit your reply..."></textarea>
                     <br><br> 
                     <button type="submit" class="btn btn-primary">Post Review</button></form>
                 </div>

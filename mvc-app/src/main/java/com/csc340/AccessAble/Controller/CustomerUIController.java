@@ -1,7 +1,7 @@
 package com.csc340.AccessAble.Controller;
 
 import com.csc340.AccessAble.Entities.*;
-import com.csc340.AccessAble.Repository.CustomerRepository;
+import com.csc340.AccessAble.Repository.*;
 import com.csc340.AccessAble.Service.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,8 @@ public class CustomerUIController {
     private CustomerRepository customerRepository;
     @Autowired
     private BookingService bookingService;
+    @Autowired
+    private ProviderRepository providerRepository;
 
     @GetMapping("/403")
     public String wrongWay() { 
@@ -76,20 +78,54 @@ public class CustomerUIController {
     
 
     @GetMapping("/listings")
-    public String showListings(Model model) {
+    public String showListings(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
+        if(userDetails != null){
+            Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+            Provider provider = providerRepository.findByEmail(userDetails.getUsername());
+            if(customer != null){
+                model.addAttribute("isCustomer", true);
+                model.addAttribute("isProvider", false);
+            }
+            else if(provider != null){
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", true);
+            }
+            else{
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", false);
+            }
+        }
         model.addAttribute("reviews", reviewService);
         model.addAttribute("listings", listingService.getAllListings());
         return "customer/listings";
     }
 
     @GetMapping("/listings/search")
-    public String showListings(@RequestParam String search, Model model) {
+    public String showListings(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @RequestParam String search, Model model) {
         List<Listing> listing = listingService.getListingByDescription(search);
         listing.sort((l1, l2) -> {
         double first = reviewService.getAverageRating(l1.getListingId());
         double second = reviewService.getAverageRating(l2.getListingId());
         return Double.compare(second, first); 
             });
+        
+        if(userDetails != null){
+            Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+            Provider provider = providerRepository.findByEmail(userDetails.getUsername());
+            if(customer != null){
+                model.addAttribute("isCustomer", true);
+                model.addAttribute("isProvider", false);
+            }
+            else if(provider != null){
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", true);
+            }
+            else{
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", false);
+            }
+        }    
+
         model.addAttribute("reviews", reviewService);
         model.addAttribute("listings", listing);
         return "customer/listings";
@@ -106,10 +142,27 @@ public class CustomerUIController {
     }
 
     @GetMapping("/listing/{id}") 
-    public String showListing(@PathVariable Long id, Model model) {
+    public String showListing(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @PathVariable Long id, Model model) {
 
         Listing listing = listingService.getListingById(id)
                 .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+
+        if(userDetails != null){
+            Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+            Provider provider = providerRepository.findByEmail(userDetails.getUsername());
+            if(customer != null){
+                model.addAttribute("isCustomer", true);
+                model.addAttribute("isProvider", false);
+            }
+            else if(provider != null){
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", true);
+            }
+            else{
+                model.addAttribute("isCustomer", false);
+                model.addAttribute("isProvider", false);
+            }
+        }        
         model.addAttribute("listing", listing);
         model.addAttribute("reviews", reviewService.getReviewsByListingId(id));
 

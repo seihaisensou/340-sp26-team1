@@ -28,7 +28,7 @@
                         View Customers
                     </a>
 
-                    <form action="/logout" method="post" class="d-inline">
+                    <form action="/provider/logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">
                             Logout
                         </button>
@@ -50,41 +50,40 @@
 
         </div>
     </nav>
-
-    <#list reviews as review>
+    <div class="flex-grow-1">    
+    <div class="container py-5">
+        <#list reviews as review>
         <div class="card shadow-sm p-4 mb-4">
-
             <div class="d-flex justify-content-between">
                 <h6 class="fw-bold">
                     ${review.customer.firstName} ${review.customer.lastName}
                 </h6>
-
                 <span class="text-warning">
-                    ${review.rating} ★
+                   <#if (review.rating==5)>★★★★★<#elseif (review.rating==4)>★★★★<#elseif (review.rating==3)>★★★<#elseif (review.rating==2)>★★ <#else>★</#if>
                 </span>
             </div>
-
             <p class="mt-2">${review.comment}</p>
-
             <#if review.reply??>
                 <div class="alert alert-secondary mt-3">
                     <strong>Your reply:</strong> ${review.reply}
                 </div>
+                <a href="reviews/editreply/${review.reviewId}" class="btn btn-sm btn-primary">
+                        Edit Reply
+                </a>
+
                 <#else>
                     <form action="/provider/review/reply/${review.reviewId}" method="post" class="mt-3">
-
                         <textarea name="reply" class="form-control mb-2" placeholder="Write your response..."
                             rows="2"></textarea>
 
                         <button type="submit" class="btn btn-sm btn-primary">
                             Post Reply
                         </button>
-
                     </form>
             </#if>
 
         </div>
-    </#list>
+    </#list></div></div>
 
     <footer class="bg-dark text-white text-center py-4">
         <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>

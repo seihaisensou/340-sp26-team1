@@ -25,7 +25,7 @@
 
                 <#if isLoggedIn?? && isLoggedIn>
 
-                    <form action="/logout" method="post" class="d-inline">
+                    <form action="/provider/logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">
                             Logout
                         </button>

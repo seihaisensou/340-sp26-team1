@@ -16,13 +16,13 @@
     <div class="container">
 
 
-      <a class="navbar-brand fw-bold" href="../provider/index.html">
+      <a class="navbar-brand fw-bold" href="/">
         AccessAble
       </a>
 
 
       <div class="d-flex align-items-center gap-3 nav-buttons">
-        <a class="nav-link text-white" href="../provider/index.html">Home</a>
+        <a class="nav-link text-white" href="../provider/home">Home</a>
         <a class="nav-link text-white" href="/customer/listings">Listings</a>
         <a class="btn btn-outline-light" href="/customer/login">Login</a>
       </div>
@@ -61,7 +61,7 @@
           </button>
           <div class="text-center">
             <small>Are you a provider? Sign up
-              <a href="../provider/sign-up.html">here.</a>
+              <a href="../provider/sign-up">here.</a>
             </small>
           </div>
           <div class="text-center">
