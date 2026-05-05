@@ -180,7 +180,7 @@ public class ProviderUIController {
         booking.setStatus(status);
         bookingService.updateBooking(id, booking);
 
-        return "redirect:/provider/customers";
+        return "redirect:/provider/current-cust";
     }
 
     @GetMapping("/current-cust")
