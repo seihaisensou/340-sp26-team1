@@ -41,7 +41,7 @@ public class SecurityConfig {
           .loginPage("/customer/login")
           .loginProcessingUrl("/login")
           .failureUrl("/customer/login?error=true")
-          .defaultSuccessUrl("/customer/account")     
+          .defaultSuccessUrl("/customer/account", true)     
           .permitAll()   
         )
         .exceptionHandling((x) -> x.accessDeniedPage("/403"))
