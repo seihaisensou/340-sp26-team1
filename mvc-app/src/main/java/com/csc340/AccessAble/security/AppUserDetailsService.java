@@ -18,18 +18,31 @@ public class AppUserDetailsService implements UserDetailsService {
 
   @Autowired
   private CustomerRepository customerRepository;
+  @Autowired
+  private ProviderRepository providerRepository;
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Customer customer = customerRepository.findByEmail(email);
+    Provider provider = providerRepository.findByEmail(email);
 
-     if (customer == null) {
-      throw new UsernameNotFoundException("User not found with email: " + email);
+     if (customer != null) {
+      ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
+      authList.add(new SimpleGrantedAuthority(customer.getRole()));
+      return new org.springframework.security.core.userdetails.User(
+      customer.getEmail(), customer.getPassword(), authList);   
     }
 
-    ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
-    authList.add(new SimpleGrantedAuthority(customer.getRole()));
-    return new org.springframework.security.core.userdetails.User(
-    customer.getEmail(), customer.getPassword(), authList);   
+    else if(provider != null){
+      ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
+      authList.add(new SimpleGrantedAuthority(provider.getRole()));
+      return new org.springframework.security.core.userdetails.User(
+      provider.getEmail(), provider.getPassword(), authList);
+    }
+    
+    else{
+      throw new UsernameNotFoundException("User not found with email: " + email);
+    }
+    
   }
 }

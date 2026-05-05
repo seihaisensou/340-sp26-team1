@@ -3,6 +3,7 @@ package com.csc340.AccessAble.security;
 import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,15 +18,17 @@ import jakarta.servlet.DispatcherType;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class customerChain {
   private AppUserDetailsService customUserDetailsService;
 
   @Bean
+  @Order(1)
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
     requestCache.setMatchingRequestParameterName(null);
     http
+        .securityMatcher("/customer/**")
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests((authorize) -> authorize
             .dispatcherTypeMatchers(DispatcherType.FORWARD,

@@ -17,13 +17,13 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @PostMapping                                                                 //post
+    @PostMapping                                                                 
     public ResponseEntity<Provider> createProvider(@RequestBody Provider provider) { 
         Provider created = providerService.createProvider(provider);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
-    @GetMapping                                                                 //get
+    @GetMapping                                                                 
     public ResponseEntity<List<Provider>> getAllProviders() {
         return new ResponseEntity<>(providerService.getAllProviders(), HttpStatus.OK);
     }
@@ -42,7 +42,7 @@ public class ProviderController {
                 providerService.getCustomersByProvider(providerId));
     }
 
-    @PutMapping("/{id}")                                                //put
+    @PutMapping("/{id}")                                                
     public ResponseEntity<Provider> updateProvider(@PathVariable Long id,
             @RequestBody Provider providerDetails) {
         try {

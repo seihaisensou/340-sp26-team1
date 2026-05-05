@@ -18,6 +18,14 @@ public class ProviderService {
         this.customerRepository = customerRepository;
     }
 
+    public Provider saveProvider(Provider provider) {
+        return providerRepository.save(provider);
+    }
+
+    public Provider findByEmail(String email) {
+        return providerRepository.findByEmail(email);
+    }
+
     public Provider createProvider(Provider provider) {
         provider.setRole("PROVIDER");
         return providerRepository.save(provider);

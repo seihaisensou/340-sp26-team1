@@ -49,6 +49,7 @@ public class ReviewService {
         return reviewRepository.findByProviderId(providerId);
     }
 
+
     public List<Review> getReviewsByCustomer(Long customerId) {
         return reviewRepository.findByCustomerId(customerId);
     }
@@ -56,8 +57,6 @@ public class ReviewService {
     public List<Review> getReviewsByListingId(Long listingId) {
         return reviewRepository.findByListing_ListingId(listingId);
     }
-
-    
 
     public double getAverageRating(Long listingId) {
         List<Review> reviews = reviewRepository.findByListing_ListingId(listingId);

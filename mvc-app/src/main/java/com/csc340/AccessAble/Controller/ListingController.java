@@ -40,6 +40,22 @@ public class ListingController {
     }
 
     @GetMapping("/{id}")
+    public ResponseEntity<Listing> getById(@PathVariable Long id) {
+        return listingService.getListingById(id)
+                .map(l -> new ResponseEntity<>(l, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Listing> update(@PathVariable Long id,
+            @RequestBody Listing listing) {
+        try {
+            return new ResponseEntity<>(listingService.updateListing(id, listing), HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     public ResponseEntity<Listing> getListingById(@PathVariable Long id) {
         Optional<Listing> listing = listingService.getListingById(id);
 
@@ -57,17 +73,6 @@ public class ListingController {
             });
         
         return new ResponseEntity<>(listing, HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}") // put
-    public ResponseEntity<Listing> updateListing(@PathVariable Long id,
-            @RequestBody Listing listingDetails) {
-        try {
-            Listing updated = listingService.updateListing(id, listingDetails);
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/{id}") // delete

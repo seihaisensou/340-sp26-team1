@@ -1,25 +1,53 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Entities.Listing;
-import com.csc340.AccessAble.Service.ListingService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.*;
+import com.csc340.AccessAble.Service.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.util.*;
+
 
 @Controller
 @RequestMapping("/provider")
 public class ProviderUIController {
 
-    @Autowired
-    private ListingService listingService;
+    private final ListingService listingService;
+    private final ProviderRepository providerRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final BookingService bookingService;
+    private final ReviewService reviewService;
+
+    public ProviderUIController(
+            ListingService listingService,
+            ProviderRepository providerRepository,
+            PasswordEncoder passwordEncoder,
+            BookingService bookingService,
+            ReviewService reviewService) {
+
+        this.listingService = listingService;
+        this.providerRepository = providerRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.bookingService = bookingService;
+        this.reviewService = reviewService;
+    }
 
     @GetMapping("/create")
-    public String showCreatePage() {
+    public String showCreatePage(Model model, Principal principal) {
+
+        if (principal != null) {
+            Provider provider = providerRepository.findByEmail(principal.getName());
+            model.addAttribute("provider", provider);
+        }
+
         return "provider/p-create-list";
     }
 
@@ -30,13 +58,33 @@ public class ProviderUIController {
     }
 
     @GetMapping("/my-listings")
-    public String showListings(Model model) {
+    public String showListings(Model model, Principal principal) {
+
+        if (principal != null) {
+            Provider provider = providerRepository.findByEmail(principal.getName());
+            model.addAttribute("provider", provider);
+        }
+
         model.addAttribute("listings", listingService.getAllListings());
         return "provider/my-listings";
     }
 
     @GetMapping("/account")
-    public String accountPage() {
+    public String accountPage(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerRepository.findByEmail(principal.getName());
+
+        if (provider == null) {
+            return "redirect:/provider/login";
+        }
+
+        model.addAttribute("isLoggedIn", true);
+        model.addAttribute("provider", provider);
+
         return "provider/account";
     }
 
@@ -44,7 +92,7 @@ public class ProviderUIController {
     public String showEditPage(@PathVariable Long id, Model model) {
 
         Listing listing = listingService.getListingById(id)
-                .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Listing not found"));
 
         model.addAttribute("listing", listing);
         return "provider/edit-list";
@@ -56,11 +104,122 @@ public class ProviderUIController {
         return "redirect:/provider/my-listings";
     }
 
+    @PostMapping("/update")
+    public String updateProvider(Provider updated, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider existing = providerRepository.findByEmail(principal.getName());
+
+        if (existing == null) {
+            return "redirect:/provider/login";
+        }
+
+        existing.setFirstName(updated.getFirstName());
+        existing.setLastName(updated.getLastName());
+        existing.setCredentials(updated.getCredentials());
+
+        if (updated.getPassword() != null && !updated.getPassword().isBlank()) {
+            existing.setPassword(passwordEncoder.encode(updated.getPassword()));
+        }
+
+        providerRepository.save(existing);
+
+        return "redirect:/provider/account";
+    }
+
+    @PostMapping("/upload-image")
+    public String uploadImage(@RequestParam("file") MultipartFile file,
+            Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerRepository.findByEmail(principal.getName());
+
+        try {
+            String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+            Path uploadDir = Paths.get("uploads");
+
+            if (!Files.exists(uploadDir)) {
+                Files.createDirectories(uploadDir);
+            }
+
+            Path filePath = uploadDir.resolve(filename);
+
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            provider.setProfileImagePath(filename);
+            providerRepository.save(provider);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return "redirect:/provider/account";
+    }
+
+    @PostMapping("/booking/update/{id}")
+    public String updateBookingStatus(@PathVariable Long id,
+            @RequestParam("status") Booking.BookingStatus status) {
+
+        Booking booking = bookingService.getBookingById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        booking.setStatus(status);
+        bookingService.updateBooking(id, booking);
+
+        return "redirect:/provider/current-cust";
+    }
+
+    @GetMapping("/current-cust")
+    public String viewCustomers(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        model.addAttribute("isLoggedIn", true);
+        model.addAttribute("bookings", bookingService.getAllBooking());
+
+        return "provider/current-cust";
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteListing(@PathVariable Long id) {
         listingService.deleteListing(id);
         return "redirect:/provider/my-listings";
     }
 
+    @GetMapping("/reviews")
+    public String viewReviews(Model model, Principal principal) {
 
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerRepository.findByEmail(principal.getName());
+
+        List<Review> reviews = reviewService.getReviewsByProvider(provider.getId());
+
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("isLoggedIn", true);
+
+        return "provider/p-reviews";
+    }
+
+    @PostMapping("/review/reply/{reviewId}")
+    public String replyToReview(
+            @PathVariable Long reviewId,
+            @RequestParam String reply,
+            Principal principal) {
+
+        reviewService.replyToReview(reviewId, reply);
+
+        return "redirect:/provider/p-reviews";
+    }
 }
