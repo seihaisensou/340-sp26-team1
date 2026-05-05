@@ -17,10 +17,10 @@
             </a>
 
 
-            <div class="d-flex align-items-center gap-3 nav-buttons">
+            <div class="d-flex align-items-center gap-3 nav-buttons">  
                 <#if Session.SPRING_SECURITY_CONTEXT??>
                 <a class="nav-link text-white" href="/customer/account">Account</a>
-                </#if>
+                </#if>              
                 <a class="nav-link text-white" href="/customer/listings">Listings</a>
                 <#if Session.SPRING_SECURITY_CONTEXT??>
                 <a class="btn btn-outline-light" href="/logout">Logout</a>
