@@ -66,7 +66,7 @@
         <div class="row align-items-center">
 
           <div class="col-md-6 mb-4 mb-md-0">
-            <img src="images/home.jpeg" class="img-fluid rounded shadow" alt="Service illustration">
+            <img src="images/together.webp" class="img-fluid rounded shadow" alt="Service illustration">
           </div>
 
           <div class="col-md-6">
