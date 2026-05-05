@@ -34,9 +34,13 @@
 
     <div class="flex-grow-1">
         <div class="container py-5">
-            
-            
-
+             <div class="text-center mb-5">
+                        <h2 class="fw-bold">You can't access this content!</h2>
+                        <img src="/customerpfp/smile.png" alt="oops" width="128" height="128">
+                        <p class="text-muted">
+                            Click on account or listings to return.
+                        </p>
+             </div>
         </div>
     </div>
     <footer class="bg-dark text-white text-center py-4">

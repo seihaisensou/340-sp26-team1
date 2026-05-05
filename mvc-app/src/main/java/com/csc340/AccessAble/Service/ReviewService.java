@@ -90,11 +90,16 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-    public Review editReview(Long reviewId, String edit) {
+    public Review editReview(Long reviewId, Review updated) {
 
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
-        review.setComment(edit);
+        String comment = updated.getComment();           
+        if(comment != null){
+            review.setComment(updated.getComment());
+        }
+        review.setRating(updated.getRating());
+
         return reviewRepository.save(review);
     }
 

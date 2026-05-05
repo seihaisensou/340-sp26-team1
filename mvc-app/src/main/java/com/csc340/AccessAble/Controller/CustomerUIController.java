@@ -61,11 +61,11 @@ public class CustomerUIController {
     }
 
     @PostMapping("/account/") // NTD
-    public String updateAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Customer updatedCustomer) {
+    public String updateAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Customer updatedCustomer, MultipartFile picture) {
         Customer customer = customerService.updateCustomer(customerRepository.findByEmail(userDetails.getUsername()).getId(), updatedCustomer);
         
         if (customer != null) {
-      //   customerService.saveProfilePicture(customer, picture);
+         customerService.saveProfilePicture(customer, picture);
            return "redirect:/customer/account";
         } 
         else {

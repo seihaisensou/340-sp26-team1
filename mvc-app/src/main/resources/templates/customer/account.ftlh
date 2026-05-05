@@ -91,7 +91,7 @@
                             <div class="card shadow-sm p-4 text-center">
 
 
-                                <center><img src="/customer/images/egg-whole.webp" class="rounded-circle mb-3" width="120" height="120"
+                                <center><img src="/customerpfp/${(customer.profilePicturePath)!'arc.png'}" class="rounded-circle mb-3" width="120" height="120"
                                     alt="Profile Image"></center>
                                 <h5 class="fw-bold"> ${customer.firstName} ${customer.lastName}</h5>
 
@@ -103,12 +103,12 @@
                                 </div>
 
                                 <div class="text-start">
-                                    <p><strong>Location:</strong> ${customer.location!""}</p>
+                                    <p><strong>Location:</strong> ${customer.location!"N/A"}</p>
                                     </p>
                                 </div>
 
                                 <div class="text-start">
-                                    <p><strong>Services:</strong> ${customer.services!""}</p>
+                                    <p><strong>Services:</strong> ${customer.services!"N/A"}</p>
                                     </p>
                                 </div>
 
@@ -143,7 +143,13 @@
                                         <input type="languages" name="services" class="form-control" value="${customer.services!""}">
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary w-100">
+                                    <div>
+                                        <label class="form-label">Profile Picture</label><br>
+                                        <input type="file" id="picture" name="picture">
+                                    </div>
+                                    
+
+                                    <br><button type="submit" class="btn btn-primary w-100">
                                         Save Changes
                                     </button>
 
