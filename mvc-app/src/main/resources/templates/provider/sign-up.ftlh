@@ -49,6 +49,17 @@
           Sign Up
         </button>
 
+        <div class="text-center">
+          <small>
+            Looking for customer sign up? Sign up <a href="/customer/sign-up">here.</a>
+          </small>
+        </div>
+        <div class="text-center">
+            <small>Already have an account?
+              <a href="/provider/login">Login</a>
+            </small>
+        </div>
+
       </form>
 
     </div>

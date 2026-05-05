@@ -61,7 +61,7 @@
           </button>
           <div class="text-center">
             <small>Are you a provider? Sign up
-              <a href="../provider/sign-up.html">here.</a>
+              <a href="../provider/sign-up">here.</a>
             </small>
           </div>
           <div class="text-center">

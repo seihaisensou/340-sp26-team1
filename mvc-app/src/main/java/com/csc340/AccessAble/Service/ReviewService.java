@@ -93,11 +93,18 @@ public class ReviewService {
 
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
-        String comment = updated.getComment();           
-        if(comment != null){
+                 
+        if(updated.getComment() != null){
             review.setComment(updated.getComment());
         }
-        review.setRating(updated.getRating());
+        Integer test = updated.getRating();
+        if(test != null){
+            review.setRating(updated.getRating());
+        }
+        if(updated.getReply() != null){
+            review.setReply(updated.getReply());
+        }
+        
 
         return reviewRepository.save(review);
     }

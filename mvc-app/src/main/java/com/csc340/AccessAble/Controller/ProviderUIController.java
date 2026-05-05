@@ -224,6 +224,45 @@ public class ProviderUIController {
 
         reviewService.replyToReview(reviewId, reply);
 
-        return "redirect:/provider/p-reviews";
+        return "redirect:/provider/reviews";
+    }
+
+    @GetMapping("/reviews/editreply/{reviewId}")
+    public String editReviewReply(Model model, Principal principal, @PathVariable Long reviewId) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerRepository.findByEmail(principal.getName());
+        
+        Review review = reviewService.getReviewById(reviewId)
+        .orElseThrow(() -> new RuntimeException("Booking not found")); 
+
+        if(review.getProvider().getId() != provider.getId()){
+            return "redirect:/provider/403";
+        }
+
+        Listing listing = listingService.getListingById(review.getListing().getListingId())
+            .orElseThrow(() -> new RuntimeException("Listing not found"));
+
+
+        model.addAttribute("review", review);
+        model.addAttribute("listing", listing);
+        model.addAttribute("isLoggedIn", true);
+
+        return "provider/edit-reply";
+    }
+
+    @PostMapping("/reviews/editreply/{reviewId}/") 
+    public String editMyReview(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model, @PathVariable Long reviewId, Review review) {
+        Review updatedReview = reviewService.editReview(reviewId, review);
+        
+        if (updatedReview != null) {      
+           return "redirect:/provider/reviews";
+        } 
+        else {
+            return "redirect:/provider/reviews/editreview/" + reviewId + "add?error=true";
+        }
     }
 }
