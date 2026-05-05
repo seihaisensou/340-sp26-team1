@@ -45,7 +45,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <img src="images/profile-pic.jpeg" class="img-fluid rounded shadow-sm">
+                    <img src="/providerpfp/${listing.provider.profileImagePath}?v=${.now?long}" class="img-fluid rounded shadow-sm">
                 </div>
 
                 <div class="col-md-6">

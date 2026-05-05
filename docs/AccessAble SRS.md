@@ -65,12 +65,12 @@
   ```
 
 - **US‑CUST‑003 — Discover services**  
-  _Story:_ As a customer, I want to filter providers by languages supported so that I can find services that suit my needs.  
+  _Story:_ As a customer, I want to filter providers by languages so that I can find services that suit my needs.  
   _Acceptance:_
   ```gherkin
   Scenario: Filter services provided by providers by language
-    Given there are multiple services that support "Chinese" and "Captioning" alongside multiple that do not
-    When  I filter providers by "Chinese" and "Captioning" while sorting by "Rating"
+    Given there are multiple services that have "Chinese" and "Captioning" in their description alongside multiple that do not
+    When  I filter providers by "Chinese" and "Captioning" 
     Then  I see only providers that support Chinese captioning by the highest rated first.
   ```
 
@@ -79,9 +79,9 @@
   _Acceptance:_
   ```gherkin
   Scenario: Contact the provider
-    Given that the provider has a contact information
-    When  I click contact
-    Then  I will be forwarded to the provider's contact info
+    Given that the provider has a listing
+    When  I click book
+    Then  I will be forwarded to the booking page, where the Provider's contact information is listed.
   ```
 
 - **US‑CUST‑005 — Write Reviews**  
