@@ -37,34 +37,37 @@
       <div class="row g-4">
         <#if favorites?? && (favorites?size> 0)>
          <#list favorites as favorite>
+         <#assign rating = reviews.getAverageRating(favorite.listing.listingId)>
         <div class="col-md-4">
+            <div class="card shadow-sm h-100 position-relative listing-card">
 
+              <div class="card-body">
 
-          
-          <div class="card shadow-sm h-100 position-relative listing-card">
+                <h5 class="card-title">
+                  ${favorite.listing.listingName!""} <span class="text-warning"><#if (rating > 0)> ${rating} <#else>N/A</#if>★</span>
+                </h5>
 
-            <div class="card-body">
-              <h5 class="card-title">
-                 <a href="/customer/listing/${favorite.listing.listingId}">${favorite.listing.listingName}</a>
-              </h5>
+                <p class="card-text">
+                  ${favorite.listing.shortDescription!""}<br> 
+                  ${favorite.listing.location!""}
+                </p>
 
-              <p class="card-text">
-                 ${favorite.listing.shortDescription} <br>
-                Local
-                <br>
-                5.0 <span class="text-warning">★</strong></span>
-              </p>
+                <p class="fw-bold text-primary">
+                  $${favorite.listing.price!0}
+                  <#if favorite.listing.pricingType??>
+                    ${favorite.listing.pricingType}
+                  </#if>
+                </p>
 
-              <p class="fw-bold text-primary">${favorite.listing.price!""} ${favorite.listing.pricingType!""}</p>
+                <div>            
+                  <a href="/customer/listing/${favorite.listing.listingId}" class="btn btn-outline-primary btn-sm">
+                    View
+                  </a>
+                </div>
 
-
-             
-
+              </div>
             </div>
           </div>
-          
-
-        </div>
         </#list>
 
           <#else>

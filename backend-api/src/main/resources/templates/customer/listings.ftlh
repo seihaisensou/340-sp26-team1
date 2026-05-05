@@ -31,21 +31,30 @@
   </nav>
 
   <div class="container py-4">
+    <form action="/customer/listings/search" method="get">
+          <div class="mb-3">
+            <label class="form-label"></label>
+            <input type="text" name="search" class="form-control" placeholder="Look for a service...">
+          </div>
+          <button type="submit" class="btn btn-primary w-100 mb-3">
+            Search
+          </button>
+    </form>
     <div class="row g-4">
-
       <#if listings?? && (listings?size> 0)>
         <#list listings as listing>
+        <#assign rating = reviews.getAverageRating(listing.listingId)>
           <div class="col-md-4">
             <div class="card shadow-sm h-100 position-relative listing-card">
 
               <div class="card-body">
 
                 <h5 class="card-title">
-                 <a href="/customer/listing/${listing.listingId}"> ${listing.listingName!""}</a>
+                  ${listing.listingName!""} <span class="text-warning"><#if (rating > 0)> ${rating} <#else>N/A</#if>★</span>
                 </h5>
 
                 <p class="card-text">
-                  ${listing.shortDescription!""}<br>
+                  ${listing.shortDescription!""}<br> 
                   ${listing.location!""}
                 </p>
 

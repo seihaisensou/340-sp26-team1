@@ -79,7 +79,7 @@
                             <div class="card shadow-sm p-4 mb-4">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="fw-bold">${review.customer.firstName!} ${review.customer.lastName}</h6>
-                                    <span class="text-warning">${review.rating} ★</span>
+                                    <span class="text-warning"><#if (review.rating==5)>★★★★★<#elseif (review.rating==4)>★★★★<#elseif (review.rating==3)>★★★<#elseif (review.rating==2)>★★ <#else>★</#if></span>
                                 </div>
                         
                                 <p class="mt-2">
@@ -89,7 +89,7 @@
                         </#list>
                         <#else>
                             <div class="col-12 text-center">
-                                <p>No listings found.</p>
+                                <p>No reviews found.</p>
                             </div>
                         </#if>            
 

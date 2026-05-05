@@ -3,7 +3,7 @@ package com.csc340.AccessAble.Controller;
 import com.csc340.AccessAble.Entities.*;
 import com.csc340.AccessAble.Repository.CustomerRepository;
 import com.csc340.AccessAble.Service.*;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -71,13 +72,30 @@ public class CustomerUIController {
 
     @GetMapping("/listings")
     public String showListings(Model model) {
+        model.addAttribute("reviews", reviewService);
         model.addAttribute("listings", listingService.getAllListings());
         return "customer/listings";
     }
 
+    @GetMapping("/listings/search")
+    public String showListings(@RequestParam String search, Model model) {
+        List<Listing> listing = listingService.getListingByDescription(search);
+        listing.sort((l1, l2) -> {
+        double first = reviewService.getAverageRating(l1.getListingId());
+        double second = reviewService.getAverageRating(l2.getListingId());
+        return Double.compare(second, first); 
+            });
+        model.addAttribute("reviews", reviewService);
+        model.addAttribute("listings", listing);
+        return "customer/listings";
+    }
+
+    
+
     @GetMapping("/favoritelistings") // NTD
     public String showFavorites(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
         Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+         model.addAttribute("reviews", reviewService);
         model.addAttribute("favorites", favoritesService.getFavoritesByCustomerId(customer.getId()));
         return "customer/favoritelistings";
     }
@@ -87,9 +105,6 @@ public class CustomerUIController {
 
         Listing listing = listingService.getListingById(id)
                 .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
-
-                
-
         model.addAttribute("listing", listing);
         model.addAttribute("reviews", reviewService.getReviewsByListingId(id));
 
@@ -118,15 +133,39 @@ public class CustomerUIController {
       return "redirect:/customer/listing/" + newReview.getListing().getListingId();
     } 
     else {
-      return "redirect:/customers/servants/add?error=true";
+      return "redirect:/customers/listing/" + newReview.getListing().getListingId()+ "add?error=true";
         }
     }
 
     @GetMapping("/userreviews") // NTD
     public String showMyReviews(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
         Customer customer = customerRepository.findByEmail(userDetails.getUsername());
-        model.addAttribute("reviews", reviewService.getReviewsByCustomer(customer.getId()));
+        model.addAttribute("customerreviews", reviewService.getReviewsByCustomer(customer.getId()));
         return "customer/userreviews";
+    }
+
+    @GetMapping("/userreviews/editreview/{id}") // NTD
+    public String showEditForm(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model, @PathVariable Long id) {
+        Review review = reviewService.getReviewById(id)
+            .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+        Listing listing = listingService.getListingById(review.getListing().getListingId())
+            .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+
+        model.addAttribute("review", review);
+        model.addAttribute("listing", listing);        
+        return "customer/editreview";
+    }
+
+    @PostMapping("/userreviews/editreview/{id}/") // NTD
+    public String editMyReview(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model, @PathVariable Long id, Review review) {
+        Review updatedReview = reviewService.editReview(id, review);
+        
+        if (updatedReview != null) {      
+           return "redirect:/customer/userreviews";
+        } 
+        else {
+            return "redirect:/customer/userreviews/editreview/" + id + "add?error=true";
+        }
     }
 
     @PostMapping("listing/{id}/favorite") // NTD

@@ -43,7 +43,7 @@
               <div class="card shadow-sm p-4 mb-4">
                     <div class="d-flex justify-content-between">
                         <h6 class="fw-bold"><a href="../customer/listing/${review.getListing().getListingId()}"> ${review.getListing().getProvider().getFirstName()} ${review.getListing().getProvider().getLastName()}</a></h6>
-                        <span class="text-warning">${review.getRating()}</span>
+                        <span class="text-warning"><#if (review.rating==5)>★★★★★<#elseif (review.rating==4)>★★★★<#elseif (review.rating==3)>★★★<#elseif (review.rating==2)>★★ <#else>★</#if></span>
                     </div>
 
                     <p class="mt-2">
@@ -51,12 +51,9 @@
                     </p>
 
                     <div class="mt-3">
-                         <label class="form-label">Edit Review</label>
-                        <textarea class="form-control mb-2" rows="2" placeholder="Edit your review..."></textarea>
-
-                        <button class="btn btn-sm btn-primary">
+                        <a href="/customer/userreviews/editreview/${review.reviewId}" class="btn btn-sm btn-primary">
                             Post new edit
-                        </button>
+                        </a>
                     </div>
                 </div>
             </#list>
