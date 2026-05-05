@@ -66,18 +66,20 @@
                     <p>
                         ${listing.detailedDescription!""}
                     </p>
+                    <#if isCustomer??>
                     <#if isCustomer>
                     <form action="/customer/listing/${listing.listingId}/book" method="post">
                     <button class="btn btn-primary mt-3">Book Service</button></form>
                     <form action="/customer/listing/${listing.listingId}/favorite" method="post">
                     <button class="btn btn-success mt-3">Favorite Service</button></form>
                     </#if>
+                    </#if>
 
                     <hr>
 
                     <h5>Reviews</h5>
 
-                    <#if isCustomer><a href="/customer/listing/writereview/${listing.listingId}"><button class="btn btn-primary mt-3">Write review</button></a></#if>
+                    <#if isCustomer??><#if isCustomer><a href="/customer/listing/writereview/${listing.listingId}"><button class="btn btn-primary mt-3">Write review</button></a></#if></#if>
 
                     <p></p>
 
@@ -87,7 +89,7 @@
                         <#assign customer = review.customer>
                             <div class="card shadow-sm p-4 mb-4">
                                 <left><img src="/customerpfp/${(customer.profilePicturePath)!'arc.png'}" class="rounded-circle mb-3 mx-auto" width="60" height="60"
-                            alt="Profile Image"></left>
+                                    alt="Profile Image"></left>
                                 <div class="d-flex justify-content-between">
                                     
                                     <h6 class="fw-bold">${customer.firstName!} ${customer.lastName}</h6>
@@ -97,6 +99,12 @@
                                 <p class="mt-2">
                                     ${review.comment}
                                 </p>
+
+                                <#if review.reply??>
+                                <div class="alert alert-secondary mt-3">
+                                    <strong>Provider reply:</strong> ${review.reply}
+                                </div>
+                                </#if>
                             </div>     
                         </#list>
                         <#else>

@@ -9,10 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,14 +63,11 @@ public class ProviderUIController {
     }
 
     @GetMapping("/my-listings")
-    public String showListings(Model model, Principal principal) {
+    public String showListings(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails) {
 
-        if (principal != null) {
-            Provider provider = providerRepository.findByEmail(principal.getName());
-            model.addAttribute("provider", provider);
-        }
-
-        model.addAttribute("listings", listingService.getAllListings());
+        Provider provider = providerRepository.findByEmail(userDetails.getUsername());
+        model.addAttribute("provider", provider);
+        model.addAttribute("listings", listingService.getListingsByProvider(provider.getId()));
         return "provider/my-listings";
     }
 

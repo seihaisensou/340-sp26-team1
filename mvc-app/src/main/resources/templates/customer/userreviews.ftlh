@@ -41,14 +41,21 @@
 
             <#list customerreviews as review>
               <div class="card shadow-sm p-4 mb-4">
+                <left><img src="/customerpfp/${(customer.profilePicturePath)!'arc.png'}" class="rounded-circle mb-3 mx-auto" width="60" height="60" alt="Profile Image"></left>
                     <div class="d-flex justify-content-between">
-                        <h6 class="fw-bold"><a href="../customer/listing/${review.getListing().getListingId()}"> ${review.getListing().getProvider().getFirstName()} ${review.getListing().getProvider().getLastName()}</a></h6>
+                        <h6 class="fw-bold"><a href="../customer/listing/${review.getListing().getListingId()}"> ${review.getListing().listingName}</a></h6>
                         <span class="text-warning"><#if (review.rating==5)>★★★★★<#elseif (review.rating==4)>★★★★<#elseif (review.rating==3)>★★★<#elseif (review.rating==2)>★★ <#else>★</#if></span>
                     </div>
 
                     <p class="mt-2">
                         ${review.getComment()}
                     </p>
+
+                    <#if review.reply??>
+                        <div class="alert alert-secondary mt-3">
+                            <strong>Provider reply:</strong> ${review.reply}
+                        </div>
+                    </#if>
 
                     <div class="mt-3">
                         <a href="/customer/userreviews/editreview/${review.reviewId}" class="btn btn-sm btn-primary">

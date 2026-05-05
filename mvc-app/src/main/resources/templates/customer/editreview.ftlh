@@ -67,6 +67,7 @@
               <br>
 
             <div class="card shadow-sm p-4 mb-4">
+                <left><img src="/customerpfp/${(customer.profilePicturePath)!'arc.png'}" class="rounded-circle mb-3 mx-auto" width="60" height="60" alt="Profile Image"></left>
                     <div class="d-flex justify-content-between">
                        <h6 class="fw-bold">${review.customer.firstName} ${review.customer.lastName}</h6>
                        <span class="text-warning"><#if (review.rating==5)>★★★★★<#elseif (review.rating==4)>★★★★<#elseif (review.rating==3)>★★★<#elseif (review.rating==2)>★★ <#else>★</#if></span>
@@ -74,7 +75,13 @@
                  
                     <p class="mt-2">
                     ${review.comment}
-                </p>
+                    </p>
+
+                    <#if review.reply??>
+                        <div class="alert alert-secondary mt-3">
+                            <strong>Provider reply:</strong> ${review.reply}
+                        </div>
+                    </#if>
             </div>
 
             <div class="card shadow-sm p-4 mb-4">

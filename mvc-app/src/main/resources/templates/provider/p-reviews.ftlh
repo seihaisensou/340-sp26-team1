@@ -54,6 +54,7 @@
     <div class="container py-5">
         <#list reviews as review>
         <div class="card shadow-sm p-4 mb-4">
+            <left><img src="/customerpfp/${(review.customer.profilePicturePath)!'arc.png'}" class="rounded-circle mb-3 mx-auto" width="60" height="60" alt="Profile Image"></left>
             <div class="d-flex justify-content-between">
                 <h6 class="fw-bold">
                     ${review.customer.firstName} ${review.customer.lastName}
