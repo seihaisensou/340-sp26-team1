@@ -98,8 +98,13 @@
 
                     <div class="card shadow-sm p-4 text-center">
 
-                        <img src="${provider.profileImagePath}" class="rounded-circle" width="120" height="120"
-                            alt="Profile Image">
+                        <div class="text-center mb-3">
+                            <div class="text-center mb-3">
+                                <img src="/providerpfp/${provider.profileImagePath}?v=${.now?long}"
+                                    class="rounded-circle shadow" style="width:120px; height:120px; object-fit:cover;"
+                                    alt="Profile Image">
+                            </div>
+                        </div>
                         <h5 class="fw-bold">
                             ${provider.firstName!''} ${provider.lastName!''}
                         </h5>
@@ -175,6 +180,18 @@
                                 Save Changes
                             </button>
 
+
+
+                        </form>
+
+                        <hr>
+
+                        <form action="/provider/delete-account" method="post"
+                            onsubmit="return confirm('Are you sure you want to delete your provider account? This cannot be undone.');">
+
+                            <button type="submit" class="btn btn-danger w-100">
+                                Delete Account
+                            </button>
                         </form>
 
                     </div>

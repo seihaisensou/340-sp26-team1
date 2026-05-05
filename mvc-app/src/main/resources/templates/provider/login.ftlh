@@ -33,6 +33,12 @@
                 </div>
             </#if>
 
+            <#if deleted??>
+                <div class="alert alert-warning text-center">
+                    Your provider account has been deleted.
+                </div>
+            </#if>
+
             <form action="/perform_login" method="post">
 
                 <div class="mb-3">

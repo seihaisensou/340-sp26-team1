@@ -1,28 +1,25 @@
 package com.csc340.AccessAble.Controller;
 
 import com.csc340.AccessAble.Entities.Provider;
+import com.csc340.AccessAble.Repository.ProviderRepository;
 import com.csc340.AccessAble.Service.ProviderService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 @Controller
 @RequestMapping("/provider")
 public class ProviderAuthController {
 
     private final ProviderService providerService;
-    private final PasswordEncoder passwordEncoder;
+    private final ProviderRepository providerRepository;
 
-    public ProviderAuthController(ProviderService providerService, PasswordEncoder passwordEncoder) {
+    public ProviderAuthController(
+            ProviderService providerService,
+            ProviderRepository providerRepository) {
         this.providerService = providerService;
-        this.passwordEncoder = passwordEncoder;
+        this.providerRepository = providerRepository;
     }
 
     @GetMapping("/sign-up")
@@ -32,7 +29,17 @@ public class ProviderAuthController {
     }
 
     @GetMapping("/login")
-    public String showLogin() {
+    public String showLogin(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "deleted", required = false) String deleted,
+            Model model) {
+        if (error != null) {
+            model.addAttribute("error", true);
+        }
+
+        if (deleted != null) {
+            model.addAttribute("deleted", true);
+        }
+
         return "provider/login";
     }
 
@@ -43,13 +50,12 @@ public class ProviderAuthController {
             Model model) {
 
         try {
-
             if (provider.getEmail() == null || provider.getEmail().isBlank()) {
                 model.addAttribute("error", "Email is required");
                 return "provider/sign-up";
             }
 
-            if (providerService.findByEmail(provider.getEmail()) != null) {
+            if (providerRepository.findByEmail(provider.getEmail()) != null) {
                 model.addAttribute("error", "Email already exists");
                 return "provider/sign-up";
             }
@@ -59,27 +65,17 @@ public class ProviderAuthController {
                 return "provider/sign-up";
             }
 
-            if (file != null && !file.isEmpty()) {
-                String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                Path uploadDir = Paths.get("uploads");
-
-                if (!Files.exists(uploadDir)) {
-                    Files.createDirectories(uploadDir);
-                }
-
-                Path filePath = uploadDir.resolve(filename);
-                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                provider.setProfileImagePath("/uploads/" + filename);
-            } else {
-                provider.setProfileImagePath("/images/default.png");
-            }
             provider.setRole("PROVIDER");
-            provider.setPassword(passwordEncoder.encode(provider.getPassword()));
 
-            providerService.saveProvider(provider);
+            Provider savedProvider = providerService.createProvider(provider);
 
-            return "redirect:/provider/account";
+            if (file != null && !file.isEmpty()) {
+                providerService.saveProfileImage(savedProvider, file);
+            } else {
+                savedProvider.setProfileImagePath("default.png");
+            }
+
+            return "redirect:/provider/login";
 
         } catch (Exception e) {
             e.printStackTrace();

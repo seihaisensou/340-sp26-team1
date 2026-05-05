@@ -1,33 +1,37 @@
 package com.csc340.AccessAble.Service;
 
+import com.csc340.AccessAble.Entities.Provider;
+import com.csc340.AccessAble.Repository.ProviderRepository;
+import com.csc340.AccessAble.Entities.Customer;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.csc340.AccessAble.Entities.*;
-import com.csc340.AccessAble.Repository.*;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
 
 @Service
 public class ProviderService {
 
-    private final ProviderRepository providerRepository;
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private ProviderRepository providerRepository;
 
-    public ProviderService(ProviderRepository providerRepository, CustomerRepository customerRepository) {
-        this.providerRepository = providerRepository;
-        this.customerRepository = customerRepository;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public Provider saveProvider(Provider provider) {
-        return providerRepository.save(provider);
-    }
-
-    public Provider findByEmail(String email) {
-        return providerRepository.findByEmail(email);
-    }
+    private static final String UPLOAD_DIR = "src/main/resources/static/providerpfp/";
 
     public Provider createProvider(Provider provider) {
         provider.setRole("PROVIDER");
+        provider.setPassword(passwordEncoder.encode(provider.getPassword()));
         return providerRepository.save(provider);
     }
 
@@ -39,43 +43,80 @@ public class ProviderService {
         return providerRepository.findAll();
     }
 
-    public Provider updateProvider(Long id, Provider updated) {
-        Provider provider = providerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Provider not found with id " + id));
+    public Provider getProviderByEmail(String email) {
+        return providerRepository.findByEmail(email);
+    }
 
-        if (updated.getFirstName() != null)
-            provider.setFirstName(updated.getFirstName());
+    public Provider updateProvider(Long id, Provider providerDetails) {
+        return providerRepository.findById(id).map(provider -> {
+            if (providerDetails.getEmail() != null) {
+                provider.setEmail(providerDetails.getEmail());
+            }
+            if (providerDetails.getFirstName() != null) {
+                provider.setFirstName(providerDetails.getFirstName());
+            }
+            if (providerDetails.getLastName() != null) {
+                provider.setLastName(providerDetails.getLastName());
+            }
+            if (providerDetails.getCredentials() != null) {
+                provider.setCredentials(providerDetails.getCredentials());
+            }
+            if (providerDetails.getPassword() != null && !providerDetails.getPassword().isBlank()) {
+                provider.setPassword(passwordEncoder.encode(providerDetails.getPassword()));
+            }
 
-        if (updated.getLastName() != null)
-            provider.setLastName(updated.getLastName());
+            return providerRepository.save(provider);
+        }).orElseThrow(() -> new RuntimeException("Provider not found"));
+    }
 
-        if (updated.getCredentials() != null)
-            provider.setCredentials(updated.getCredentials());
+    public void saveProfileImage(Provider provider, MultipartFile profileImage) {
+        if (profileImage == null || profileImage.isEmpty()) {
+            return;
+        }
 
-        if (updated.getEmail() != null)
-            provider.setEmail(updated.getEmail());
+        String originalFileName = profileImage.getOriginalFilename();
 
-        if (updated.getPassword() != null)
-            provider.setPassword(updated.getPassword());
+        try {
+            if (originalFileName != null && originalFileName.contains(".")) {
+                String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+                String fileName = String.valueOf(provider.getId()) + "." + fileExtension;
 
-        return providerRepository.save(provider);
+                Path filePath = Paths.get(UPLOAD_DIR + fileName);
+                InputStream inputStream = profileImage.getInputStream();
+
+                Files.createDirectories(Paths.get(UPLOAD_DIR));
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                provider.setProfileImagePath(fileName);
+                providerRepository.save(provider);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Customer> getCustomersByProvider(Long providerId) {
+        Provider provider = providerRepository.findById(providerId)
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
+
+        return provider.getCustomers();
     }
 
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
     }
 
-    public List<Customer> getCustomersByProvider(Long providerId) {
-        return customerRepository.findByProviderId(providerId);
-    }
+    @Transactional
+    public void deleteProviderCascade(Long providerId) {
+        Provider provider = providerRepository.findById(providerId)
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
 
-    public Provider login(String email, String password) {
-        Provider provider = providerRepository.findByEmail(email);
-
-        if (provider != null && provider.getPassword().equals(password)) {
-            return provider;
+        for (Customer customer : new ArrayList<>(provider.getCustomers())) {
+            customer.getProviders().remove(provider);
         }
-        return null;
-    }
 
+        provider.getCustomers().clear();
+
+        providerRepository.delete(provider);
+    }
 }
