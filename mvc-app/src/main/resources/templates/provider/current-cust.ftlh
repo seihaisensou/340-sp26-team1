@@ -64,6 +64,7 @@
                                 <th>Email</th>
                                 <th>Service Booked</th>
                                 <th>Status</th>
+                                <th>Selector</th>
                             </tr>
                         </thead>
 
@@ -82,28 +83,39 @@
                                         <td>${booking.listing.listingName!"No Service"}</td>
 
                                         <td>
+                                            <#if booking.status == "ACTIVE"><span class="badge text-bg-primary rounded-pill">${booking.status}</span>
+                                            <#elseif booking.status == "PENDING"><span class="badge text-bg-info rounded-pill">${booking.status}</span>
+                                            <#elseif booking.status == "CANCELLED"><span class="badge text-bg-danger rounded-pill">${booking.status}</span>
+                                            <#elseif booking.status == "COMPLETED"><span class="badge text-bg-success rounded-pill">${booking.status}</span>
+                                            <#elseif booking.status == "PAUSED"><span class="badge text-bg-warning rounded-pill">${booking.status}</span>
+                                            <#elseif booking.status == "RESCHEDULED"><span class="badge text-bg-dark rounded-pill">${booking.status}</span></#if></td>
+
+                                        <td>
 
                                             <form action="/provider/booking/update/${booking.bookingId}" method="post">
                                                 <select name="status" class="form-select form-select-sm"
                                                     onchange="this.form.submit()">
 
-                                                    <option value="ACTIVE" <#if booking.status=="ACTIVE">selected
-                            </#if>>Active</option>
+                                                    <option value="PENDING" <#if booking.status=="PENDING">selected</#if>>Pending</option>
 
-                            <option value="PAUSED" <#if booking.status=="PAUSED">selected</#if>>Paused</option>
+                                                    <option value="ACTIVE" <#if booking.status=="ACTIVE">selected</#if>>Active</option>
 
-                            <option value="COMPLETED" <#if booking.status=="COMPLETED">selected</#if>>Completed</option>
+                                                    <option value="RESCHEDULED" <#if booking.status=="RESCHEDULED">selected</#if>>Rescheduled</option>
 
-                            <option value="CANCELLED" <#if booking.status=="CANCELLED">selected</#if>>Cancelled</option>
+                                                    <option value="PAUSED" <#if booking.status=="PAUSED">selected</#if>>Paused</option>
 
-                            </select>
-                            </form>
+                                                    <option value="COMPLETED" <#if booking.status=="COMPLETED">selected</#if>>Completed</option>
 
-                            </td>
+                                                    <option value="CANCELLED" <#if booking.status=="CANCELLED">selected</#if>>Cancelled</option>
 
-                            </tr>
+                                                </select>
+                                            </form>
 
-                            </#list>
+                                        </td>
+
+                                    </tr>
+
+                                </#list>
 
                             <#else>
 
@@ -113,7 +125,7 @@
                                     </td>
                                 </tr>
 
-                                </#if>
+                            </#if>
 
                         </tbody>
 
