@@ -21,8 +21,7 @@ public class HomePageController {
         model.addAttribute("isProvider", false);  
         
         if(userDetails != null){
-            String email = userDetails.getUsername();
-            System.out.print(email);
+            String email = userDetails.getUsername();            
             Customer customer = customerRepository.findByEmail(email);
             Provider provider = providerRepository.findByEmail(email);
             if(customer != null){

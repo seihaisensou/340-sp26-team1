@@ -6,6 +6,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
 @Configuration
 public class providerChain {
 
@@ -17,17 +19,14 @@ public class providerChain {
                                 .securityMatcher("/provider/**")
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers(
-                                                                "/",
-                                                                "/home",
-                                                                "/index",
+                                                .requestMatchers(                                                                
                                                                 "/provider/login",
                                                                 "/provider/sign-up",
                                                                 "/provider/signup",
-                                                                "/css/**",
-                                                                "/images/**")
+                                                                "/provider/403"
+                                                        )
                                                 .permitAll()
-                                                .anyRequest().authenticated())
+                                                .anyRequest().hasAuthority("PROVIDER"))
                                 .formLogin(form -> form
                                                 .loginPage("/provider/login")
                                                 .loginProcessingUrl("/provider/login/perform_login")
@@ -36,11 +35,14 @@ public class providerChain {
                                                 .defaultSuccessUrl("/provider/account", true)
                                                 .failureUrl("/provider/login?error=true")
                                                 .permitAll())
+                                .exceptionHandling((x) -> x.accessDeniedPage("/provider/403"))                     
                                 .logout(logout -> logout
                                                 .logoutUrl("/provider/logout")
                                                 .logoutSuccessUrl("/provider/login")
                                                 .invalidateHttpSession(true)
                                                 .deleteCookies("JSESSIONID"));
+
+                                    
 
                 return http.build();
         }

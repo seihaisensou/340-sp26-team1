@@ -18,8 +18,12 @@
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
+                <#if isCustomer>
+                <a class="nav-link text-white" href="/customer/account">Account</a>
+                <#elseif isProvider>
                 <a class="nav-link text-white" href="/provider/account">Account</a>
-                <a class="nav-link text-white" href="/provider/listings">Listings</a>
+                </#if>
+                <a class="nav-link text-white" href="/customer/listings">Listings</a>
                 <#if Session.SPRING_SECURITY_CONTEXT??>
                 <a class="btn btn-outline-light" href="/provider/logout">Logout</a>
                 </#if>

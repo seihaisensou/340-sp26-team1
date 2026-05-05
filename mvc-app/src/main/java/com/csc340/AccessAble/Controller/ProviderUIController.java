@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.util.*;
 import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 
@@ -19,7 +21,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 @Controller
 @RequestMapping("/provider")
 public class ProviderUIController {
-
+    @Autowired
+    private CustomerRepository customerRepository;
     private final ListingService listingService;
     private final ProviderRepository providerRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,6 +44,25 @@ public class ProviderUIController {
         this.bookingService = bookingService;
         this.reviewService = reviewService;
         this.providerService = providerService;
+    }
+
+    @GetMapping("/403")
+    public String wrongWay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) { 
+        model.addAttribute("isCustomer", false);
+        model.addAttribute("isProvider", false);  
+        
+        if(userDetails != null){
+            String email = userDetails.getUsername();            
+            Customer customer = customerRepository.findByEmail(email);
+            Provider provider = providerRepository.findByEmail(email);
+            if(customer != null){
+                model.addAttribute("isCustomer", true);
+            }
+            else if(provider != null){
+                model.addAttribute("isProvider", true);
+            }
+        }
+        return "provider/403";
     }
 
     @GetMapping("/create")

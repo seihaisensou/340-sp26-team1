@@ -27,18 +27,19 @@ public class customerChain {
     HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
     requestCache.setMatchingRequestParameterName(null);
     http
-        .securityMatcher("/customer/**", "/", "/home")
+        .securityMatcher("/customer/**")
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests((authorize) -> authorize
             .dispatcherTypeMatchers(DispatcherType.FORWARD,
                 DispatcherType.ERROR)
             .permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .requestMatchers("/static/**", "/css/**", "/customerpfp/**", "/*.jpg", "/*.png", "/*.gif", "/customer/login","/customer/login/**").permitAll()
+            .requestMatchers("/static/**", "/css/**", "/customerpfp/**", "/*.jpg", "/*.png", "/*.gif", "/customer/login","/customer/login/**" , "/", "/home","/customer/403").permitAll()
             .requestMatchers("/customers/my-reviews/**", "/customer/account/**", "/customer/listing/writereview/**", "/customer/favoritelistings/**").hasAuthority("CUSTOMER")
-            .requestMatchers("/", "/customer/listing/**", "/customer/listings/**", "/home", "/customer/sign-up/**").permitAll()
+            .requestMatchers("/customer/listing/**", "/customer/listings/**", "/customer/sign-up/**").permitAll()
             
-            .anyRequest().authenticated())
+            
+            .anyRequest().hasAuthority("CUSTOMER"))
         .formLogin(form -> form
           .loginPage("/customer/login")
           .loginProcessingUrl("/customer/login/perform_customer_login")
@@ -47,7 +48,7 @@ public class customerChain {
           .permitAll()   
         )
         
-        .exceptionHandling((x) -> x.accessDeniedPage("/403"))
+        .exceptionHandling((x) -> x.accessDeniedPage("/customer/403"))
         .logout(logout -> logout
                                                 .logoutUrl("/customer/logout")
                                                 .logoutSuccessUrl("/customer/login")
