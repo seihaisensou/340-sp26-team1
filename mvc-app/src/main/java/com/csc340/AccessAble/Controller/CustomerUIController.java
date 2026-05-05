@@ -3,6 +3,7 @@ package com.csc340.AccessAble.Controller;
 import com.csc340.AccessAble.Entities.*;
 import com.csc340.AccessAble.Repository.*;
 import com.csc340.AccessAble.Service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +39,7 @@ public class CustomerUIController {
     public String wrongWay() { 
         return "customer/403";
     }
-    
+
     @GetMapping("/account") // NTD
     public String showAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
         Customer customer = customerRepository.findByEmail(userDetails.getUsername());
@@ -224,11 +225,10 @@ public class CustomerUIController {
     public String favoriteListing(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @PathVariable Long id, Favorites favorite) {
     Customer customer = customerRepository.findByEmail(userDetails.getUsername());
 
-    Listing listing = listingService.getListingById(id)
-            .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+    
     Favorites newFavorite = favoritesService.createFavorites(favorite,customer.getId(),id);
             
-    if (listing != null) {     
+    if (newFavorite != null) {     
       return "redirect:/customer/favoritelistings";
     } 
     else {
@@ -246,18 +246,47 @@ public class CustomerUIController {
     @PostMapping("listing/{id}/book") // NTD
     
     public String bookListing(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, @PathVariable Long id, Booking booking) {
-    Customer customer = customerRepository.findByEmail(userDetails.getUsername());
-
-    Listing listing = listingService.getListingById(id)
-            .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+    Customer customer = customerRepository.findByEmail(userDetails.getUsername());    
     Booking newBooking = bookingService.createBooking(booking,customer.getId(),id);
             
-    if (listing != null) {     
+    if (newBooking != null) {     
       return "redirect:/customer/bookings";
     } 
     else {
       return "redirect:/customers/bookings/add?error=true";
         }
     }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, HttpServletRequest request) {
+
+        if (userDetails == null) {
+            return "redirect:/customer/login";
+        }
+
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+
+        if (customer != null) {
+            customerService.deleteCustomer(customer.getId());
+        }
+
+        request.getSession().invalidate();
+
+        return "redirect:/customer/login?deleted=true";
+    }
+
+    @GetMapping("/favoritelistings/delete/{id}")
+    public String deleteFavorite(@PathVariable Long id) {
+        favoritesService.deleteFavorites(id);
+        return "redirect:/customer/favoritelistings";
+    }
+
+    @GetMapping("/userreviews/deletereview/{id}")
+    public String deleteReview(@PathVariable Long id) {
+        reviewService.deleteReview(id);
+        return "redirect:/customer/userreviews";
+    }
+
+    
    
 }

@@ -2,6 +2,9 @@ package com.csc340.AccessAble.Service;
 
 import com.csc340.AccessAble.Entities.Customer;
 import com.csc340.AccessAble.Repository.CustomerRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,12 +88,18 @@ public class CustomerService {
       e.printStackTrace();
     }
   }
-
+    @Transactional
     public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        customer.getProviders().clear();        
+        customerRepository.delete(customer);
     }
 
     public Customer getCustomerByEmail(String email) {
         return customerRepository.findByEmail(email);
     }
+
+    
+    
 }

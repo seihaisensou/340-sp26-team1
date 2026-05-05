@@ -58,7 +58,7 @@ public class CustomerAuthController {
 
             customer.setRole("CUSTOMER");
 
-            Customer savedCustomer = customerService.createCustomer(customer);           
+            customerService.createCustomer(customer);           
 
             return "redirect:/customer/login";
 

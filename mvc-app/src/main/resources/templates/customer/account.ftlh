@@ -112,6 +112,14 @@
                                     </p>
                                 </div>
 
+                                <form action="/customer/delete-account" method="post"
+                                    onsubmit="return confirm('Are you sure you want to delete your customer account? This cannot be undone.');">
+
+                                    <button type="submit" class="btn btn-danger w-100">
+                                        Delete Account
+                                    </button>
+                                </form>
+
                             </div>
                         </div>
 

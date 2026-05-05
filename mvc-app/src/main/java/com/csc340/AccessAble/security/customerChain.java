@@ -34,7 +34,7 @@ public class customerChain {
                 DispatcherType.ERROR)
             .permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .requestMatchers("/static/**", "/css/**", "/customerpfp/**", "/*.jpg", "/*.png", "/*.gif").permitAll()
+            .requestMatchers("/static/**", "/css/**", "/customerpfp/**", "/*.jpg", "/*.png", "/*.gif", "/customer/login","/customer/login/**").permitAll()
             .requestMatchers("/customers/my-reviews/**", "/customer/account/**", "/customer/listing/writereview/**", "/customer/favoritelistings/**").hasAuthority("CUSTOMER")
             .requestMatchers("/", "/customer/listing/**", "/customer/listings/**", "/home", "/customer/sign-up/**").permitAll()
             

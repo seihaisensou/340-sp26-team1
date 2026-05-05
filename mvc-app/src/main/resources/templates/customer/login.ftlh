@@ -43,6 +43,12 @@
                     </div>
                 </#if>
 
+                <#if deleted??>
+                <div class="alert alert-warning text-center">
+                    Your customer account has been deleted.
+                </div>
+                </#if>
+
                 <form action="/customer/login/perform_customer_login" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email</label>

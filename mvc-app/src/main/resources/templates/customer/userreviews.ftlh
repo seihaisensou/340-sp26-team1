@@ -58,8 +58,11 @@
                     </#if>
 
                     <div class="mt-3">
-                        <a href="/customer/userreviews/editreview/${review.reviewId}" class="btn btn-sm btn-primary">
+                        <a href="/customer/userreviews/editreview/${review.reviewId}" class="btn btn-outline-primary btn-sm">
                             Post new edit
+                        </a>
+                        <a href="/customer/userreviews/deletereview/${review.reviewId}" class="btn btn-outline-danger btn-sm">
+                            Delete Review
                         </a>
                     </div>
                 </div>
