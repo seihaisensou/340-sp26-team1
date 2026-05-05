@@ -3,6 +3,7 @@ package com.csc340.AccessAble.Controller;
 import com.csc340.AccessAble.Entities.*;
 import com.csc340.AccessAble.Repository.*;
 import com.csc340.AccessAble.Service.*;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 
@@ -27,19 +29,22 @@ public class ProviderUIController {
     private final PasswordEncoder passwordEncoder;
     private final BookingService bookingService;
     private final ReviewService reviewService;
+    private final ProviderService providerService;
 
     public ProviderUIController(
             ListingService listingService,
             ProviderRepository providerRepository,
             PasswordEncoder passwordEncoder,
             BookingService bookingService,
-            ReviewService reviewService) {
+            ReviewService reviewService,
+            ProviderService providerService) {
 
         this.listingService = listingService;
         this.providerRepository = providerRepository;
         this.passwordEncoder = passwordEncoder;
         this.bookingService = bookingService;
         this.reviewService = reviewService;
+        this.providerService = providerService;
     }
 
     @GetMapping("/create")
@@ -144,25 +149,7 @@ public class ProviderUIController {
 
         Provider provider = providerRepository.findByEmail(principal.getName());
 
-        try {
-            String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-
-            Path uploadDir = Paths.get("uploads");
-
-            if (!Files.exists(uploadDir)) {
-                Files.createDirectories(uploadDir);
-            }
-
-            Path filePath = uploadDir.resolve(filename);
-
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-            provider.setProfileImagePath(filename);
-            providerRepository.save(provider);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        providerService.saveProfileImage(provider, file);
 
         return "redirect:/provider/account";
     }
@@ -264,5 +251,23 @@ public class ProviderUIController {
         else {
             return "redirect:/provider/reviews/editreview/" + reviewId + "add?error=true";
         }
+    }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(Principal principal, HttpServletRequest request) {
+
+        if (principal == null) {
+            return "redirect:/provider/login";
+        }
+
+        Provider provider = providerRepository.findByEmail(principal.getName());
+
+        if (provider != null) {
+            providerService.deleteProviderCascade(provider.getId());
+        }
+
+        request.getSession().invalidate();
+
+        return "redirect:/provider/login?deleted=true";
     }
 }
