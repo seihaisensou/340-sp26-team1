@@ -27,7 +27,7 @@ public class customerChain {
     HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
     requestCache.setMatchingRequestParameterName(null);
     http
-        .securityMatcher("/customer/**")
+        .securityMatcher("/customer/**", "/", "/home")
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests((authorize) -> authorize
             .dispatcherTypeMatchers(DispatcherType.FORWARD,

@@ -38,23 +38,7 @@ public class CustomerUIController {
     public String wrongWay() { 
         return "customer/403";
     }
-
-    @GetMapping("/sign-up")
-    public String signUp() { 
-        return "customer/sign-up";
-    }
-
-    @PostMapping("/sign-up/success") 
-    public String newSignup(Customer customer) {
-        Customer newCustomer = customerService.createCustomer(customer);
-        return "redirect:/customer/login";
-    }
-
-    @GetMapping("/login") 
-    public String showLogin() {
-        return "customer/login";
-    }
-
+    
     @GetMapping("/account") // NTD
     public String showAccount(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) {
         Customer customer = customerRepository.findByEmail(userDetails.getUsername());
