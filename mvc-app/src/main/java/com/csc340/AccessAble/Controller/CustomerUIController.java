@@ -36,7 +36,21 @@ public class CustomerUIController {
     private ProviderRepository providerRepository;
 
     @GetMapping("/403")
-    public String wrongWay() { 
+    public String wrongWay(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model) { 
+        model.addAttribute("isCustomer", false);
+        model.addAttribute("isProvider", false);  
+        
+        if(userDetails != null){
+            String email = userDetails.getUsername();            
+            Customer customer = customerRepository.findByEmail(email);
+            Provider provider = providerRepository.findByEmail(email);
+            if(customer != null){
+                model.addAttribute("isCustomer", true);
+            }
+            else if(provider != null){
+                model.addAttribute("isProvider", true);
+            }
+        }
         return "customer/403";
     }
 

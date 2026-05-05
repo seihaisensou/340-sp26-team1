@@ -12,13 +12,17 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
+            <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
 
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
+                <#if isCustomer>
                 <a class="nav-link text-white" href="/customer/account">Account</a>
+                <#elseif isProvider>
+                <a class="nav-link text-white" href="/provider/account">Account</a>
+                </#if>
                 <a class="nav-link text-white" href="/customer/listings">Listings</a>
                 <#if Session.SPRING_SECURITY_CONTEXT??>
                 <a class="btn btn-outline-light" href="/logout">Logout</a>
