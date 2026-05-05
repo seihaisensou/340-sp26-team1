@@ -49,16 +49,19 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            
+                        <tbody>                           
                             <#if bookings?? && (bookings?size> 0)>
                             <#list bookings as booking>
                             <tr>
                                 <td>${booking.listing.provider.firstName} ${booking.listing.provider.lastName}</td>
                                 <td>${booking.listing.provider.email}</td>
                                 <td>${booking.listing.listingName}</td>
-                                <td><span class="badge bg-success">${booking.status}</span></td>
+                                <td><#if booking.status == "ACTIVE"><span class="badge text-bg-primary rounded-pill">${booking.status}</span>
+                                    <#elseif booking.status == "PENDING"><span class="badge text-bg-info rounded-pill">${booking.status}</span>
+                                    <#elseif booking.status == "CANCELLED"><span class="badge text-bg-danger rounded-pill">${booking.status}</span>
+                                    <#elseif booking.status == "COMPLETED"><span class="badge text-bg-success rounded-pill">${booking.status}</span>
+                                    <#elseif booking.status == "PAUSED"><span class="badge text-bg-warning rounded-pill">${booking.status}</span>
+                                    <#elseif booking.status == "RESCHEDULED"><span class="badge text-bg-dark rounded-pill">${booking.status}</span></#if></td>
                             </tr>
                             </#list>
                             </#if>                                                 
