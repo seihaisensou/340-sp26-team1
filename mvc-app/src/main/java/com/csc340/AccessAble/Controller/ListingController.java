@@ -15,8 +15,10 @@ public class ListingController {
 
     @Autowired
     private ListingService listingService;
+    @Autowired
+    private ReviewService reviewService;
 
-    @PostMapping("/provider/{providerId}")
+    @PostMapping("/provider/{providerId}") // post
     public ResponseEntity<Listing> createListing(@PathVariable Long providerId,
             @RequestBody Listing listing) {
         try {
@@ -27,13 +29,13 @@ public class ListingController {
         }
     }
 
-    @GetMapping
+    @GetMapping                                                 //get
     public ResponseEntity<List<Listing>> getAllListings() {
         return new ResponseEntity<>(listingService.getAllListings(), HttpStatus.OK);
     }
 
-    @GetMapping("/provider/{providerId}")
-    public ResponseEntity<List<Listing>> getByProvider(@PathVariable Long providerId) {
+    @GetMapping("/provider/{providerId}") 
+    public ResponseEntity<List<Listing>> getListingsByProvider(@PathVariable Long providerId) {
         return new ResponseEntity<>(listingService.getListingsByProvider(providerId), HttpStatus.OK);
     }
 
@@ -54,8 +56,27 @@ public class ListingController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Listing> getListingById(@PathVariable Long id) {
+        Optional<Listing> listing = listingService.getListingById(id);
+
+        return listing.map(l -> new ResponseEntity<>(l, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("filter/{description}")
+    public ResponseEntity<List<Listing>> getListingByDescriptionAndRating(@PathVariable String description) {
+        List<Listing> listing = listingService.getListingByDescription(description);
+        listing.sort((l1, l2) -> {
+        double first = reviewService.getAverageRating(l1.getProvider().getId());
+        double second = reviewService.getAverageRating(l2.getProvider().getId());
+        return Double.compare(second, first); 
+            });
+        
+        return new ResponseEntity<>(listing, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}") // delete
+    public ResponseEntity<Void> deleteListing(@PathVariable Long id) {
         listingService.deleteListing(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

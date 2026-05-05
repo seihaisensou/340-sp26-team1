@@ -26,10 +26,12 @@ public class Customer extends User {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @Column(nullable = false)
+    
     private String location;
-    @Column(nullable = false)
+    
     private String services;
+
+    private String profilePicturePath;
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnore

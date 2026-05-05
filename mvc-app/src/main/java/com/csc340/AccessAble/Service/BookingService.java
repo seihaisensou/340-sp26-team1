@@ -1,6 +1,7 @@
 package com.csc340.AccessAble.Service;
 
 import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Entities.Booking.BookingStatus;
 import com.csc340.AccessAble.Repository.*;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class BookingService {
 
         booking.setListing(listing);
         booking.setCustomer(customer);
+        booking.setStatus(BookingStatus.PENDING);
 
         Provider provider = listing.getProvider();
 

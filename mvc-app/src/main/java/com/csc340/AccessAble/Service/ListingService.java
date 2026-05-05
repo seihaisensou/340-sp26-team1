@@ -44,6 +44,12 @@ public class ListingService {
         return listingRepository.findByProviderId(providerId);
     }
 
+    public List<Listing> getListingByDescription(String description) {
+        return listingRepository.findByListingNameContainingIgnoreCase(description);    
+    }
+
+    
+
     public Listing updateListing(Long id, Listing updated) {
         Listing listing = listingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Listing not found"));

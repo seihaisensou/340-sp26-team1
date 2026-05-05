@@ -56,8 +56,10 @@ public class Booking {
 
      public enum BookingStatus {
         ACTIVE,
-        PAUSED,
+        PENDING,
         CANCELLED,
-        COMPLETED
+        COMPLETED,
+        PAUSED,
+        RESCHEDULED
     }
 }

@@ -1,26 +1,20 @@
 package com.csc340.AccessAble.Controller;
 
-import com.csc340.AccessAble.Entities.Booking;
-import com.csc340.AccessAble.Entities.Listing;
-import com.csc340.AccessAble.Entities.Provider;
-import com.csc340.AccessAble.Entities.Review;
-import com.csc340.AccessAble.Repository.ProviderRepository;
-import com.csc340.AccessAble.Service.ListingService;
-import com.csc340.AccessAble.Service.BookingService;
-import com.csc340.AccessAble.Service.ReviewService;
-
+import com.csc340.AccessAble.Entities.*;
+import com.csc340.AccessAble.Repository.*;
+import com.csc340.AccessAble.Service.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
+
 
 @Controller
 @RequestMapping("/provider")
@@ -72,7 +66,6 @@ public class ProviderUIController {
         }
 
         model.addAttribute("listings", listingService.getAllListings());
-
         return "provider/my-listings";
     }
 
