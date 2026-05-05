@@ -13,7 +13,6 @@ public class ProviderService {
     private final ProviderRepository providerRepository;
     private final CustomerRepository customerRepository;
 
-
     public ProviderService(ProviderRepository providerRepository, CustomerRepository customerRepository) {
         this.providerRepository = providerRepository;
         this.customerRepository = customerRepository;
@@ -59,6 +58,16 @@ public class ProviderService {
     }
 
     public List<Customer> getCustomersByProvider(Long providerId) {
-    return customerRepository.findByProviderId(providerId);
-}
+        return customerRepository.findByProviderId(providerId);
+    }
+
+    public Provider login(String email, String password) {
+        Provider provider = providerRepository.findByEmail(email);
+
+        if (provider != null && provider.getPassword().equals(password)) {
+            return provider;
+        }
+        return null;
+    }
+
 }

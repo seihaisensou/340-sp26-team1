@@ -22,8 +22,8 @@
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
-                <a class="btn btn-primary" href="/sign-up">Sign Up</a>
+                <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
 
         </div>
@@ -34,7 +34,7 @@
         <div class="container py-5">
 
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Welcome Back, Provider!</h2>
+                <h2 class="fw-bold">Welcome Back, ${provider.firstName}</h2>
                 <p class="text-muted">
                     Manage your listings, customers, and account settings below.
                 </p>
@@ -81,7 +81,7 @@
                 </p>
             </div>
 
-            <div class="row g-4">
+            <div class="row justify-content-center">
 
                 <div class="col-md-5">
                     <div class="card shadow-sm p-4 text-center">
@@ -89,27 +89,20 @@
                         <img src="/images/profile-pic.jpeg" class="rounded-circle mb-3 mx-auto" width="120" height="120"
                             alt="Profile Image">
 
-                        <h5 class="fw-bold">Maria Gomez</h5>
+                        <h5 class="fw-bold">
+                            ${provider.firstName} ${provider.lastName}
+                        </h5>
 
-                        <div class="mb-2">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-half text-warning"></i>
-                        </div>
-
-                        <p class="text-muted mb-3">4.5 out of 5 (2 reviews)</p>
+                        <p class="text-muted mb-3">Provider Account</p>
 
                         <hr>
 
                         <div class="text-start">
-                            <p><strong>Email:</strong> mgomez@email.com</p>
+                            <p><strong>Email:</strong> ${provider.email}</p>
 
                             <p><strong>Credentials:</strong></p>
                             <p class="text-muted">
-                                Master's Degree in Spanish<br>
-                                5+ Years Experience
+                                ${provider.credentials}
                             </p>
                         </div>
 
@@ -121,27 +114,23 @@
 
                         <h5 class="fw-bold mb-3">Update Information</h5>
 
-                        <form>
+                        <form action="/provider/update" method="post">
 
                             <div class="mb-3">
                                 <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" value="mgomez@email.com">
+                                <input type="email" name="email" class="form-control" value="${provider.email}">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">New Password</label>
-                                <input type="password" class="form-control" placeholder="Enter new password">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Confirm password">
+                                <input type="password" name="password" class="form-control">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Credentials</label>
-                                <textarea class="form-control" rows="4">Professional Spanish Translator
-5+ Years Experience</textarea>
+                                <textarea name="credentials" class="form-control" rows="4">
+${provider.credentials}
+                        </textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">
@@ -157,11 +146,9 @@
 
         </div>
 
-    </div>
-
-    <footer class="bg-dark text-white text-center py-4 mt-auto">
-        <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
-    </footer>
+        <footer class="bg-dark text-white text-center py-4 mt-auto">
+            <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
+        </footer>
 
 </body>
 

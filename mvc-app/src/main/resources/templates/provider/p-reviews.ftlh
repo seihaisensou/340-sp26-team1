@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Manage Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -13,20 +12,14 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <div class="container">
-
-
-            <a class="navbar-brand fw-bold" href="/">
-                AccessAble
-            </a>
-
+            <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
-        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
+                <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
-
         </div>
     </nav>
 
@@ -50,17 +43,12 @@
                     <span class="text-warning">★★★★★</span>
                 </div>
 
-                <p class="mt-2">
-                    Excellent service! Very professional and quick turnaround.
-                </p>
+                <p class="mt-2">Excellent service! Very professional and quick turnaround.</p>
 
                 <div class="mt-3">
                     <label class="form-label">Reply to Review</label>
                     <textarea class="form-control mb-2" rows="2" placeholder="Write your response..."></textarea>
-
-                    <button class="btn btn-sm btn-primary">
-                        Post Reply
-                    </button>
+                    <button class="btn btn-sm btn-primary">Post Reply</button>
                 </div>
             </div>
 
@@ -70,25 +58,22 @@
                     <span class="text-warning">★★★★☆</span>
                 </div>
 
-                <p class="mt-2">
-                    Great translator but response time could be faster.
-                </p>
+                <p class="mt-2">Great translator but response time could be faster.</p>
 
                 <div class="mt-3">
                     <label class="form-label">Reply to Review</label>
                     <textarea class="form-control mb-2" rows="2" placeholder="Write your response..."></textarea>
-
-                    <button class="btn btn-sm btn-primary">
-                        Post Reply
-                    </button>
+                    <button class="btn btn-sm btn-primary">Post Reply</button>
                 </div>
             </div>
 
         </div>
     </div>
+
     <footer class="bg-dark text-white text-center py-4">
         <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
     </footer>
+
 </body>
 
 </html>

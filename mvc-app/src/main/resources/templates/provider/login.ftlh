@@ -15,23 +15,6 @@
         <div class="container">
 
 
-            <a class="navbar-brand fw-bold" href="index.html">
-                AccessAble
-            </a>
-
-
-            <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="index.html">Home</a>
-                <a class="nav-link text-white" href="../customer/listings.html">Listings</a>
-                <a class="btn btn-outline-light" href="login.html">Login</a>
-                <a class="btn btn-primary" href="sign-up.html">Sign Up</a>
-            </div>
-
-        </div>
-    </nav><nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-
-
             <a class="navbar-brand fw-bold" href="/">
                 AccessAble
             </a>
@@ -40,8 +23,8 @@
             <div class="d-flex align-items-center gap-3 nav-buttons">
                 <a class="nav-link text-white" href="/provider/account">Account</a>
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
-        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
+                <a class="btn btn-outline-light" href="/provider/login">Login</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
 
         </div>
@@ -53,26 +36,34 @@
             <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
                 <h3 class="text-center mb-4">Provider Login</h3>
 
-                <p class="text-center mb-4">If you are a customer, login <a class href="../customer/login.html">here.</a></p>
+                <p class="text-center mb-4">If you are a customer, login
+                    <a class href="/customer/login">here.</a>
+                </p>
 
-                <form>
+                <#if error??>
+                    <div class="alert alert-danger text-center">
+                        ${error}
+                    </div>
+                </#if>>
+
+                <form action="/provider/login" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
-                        <input type="email" class="form-control" placeholder="Enter email">
+                        <input type="email" name="email" class="form-control" placeholder="Enter email">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" placeholder="Enter password">
+                        <input type="password" name="password" class="form-control" placeholder="Enter password">
                     </div>
-                    <a href="account.html" class="btn btn-primary w-100 mb-3">
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
                         Login
-                    </a>
+                    </button>
 
                     <div class="text-center">
-                        <small>Don't have an account?
-                            <a href="sign-up.html">Sign Up</a>
-                        </small>
+                        <p class="text-center mb-4">Don't have an account?
+                    <a class href="/provider/sign-up">Sign up!</a>
+                </p>
                     </div>
                 </form>
             </div>

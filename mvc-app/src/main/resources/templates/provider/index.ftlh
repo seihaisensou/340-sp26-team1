@@ -2,34 +2,26 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
   <title>Home Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light d-flex flex-column min-vh-100">
 
-<nav class="navbar navbar-dark bg-dark">
-        <div class="container">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
-
-            <a class="navbar-brand fw-bold" href="/">
-                AccessAble
-            </a>
-
-
-            <div class="d-flex align-items-center gap-3 nav-buttons">
-                <a class="nav-link text-white" href="/provider/account">Account</a>
-                <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
-                <a class="btn btn-outline-light" href="/login">Login</a>
-        <a class="btn btn-primary" href="/sign-up">Sign Up</a>
-            </div>
-
-        </div>
-    </nav>
+      <div class="d-flex align-items-center gap-3 nav-buttons">
+        <a class="nav-link text-white" href="/provider/account">Account</a>
+        <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+        <a class="btn btn-outline-light" href="/provider/login">Login</a>
+        <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
+      </div>
+    </div>
+  </nav>
 
   <div class="flex-grow-1">
 
@@ -37,16 +29,12 @@
       <div class="container">
         <div class="row align-items-center">
 
-
           <div class="col-md-6 mb-4 mb-md-0">
             <img src="images/home.jpeg" class="img-fluid rounded shadow" alt="Service illustration">
           </div>
 
-
           <div class="col-md-6">
-            <h1 class="fw-bold mb-3">
-              AccessAbility Right at Your Fingertips!
-            </h1>
+            <h1 class="fw-bold mb-3">AccessAbility Right at Your Fingertips!</h1>
 
             <blockquote class="blockquote">
               <p class="fs-5 text-muted">
@@ -59,7 +47,7 @@
               Browse listings, compare options, and choose the right provider for you.
             </p>
 
-            <a href="../customer/listings.html" class="btn btn-primary btn-lg mt-3">
+            <a href="/customer/listings" class="btn btn-primary btn-lg mt-3">
               View Listings
             </a>
           </div>
@@ -73,9 +61,8 @@
         <h2 class="fw-bold mb-3">About AccessAble</h2>
 
         <p class="text-muted mx-auto" style="max-width: 700px;">
-          We are dedicated to helping individuals and businesses connect with
-          top-rated accessability providers. Our platform makes it easy to search,
-          compare, and contact professionals — all in one place.
+          We are dedicated to helping individuals and businesses connect with top-rated accessibility providers.
+          Our platform makes it easy to search, compare, and contact professionals — all in one place.
         </p>
       </div>
     </section>
@@ -83,19 +70,17 @@
     <section class="py-5 text-center">
       <div class="container">
         <h3 class="mb-3">Ready to find the perfect listing? <br> Create an account below!</h3>
-        <a href="sign-up.html" class="btn btn-primary btn-lg px-5">
+        <a href="/provider/sign-up" class="btn btn-primary btn-lg px-5">
           Create Account
         </a>
       </div>
     </section>
+
   </div>
+
   <footer class="bg-dark text-white text-center py-4">
     <p class="mb-0">© 2026 AccessAble. All rights reserved.</p>
   </footer>
-</body>
-
-</html>
-
 
 </body>
 
