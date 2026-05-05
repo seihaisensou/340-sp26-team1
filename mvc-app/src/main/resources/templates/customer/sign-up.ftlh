@@ -16,7 +16,7 @@
     <div class="container">
 
 
-      <a class="navbar-brand fw-bold" href="../provider/index.html">
+      <a class="navbar-brand fw-bold" href="/">
         AccessAble
       </a>
 

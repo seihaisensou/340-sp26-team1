@@ -25,7 +25,7 @@
                 <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
 
                 <#if provider??>
-                    <form action="/logout" method="post" class="d-inline">
+                    <form action="/provider/logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">
                             Logout
                         </button>

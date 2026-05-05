@@ -37,7 +37,7 @@ public class providerChain {
                                                 .failureUrl("/provider/login?error=true")
                                                 .permitAll())
                                 .logout(logout -> logout
-                                                .logoutUrl("/logout")
+                                                .logoutUrl("/provider/logout")
                                                 .logoutSuccessUrl("/provider/login")
                                                 .invalidateHttpSession(true)
                                                 .deleteCookies("JSESSIONID"));
