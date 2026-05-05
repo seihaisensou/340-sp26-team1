@@ -14,43 +14,51 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">AccessAble</a>
 
-            <div class="d-flex gap-3">
-                <a class="nav-link text-white" href="/provider/login">Login</a>
-                <a class="nav-link text-white" href="/provider/sign-up">Sign Up</a>
+            <div class="d-flex align-items-center gap-3 nav-buttons">
+                <a class="nav-link text-white" href="/provider/home">Home</a>
+                <a class="nav-link text-white" href="/customer/listings">Listings</a>
+                <a class="btn btn-primary" href="/provider/sign-up">Sign Up</a>
             </div>
         </div>
     </nav>
+    <div class="flex-grow-1">
+        <div class="container d-flex justify-content-center align-items-center vh-100">
+            <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+                <h3 class="text-center mb-4">Provider Login</h3>
+                
+                <p class="text-center mb-4">If you are a customer, login <a href="../customer/login">here.</a></p>
 
-    <div class="container d-flex justify-content-center align-items-center vh-100">
+                <#if error??>
+                    <div class="alert alert-danger text-center">
+                        Invalid email or password
+                    </div>
+                </#if>
 
-        <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+                <form action="/provider/login/perform_login" method="post">
 
-            <h3 class="text-center mb-3">Provider Login</h3>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
 
-            <#if error??>
-                <div class="alert alert-danger text-center">
-                    Invalid email or password
-                </div>
-            </#if>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
 
-            <form action="/perform_login" method="post">
+                    <button class="btn btn-primary w-100 mb-3">Login</button>
 
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-
-                <button class="btn btn-primary w-100">Login</button>
+                    <div class="text-center">
+                        <small>Don't have an account?
+                            <a href="/provider/sign-up">Sign Up</a>
+                        </small>
+                    </div>
 
             </form>
 
         </div>
     </div>
+</div>
 
 </body>
 

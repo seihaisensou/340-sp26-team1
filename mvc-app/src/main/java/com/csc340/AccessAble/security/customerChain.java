@@ -42,15 +42,22 @@ public class customerChain {
             .anyRequest().authenticated())
         .formLogin(form -> form
           .loginPage("/customer/login")
-          .loginProcessingUrl("/login")
+          .loginProcessingUrl("/customer/login/perform_customer_login")
           .failureUrl("/customer/login?error=true")
           .defaultSuccessUrl("/customer/account", true)     
           .permitAll()   
         )
+        
         .exceptionHandling((x) -> x.accessDeniedPage("/403"))
-        .logout(Customizer.withDefaults())
+        .logout(logout -> logout
+                                                .logoutUrl("/customer/logout")
+                                                .logoutSuccessUrl("/customer/login")
+                                                .invalidateHttpSession(true)
+                                                .deleteCookies("JSESSIONID"))
         .requestCache((cache) -> cache
             .requestCache(requestCache));
+
+            
 
     return http.build();
   }

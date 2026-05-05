@@ -52,7 +52,7 @@
               <div class="card-body">
 
                 <h5 class="card-title">
-                  ${listing.listingName!""}
+                  <a href="/customer/listing/${listing.listingId}">${listing.listingName!""}</a>
                 </h5>
 
                 <p class="card-text">

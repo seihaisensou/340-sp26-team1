@@ -35,11 +35,11 @@
             <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
                 <h3 class="text-center mb-4">Customer Login</h3>
 
-                <p class="text-center mb-4">If you are a service provider, login <a href="../provider/login.html">here.</a></p>
+                <p class="text-center mb-4">If you are a service provider, login <a href="../provider/login">here.</a></p>
 
-                <form action="/login" method="post">
+                <form action="/customer/login/perform_customer_login" method="post">
                     <div class="mb-3">
-                        <label class="form-label">Email address</label>
+                        <label class="form-label">Email</label>
                         <input type="email" name="username" class="form-control" placeholder="Enter email">
                     </div>
 

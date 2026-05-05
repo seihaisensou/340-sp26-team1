@@ -98,7 +98,7 @@
 
                     <div class="card shadow-sm p-4 text-center">
 
-                        <img src="${provider.profileImagePath}" class="rounded-circle" width="120" height="120"
+                        <img src="/images/${provider.profileImagePath}" class="rounded-circle" width="120" height="120"
                             alt="Profile Image">
                         <h5 class="fw-bold">
                             ${provider.firstName!''} ${provider.lastName!''}

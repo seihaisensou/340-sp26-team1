@@ -14,6 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 
 
 @Controller
@@ -52,7 +54,9 @@ public class ProviderUIController {
     }
 
     @PostMapping("/create")
-    public String createListing(Listing listing) {
+    public String createListing(Listing listing, @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails) {
+        Provider provider = providerRepository.findByEmail(userDetails.getUsername());
+        listing.setProvider(provider);
         listingService.saveListing(listing);
         return "redirect:/provider/my-listings";
     }
