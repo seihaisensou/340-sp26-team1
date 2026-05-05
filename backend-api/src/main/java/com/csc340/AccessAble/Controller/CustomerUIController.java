@@ -32,6 +32,11 @@ public class CustomerUIController {
     @Autowired
     private BookingService bookingService;
 
+    @GetMapping("/403")
+    public String wrongWay() { 
+        return "customer/403";
+    }
+
     @GetMapping("/sign-up")
     public String signUp() { 
         return "customer/sign-up";
@@ -114,7 +119,7 @@ public class CustomerUIController {
 
     @GetMapping("listing/writereview/{id}")    
     public String showReviewForm(@PathVariable Long id, Model model) {
-
+        
         Listing listing = listingService.getListingById(id)
             .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
 
@@ -146,8 +151,17 @@ public class CustomerUIController {
 
     @GetMapping("/userreviews/editreview/{id}") // NTD
     public String showEditForm(@AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails, Model model, @PathVariable Long id) {
+        
+        Customer customer = customerRepository.findByEmail(userDetails.getUsername());
+        
         Review review = reviewService.getReviewById(id)
             .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
+
+        
+        if(review.getCustomer().getId() != customer.getId()){
+            return "redirect:/customer/403";
+        }    
+
         Listing listing = listingService.getListingById(review.getListing().getListingId())
             .orElseThrow(() -> new RuntimeException("Listing not found with id: " + id));
 
