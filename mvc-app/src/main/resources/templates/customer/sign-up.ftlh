@@ -35,7 +35,11 @@
       <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%;">
         <h3 class="text-center mb-4">Create Customer Account</h3>
 
-        <form action="/customer/sign-up/success" method="post">
+        <#if error??>
+        <div class="alert alert-danger">${error}</div>
+        </#if>
+
+        <form action="/customer/sign-up/" method="post">
           <div class="mb-3">
             <label class="form-label">First Name</label>
             <input type="text" name="firstName" class="form-control" placeholder="Enter first name">

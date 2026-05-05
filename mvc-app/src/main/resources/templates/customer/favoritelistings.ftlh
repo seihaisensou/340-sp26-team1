@@ -63,7 +63,11 @@
                   <a href="/customer/listing/${favorite.listing.listingId}" class="btn btn-outline-primary btn-sm">
                     View
                   </a>
+                  <a href="/customer/favoritelistings/delete/${favorite.favoritesId}" class="btn btn-outline-danger btn-sm">
+                    Delete
+                  </a>
                 </div>
+                
 
               </div>
             </div>

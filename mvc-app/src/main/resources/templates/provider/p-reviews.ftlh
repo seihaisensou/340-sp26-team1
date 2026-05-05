@@ -29,7 +29,7 @@
                     </a>
 
                     <form action="/provider/logout" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-outline-light">
                             Logout
                         </button>
                     </form>

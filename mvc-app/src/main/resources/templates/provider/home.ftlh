@@ -19,20 +19,27 @@
 
       <div class="d-flex align-items-center gap-3">
 
+        
+        <#if isCustomer>
+        <a class="nav-link text-white" href="/customer/account">Account</a>
+        <#elseif isProvider>
         <a class="nav-link text-white" href="/provider/account">Account</a>
-        <a class="nav-link text-white" href="/provider/my-listings">Listings</a>
+        </#if>
+        
 
-        <#if isLoggedIn?? && isLoggedIn>
+        <a class="nav-link text-white" href="/customer/listings">Listings</a>
 
-          <a class="nav-link text-white" href="/provider/current-cust">
-            View Customers
-          </a>
-
+        
+        <#if isProvider>          
           <form action="/provider/logout" method="post" class="d-inline">
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-outline-light">
               Logout
             </button>
           </form>
+        <#elseif isCustomer>
+        <a class="btn btn-outline-light" href="/customer/logout">Logout</a>
+        
+        
 
           <#else>
 
@@ -44,6 +51,7 @@
               Sign Up
             </a>
 
+        
         </#if>
 
       </div>

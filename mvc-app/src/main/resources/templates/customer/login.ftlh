@@ -37,6 +37,18 @@
 
                 <p class="text-center mb-4">If you are a service provider, login <a href="../provider/login">here.</a></p>
 
+                <#if error??>
+                    <div class="alert alert-danger text-center">
+                        Invalid email or password
+                    </div>
+                </#if>
+
+                <#if deleted??>
+                <div class="alert alert-warning text-center">
+                    Your customer account has been deleted.
+                </div>
+                </#if>
+
                 <form action="/customer/login/perform_customer_login" method="post">
                     <div class="mb-3">
                         <label class="form-label">Email</label>
