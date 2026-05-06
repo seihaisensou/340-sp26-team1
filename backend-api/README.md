@@ -780,7 +780,7 @@ DELETE /reviews/1
 | **US-CUST-002** | Favorite listings | `POST /favorites/customer/{customerId}/listing/{listingId}`,`DELETE api/favorites/{id}`|
 | **US-CUST-003** | Discover services | `GET /providers/{id}/customers` |
 | **US-CUST-004** | Contact the provider | `POST /booking/customer/{customerId}/listing/{listingId}`, `PUT /booking/{id}`,`DELETE /booking/id` |
-| **US-CUST-005** | Write Reviews | `POST /reviews/customer/{customerId}/listing/{listingId}}`
+| **US-CUST-005** | Write Reviews | `POST /reviews/customer/{customerId}/listing/{listingId}`
 | **US-CUST-006** | Read Reviews| `GET /reviews/provider/{providerId}` |
 
 

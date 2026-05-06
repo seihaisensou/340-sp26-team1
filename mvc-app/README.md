@@ -7,7 +7,7 @@ A Spring MVC web application connecting Accessibility experts with customers for
 This application follows the **Model-View-Controller (MVC)** pattern:
 
 ### Models (Entities)
-Located in `src/main/java/com/csc340/local_harvest_hub/entity/`
+Located in `src/main/java/com/csc340/AccessAble/Entities/`
 
 - **User** - Base entity for authentication (abstract parent class)
 - **Provider** - Extends User; manages listings and bookings

@@ -17,8 +17,9 @@
 
 2. Provider
     1. Service listing and credentials - Register as a provider and create/modify accounts. List credentials and provide service description. Having descriptions that the customer can filter for. 
-    2. View and reply to reviews/ view ratings - View your customer reviews and reply to them. View the way a customer rates the service. 
-    3. View customer retention - View current customers
+    2. Create and modify listings- A provider can create listings for services that will be viewed and/or booked by customers.
+    3. View and reply to reviews/ view ratings - View your customer reviews and reply to them. View the way a customer rates the service. 
+    4. View customer retention - View current customers and the status of their booking.
 
 ## Compartilization
 The files in this repository are divided into separate folders representative of milestones.
