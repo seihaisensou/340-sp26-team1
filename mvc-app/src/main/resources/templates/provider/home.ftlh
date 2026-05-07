@@ -18,42 +18,6 @@
       </a>
 
       <div class="d-flex align-items-center gap-3">
-
-        
-        <#if isCustomer>
-        <a class="nav-link text-white" href="/customer/account">Account</a>
-        <#elseif isProvider>
-        <a class="nav-link text-white" href="/provider/account">Account</a>
-        </#if>
-        
-
-        <a class="nav-link text-white" href="/customer/listings">Listings</a>
-
-        
-        <#if isProvider>          
-          <form action="/provider/logout" method="post" class="d-inline">
-            <button type="submit" class="btn btn-outline-light">
-              Logout
-            </button>
-          </form>
-        <#elseif isCustomer>
-        <a class="btn btn-outline-light" href="/customer/logout">Logout</a>
-        
-        
-
-          <#else>
-
-            <a class="btn btn-outline-light" href="/provider/login">
-              Login
-            </a>
-
-            <a class="btn btn-primary" href="/provider/sign-up">
-              Sign Up
-            </a>
-
-        
-        </#if>
-
       </div>
 
     </div>
