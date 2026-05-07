@@ -93,11 +93,6 @@
                             placeholder="Describe your service in detail..." required></textarea>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Upload Service Image</label>
-                        <input type="file" name="image" class="form-control">
-                    </div>
-
 
                     <div class="mb-3">
                         <label class="form-label">Location</label>

@@ -33,17 +33,17 @@
       <form action="/provider/signup" method="post" enctype="multipart/form-data">
 
         <input type="text" name="firstName" value="${provider.firstName!''}" class="form-control mb-2"
-          placeholder="First Name">
+          placeholder="First Name" required>
 
         <input type="text" name="lastName" value="${provider.lastName!''}" class="form-control mb-2"
-          placeholder="Last Name">
+          placeholder="Last Name" required>
 
         <input type="email" name="email" value="${provider.email!''}" class="form-control mb-2"
-          placeholder="Email Address">
+          placeholder="Email Address" required>
 
-        <input type="password" name="password" class="form-control mb-2" placeholder="Password (min 6 characters)">
+        <input type="password" name="password" class="form-control mb-2" placeholder="Password (min 6 characters)" required>
 
-        <input type="file" name="file" class="form-control mb-3">
+        <input type="file" name="file" class="form-control mb-3" required>
 
         <button type="submit" class="btn btn-primary w-100">
           Sign Up
