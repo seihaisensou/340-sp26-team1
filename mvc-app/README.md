@@ -129,3 +129,13 @@ All pages use a unified FreeMarker macro-based navbar that automatically adjusts
 - **Many-to-Many**: Provider → Customer
 - **Cascade Operations**: Automatic cascading for related entity changes
 - **JsonIgnoreProperties**: Prevents circular reference serialization
+
+## Docker 
+The app can be deployed using a dockerfile locally and on a hosting platform.
+In order to run the dockerfile locally, create a .env file in the root of the mvc-app folder and include the following content: 
+
+```
+SPRING_DATASOURCE_URL=YOUR_NEON_DATABASE_URL
+```
+
+replacing YOUR_NEON_DATABASE_URL with the url of your database. Hosting on a platform requires the user to set the DATABASE_URL variable within the hosting platform's configuration settings. 
