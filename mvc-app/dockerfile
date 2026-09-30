@@ -1,0 +1,15 @@
+# Stage 1: Build using JDK 25
+FROM eclipse-temurin:25-jdk-alpine AS build
+WORKDIR /340-sp26-team1/mvc-app
+COPY . .
+RUN chmod +x mvnw
+
+# Use the Maven wrapper included in the project to build
+RUN ./mvnw clean package -DskipTests
+
+# Stage 2: Runtime using JRE 25 (lighter)
+FROM eclipse-temurin:25-jre-alpine
+WORKDIR /340-sp26-team1/mvc-app
+COPY --from=build /340-sp26-team1/mvc-app/target/*.jar Application.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "Application.jar"]
